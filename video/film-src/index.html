@@ -31,6 +31,12 @@
       <div id="chain"  class="clip host" data-start="75" data-duration="12" data-track-index="0" data-track-kind="graphics" data-composition-id="chain" data-composition-src="compositions/chain.html" data-width="1920" data-height="1080"></div>
       <div id="close"  class="clip host" data-start="87" data-duration="10" data-track-index="0" data-track-kind="graphics" data-composition-id="close" data-composition-src="compositions/close.html" data-width="1920" data-height="1080"></div>
 
+
+      <!-- The bed. A 38s library track looped to the film with the prescribed
+           0.4s fade in and 1.5s fade out, so it lands with the last card. -->
+      <audio id="bed" class="clip" src="assets/bgm/bed-97s.mp3"
+             data-start="0" data-duration="97" data-volume="0.62"
+             data-track-index="9"></audio>
     </div>
     <script>
       const tl = gsap.timeline({ paused: true });

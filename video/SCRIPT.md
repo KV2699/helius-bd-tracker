@@ -1,5 +1,16 @@
 # Helius BD Tracker — narration script
 
+> **STATUS.** The film is cut and rendered at 97 seconds with a music bed and
+> **no voiceover**. The on-screen type carries it, which is what the Auspius
+> method does anyway. If you want narration, the eight lines are timed to the
+> eight scenes in `narration-lines.json` — record them and I will mix them in.
+>
+> Why there is no generated voice: HeyGen TTS needs a paid HyperFrames plan,
+> and the standing rule on this hackathon is free routes only. The free local
+> model (Kokoro) needs `onnxruntime >= 1.20`, which has no wheel for this
+> machine's macOS. Both roads were closed, so the film ships honest and silent
+> rather than waiting.
+
 **Target runtime 2:38 at 150 wpm · 396 words · cap 3:00**
 Written to be spoken. Short lines. One idea per breath, because every phrase gets its own
 frame and the frames are cut to word timestamps.
