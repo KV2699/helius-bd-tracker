@@ -46,11 +46,21 @@ quote is still a fixture, so we are not claiming the DeFi track.
 
 ---
 
+## 2b. NEAR wallet address
+
+```
+clearlemon1022.near
+```
+
+The prize is sent here.
+
+---
+
 ## 3. Track selection
 
 | Track | Claim it? | Why |
 |---|---|---|
-| **`privacy`** | **Yes — primary** | Hints are *PRIVATE AI, TEE, NEAR AI CLOUD*. Every model call runs on NEAR AI Cloud's TEE-verifiable inference. BD research naming real companies and their commercial weaknesses is genuinely sensitive; attestable inference is a real property of this build, not a slogan. |
+| **`privacy`** | **Yes — primary** | Hints are *PRIVATE AI, TEE, NEAR AI CLOUD*. Every model call runs on NEAR AI Cloud's TEE-verifiable inference. BD research naming real companies and their commercial weaknesses is genuinely sensitive; attestable inference is a real property of this build, not a slogan. **And it is probed, not configured:** just as a sealed multi-agent lab needs a ledger to establish what agents actually did rather than what its config said they would, a privacy-first pipeline needs the hardware to say where the inference ran. `/api/attestation` fetches it live — signing address, a 10,012-character Intel TDX quote, TCB measurements — and prints a failure verbatim if the endpoint moves. The claim is checkable either way. |
 | **`open`** | **Yes — second** | Open Innovation. A verification engine pointed at BD research, with an arbitration layer for a bounty market, does not fit a named category — which is what this track is for. Mention the eight-agent architecture in the description; do not claim a swarm. |
 | `swarms` | **No** | Hints list *MULTI-AGENT SYSTEMS*, and there are eight agents with typed handoffs — but it is a pipeline, not a bidding market or an emergent economy. Claiming it would overstate what the agents do. |
 | `defi` | **No** | The 1Click quote is priced, not wired. Claiming it would be the one dishonest thing in the whole submission. |
@@ -83,6 +93,14 @@ BD research names real companies and their weaknesses. That's exactly the case f
 proving where your inference ran.
 
 Scoring and the gate are plain code. A model never produces a number here.
+
+I spent October auditing collusion detectors with @ApartResearch. Two of six couldn't beat
+a crowd of deliberately meaningless rivals. The rule we learned four times: make the
+detector emit the quote, and read the quote.
+
+So that is what this does. A model cannot score a lead here. It must emit a verbatim span,
+and CODE reads the page we fetched to see if the span is there. If it isn't, the lead dies
+with a reason code. 2,275 of them did.
 
 We built a verifier. The expensive thing it unlocks is outsourcing the research — with
 escrow that releases on a passing check, not a promise. The dry quote in the repo is the

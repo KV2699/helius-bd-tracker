@@ -20,7 +20,7 @@ Audited **14 Nov 2026, 12:45 UTC**. Deadline **14 Nov 2026, 23:59 UTC** — abou
 | Email address | on file | yes |
 | Team size | solo | yes |
 | Tracks | `["privacy", "open"]` — reasoning in `SUBMISSION.md` §3 | yes |
-| NEAR wallet address | **needed from Kerrie** — the prize is sent here | **no** |
+| NEAR wallet address | `clearlemon1022.near` | yes |
 | Repository link | pending the public push | **no** |
 | Demo post link | pending the X post | **no** |
 | What did you build? | 1,418-character answer in `SUBMISSION.md` §2 | yes |
@@ -66,4 +66,4 @@ facts should survive inspection by the seller.
    is clean and re-runnable first.
 2. **Post the demo on X** with a video or screenshots, tagging `@NEARProtocol` and
    `#NEARHackathon`. Draft copy is in `SUBMISSION.md` §4.
-3. **Supply the NEAR wallet address** for the submission form.
+3. ~~Supply the NEAR wallet address~~ — **done: `clearlemon1022.near`**

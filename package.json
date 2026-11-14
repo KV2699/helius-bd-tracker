@@ -25,6 +25,9 @@
     "status": "node --env-file-if-exists=.env status.js",
     "batch": "node --env-file-if-exists=.env batch.js",
     "funnel": "node --env-file-if-exists=.env funnel.js",
-    "batches": "node --env-file-if-exists=.env batches.js"
+    "batches": "node --env-file-if-exists=.env batches.js",
+    "selftest:market": "node pipeline/selftest-market.js",
+    "selftest:market:live": "node pipeline/selftest-market.js --live",
+    "attack": "node attack.js"
   }
 }

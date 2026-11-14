@@ -77,6 +77,44 @@ escrow contract, so if the two disagree the test fails.
 
 ---
 
+## Why this architecture: *The Evidence Gap*
+
+This project is the applied implementation of a research finding. **The Evidence Gap**
+(Kerrie Donaghue, independent researcher, with Apart Research — AI Collusion Research
+Sprint, Oct 2026) audited six collusion detectors that had been built and frozen before
+the sprint, re-ran them against the data they were validated on, and then asked what their
+validation never did: **can they beat nonsense?**
+
+Two could not be told apart from a crowd of deliberately meaningless rivals — one ranked
+65th of 100. A third beat all 283 of its rivals and is still worthless, because what it
+looks for and what counts as a chance to look are identical, so it fires every time it can.
+A fifth passes everything, but how wrong it looks moves **560-fold** depending on what you
+count. The standard check — how often it catches real cases, how often it stays quiet
+otherwise — catches none of these.
+
+The rule that came out of it, labelled in the deck as *the rule we learned four times*:
+
+> **Make the detector emit the quote, and read the quote.** A text-only detector that
+> can't show its supporting evidence isn't an evidence instrument — it's a guess.
+
+That sentence is `quoteIsGrounded()`. The model is the detector; it must emit a verbatim
+span, and **code then reads the page we fetched ourselves to see whether the span is
+there**. Four findings from that research map onto four mechanisms here:
+
+| The research found | This system does |
+|---|---|
+| **The substring trap.** `"tie"` matched inside *"parties"*, *"tier"* and *"patient"*. No tie existed — a word-boundary bug. | Word boundaries on every term match. We hit the identical bug three times: `/send/` matches "**Send**er", which is a product name here. It is Pitfall 79, and twice more since. |
+| **The write channel is a read channel.** 30 of 48 crossings flowed through `cache_put`, invisible to detectors watching `get`. | The risky channel is the model's *write* — the structured JSON it emits — not the page it read. So the emitted quote is grounded against the fetched page, and a separate check asks whether the quote supports the claim (`CLAIM_NOT_SUPPORTED`). |
+| **Naming is not judging.** Monitors named a planted breach 14/14 times and flagged it only 10/14. *"I can see it, but I can't say it's a breach."* | Every row is forced to a verdict — opportunity, research, monitor, disqualified — and carries a **mandatory counter-rationale**, the stated reason it might not qualify, which can veto the verdict. |
+| **Negative controls.** A detector that fires every time it can is a tautology, and you only find out by racing it against nonsense. | The rejection log is the negative control: 2,275 candidates refused, each with a reason code. `node attack.js` races the pipeline against 25 deliberate fabrications and all 25 are blocked. A system that returned "opportunity" for everything would be that tautology. |
+
+The research also audited itself: *"Applying it to our own prior work forced six corrections
+and withdrew two headline figures."* `PITFALLS.md` is the same practice — **92 entries**,
+including two bugs introduced by the fix for an earlier bug, and one case where a pass
+printed a clean zero that was actually a defect.
+
+---
+
 ## Judge quick start — no key, no install, no network
 
 Every command below runs **offline** on a fresh clone with Node 20+. There is nothing to

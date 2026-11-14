@@ -24,8 +24,25 @@ purchase intent. Expected output: `25 attacks · 25 blocked · 0 got in`.
 Then:
 
 ```bash
-node pipeline/selftest.js      # 566 assertions, 0 failures, no test framework
+node pipeline/selftest.js             # 566 assertions, 0 failures, no test framework
+node pipeline/selftest-market.js      # 29 assertions on the settlement policy
+node pipeline/selftest-market.js --live   # fetches a real page, settles twice
 ```
+
+The `--live` leg is the one to watch. Two workers answer the same research bounty: one
+quotes the fetched page verbatim and is **paid**; one invents a quote that would be worth
+paying for and is **refunded against**. The arbiter is the verifier, and it calls no model
+— the decision is a string search in a page we fetched.
+
+## The research this implements
+
+`README.md` §"Why this architecture" maps it in full. The short version: *The Evidence Gap*
+(Apart Research, Oct 2026) audited six collusion detectors and found two could not be
+distinguished from a crowd of deliberately meaningless rivals. Its rule — *"make the
+detector emit the quote, and read the quote"* — is `quoteIsGrounded()`. Its substring trap
+(`"tie"` matching inside *"parties"*) is the bug this project hit three times with `/send/`
+matching "**Send**er". Its 14/14-named-but-10/14-flagged finding is why every row here is
+forced to a verdict with a mandatory counter-rationale.
 
 ## The three claims worth auditing, and where to check each
 
