@@ -71,3 +71,68 @@ that drifts pays the wrong party.
   the funds are safe; making the reason legible on the explorer is unfinished.
 - The settlement currency here is testnet NEAR. The NEAR Intents 1Click quote remains
   **priced, not wired** — the cross-chain rail is costed, not settled on.
+
+---
+
+# Run 2 — the RELEASE path, and a verdict the arbiter computed
+
+**Contract: [`helius-escrow2-94871.testnet`](https://testnet.nearblocks.io/address/helius-escrow2-94871.testnet)**
+Settled 14 Nov 2026.
+
+Run 1 proved a refusal. It also had a flaw worth stating plainly: **I typed the reason code
+on the command line.** That proved the contract enforces *who* may settle and proved nothing
+about the verdict — a human asserting a result to a contract is the thing this project
+exists to refuse.
+
+In run 2 the verdict is **computed**. `pipeline/arbiter.js` fetches the worker's cited URL
+through the whitelist fetcher, runs `quoteIsGrounded` against the page **it** fetched — never
+the worker's copy — and the reason code passed to `settle` is whatever that check returned.
+The script refuses to continue if the verdict is not `GROUNDED`.
+
+| # | Action | Who | Result | Transaction |
+|---|---|---|---|---|
+| 1 | `fund` 3 NEAR | buyer | escrow holds 3 NEAR | [`RRTiZUot…`](https://testnet.nearblocks.io/txns/RRTiZUotVRYdPMAa688exCFUTiuHuBubxAwh7HzdvJm) |
+| 2 | `deliver` a **verbatim** quote | worker | state → `DELIVERED` | [`CsRV9oKo…`](https://testnet.nearblocks.io/txns/CsRV9oKospjzjXQk1ijzQhs5G5HX2jmCjR4HtdpQKdf9) |
+| 3 | `settle("GROUNDED")` — **computed by the arbiter** | arbiter | **RELEASED** | [`CFPrZBuK…`](https://testnet.nearblocks.io/txns/CFPrZBuKEptksrDzm6H4MiBCGWP1tVB9GjD5EwaVkFvm) |
+
+## What the worker delivered
+
+```
+They are paid a per-action reward by the protocol
+```
+
+That string is on the page, character for character. In run 1 the worker delivered a
+paraphrase of the same sentence — *"They **remain** paid … beyond **transfers** fees"* — and
+was refused. **Same arbiter, same check, same contract. The difference is in the page.**
+
+## The event the contract emitted
+
+```json
+{"event":"settle","reason":"GROUNDED","outcome":"RELEASE","state":"RELEASED"}
+```
+
+## The money moved
+
+| Account | Before | After | |
+|---|---:|---:|---|
+| worker | 9.9991 NEAR | **12.9989 NEAR** | **+3 NEAR, paid** |
+
+Both outcomes are now proven on chain: **run 1 refunded a cheat, run 2 paid honest work.**
+
+## Reproduce the verdict without trusting the arbiter
+
+```bash
+node market-round.js       # one bounty, two workers, verdicts computed
+node verify-verdict.js     # recompute each verdict from the archived page
+```
+
+The page the arbiter fetched is archived under `data/market/evidence/`, and the check is a
+string search. `verify-verdict.js` recomputes the page hash, the reason code and the
+evidence hash, and reports whether each matches.
+
+## Limits of run 2
+
+- The arbiter is **a single trusted key**. This is verifier-arbitrated, not trustless: the
+  contract enforces who may settle; it cannot read a web page.
+- Testnet only, faucet funds, no real value.
+- There is no bidding and no open market. One buyer, one arbiter, two scripted workers.

@@ -5,7 +5,7 @@
 ![dependencies](https://img.shields.io/badge/dependencies-none-blue)
 ![inference](https://img.shields.io/badge/inference-NEAR%20AI%20Cloud-informational)
 
-A business-development scanner for Solana infrastructure sales. Eight agents read
+A business-development scanner for Solana infrastructure sales. Seven agents read
 public sources, **verification happens in code**, and the system refuses to turn a
 press release into a hot lead.
 
@@ -208,9 +208,9 @@ meant nothing.
   The contract enforces *who* may settle; it cannot itself check a quote against a page.
   What makes the verdict checkable is that the page is archived and the check is a string
   search — `node verify-verdict.js` recomputes every verdict offline.
-- **Both settlement paths work, but only REFUND is on chain so far.** The RELEASE path runs
-  offline in `node market-round.js`; putting it on testnet needs a signature and is the
-  next transaction. `docs/TESTNET_RUN.md` records what is actually on chain.
+- **Both settlement paths are now on chain.** Run 1 refunded a paraphrase; run 2 paid a
+  verbatim quote (worker 9.9991 → 12.9989 NEAR). In run 2 the reason code was **computed by
+  the arbiter**, not typed by a human — run 1's was typed, and `docs/TESTNET_RUN.md` says so.
 - **The escrow was deployed on 2026-11-14**, testnet only, with faucet funds. No real value.
 - **The NEAR Intents 1Click quote is a dry quote** — priced, never settled on.
 - **The attestation is fetched and displayed, not verified.** We show what the endpoint
@@ -294,7 +294,7 @@ npm run serve          # http://localhost:8742  ->  press "Run scan"
 | `node pipeline/selftest.js` | 573 assertions proving the guards work. Costs nothing, needs no key. |
 | `node scan.js --days 90` *without* a key | The run **aborts** with an instruction. It does not fall back to another model, and it does not invent rows. |
 | `node scan.js --days 90` *with* a key | A real run: pages fetched, candidates extracted, rejections logged with reason codes, a JSON run file written to `data/runs/`. |
-| `npm run serve`, open the page, press **Run scan** | The eight agents run live; the 3D office animates against real stage events; the queue is replaced by verified rows. |
+| `npm run serve`, open the page, press **Run scan** | The agents run live; the 3D office animates against real stage events; the queue is replaced by verified rows. |
 | Open the page as a published artifact (no server) | The scanner reports itself unavailable and the dataset is labelled **demo dataset**. It never pretends a fixture is a scan. |
 
 ---
@@ -305,11 +305,11 @@ NEAR is not a payment sticker on this project. It is where the intelligence runs
 
 | | |
 |---|---|
-| **Inference** | Every model call goes to `https://cloud-api.near.ai/v1`. Five of the eight agents call it. There is no OpenAI, Anthropic or local model anywhere in the code. |
+| **Inference** | Every model call goes to `https://cloud-api.near.ai/v1`. **Seven agents call a model** (collector, verifier, monitor, discovery, enricher, writer, discoverer — `Object.keys(AGENTS)` in `pipeline/agents.js`). The **scorer, the gate and the skeptic's veto are plain code**, because a model must never produce a number that decides anything. There is no OpenAI, Anthropic or local model anywhere in the repo. |
 | **Why that matters** | Inference runs on NEAR AI Cloud, which is TEE-backed. The endpoint's attestation is **fetched and displayed** in About this build — signing address, a 10,012-character Intel TDX quote, TCB measurements. **The quote is not independently verified by this project, and no GPU payload is present in the response.** A BD pipeline reads commercially sensitive research about named companies, so where it ran is a real property; we show what the endpoint reports, and say exactly how far that goes. |
 | **Cost** | Metered from the API's own `usage` numbers, never estimated. A budget cap aborts the run before it can overspend a $10 grant. |
 | **Settlement** | NEAR Intents 1Click `dry: true` quote. **Priced, not wired** — the rail a research bounty market would settle on. See *Honest limits*. |
-| **Settled** | The escrow contract is **deployed and exercised on NEAR testnet**: [`helius-escrow-81631.testnet`](https://testnet.nearblocks.io/address/helius-escrow-81631.testnet). A worker's attempt to settle in its own favour was reverted on chain; the arbiter refunded the buyer. Every transaction is linked in [`docs/TESTNET_RUN.md`](docs/TESTNET_RUN.md). |
+| **Settled** | The escrow is **deployed and exercised on NEAR testnet, both outcomes proven**: [`helius-escrow-81631.testnet`](https://testnet.nearblocks.io/address/helius-escrow-81631.testnet). A worker's attempt to settle in its own favour was reverted on chain; the arbiter refunded the buyer. Every transaction is linked in [`docs/TESTNET_RUN.md`](docs/TESTNET_RUN.md). |
 | **Attested** | The attestation endpoint is live at `/api/attestation`. Open **About this build** to see the signing address and hardware quote for the current inference endpoint. |
 
 The attestation is not a claim in a README — it is a live call. The report for the endpoint

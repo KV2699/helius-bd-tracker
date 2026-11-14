@@ -1,0 +1,81 @@
+{
+  "roundId": "round-2026-11-14T22-23-36",
+  "generatedAt": "2026-11-14T22:23:36.153Z",
+  "mode": "offline",
+  "bounty": {
+    "id": "b1",
+    "question": "How are Velocity Protocol's keeper bots compensated?",
+    "source_url": "https://docs.velocity.exchange/developers/trading-automation",
+    "reward": "3 NEAR"
+  },
+  "policy": {
+    "GROUNDED": "RELEASE",
+    "QUOTE_NOT_IN_SOURCE": "REFUND",
+    "CLAIM_NOT_SUPPORTED": "MANUAL_REVIEW",
+    "DATE_UNVERIFIABLE": "REFUND",
+    "SOURCE_UNREACHABLE": "REFUND",
+    "ACCOUNT_CEASED": "REFUND",
+    "ACCOUNT_COMPETITOR": "REFUND",
+    "TIMEOUT": "REFUND",
+    "UNKNOWN": "MANUAL_REVIEW"
+  },
+  "results": [
+    {
+      "worker": "honest",
+      "behaviour": "quotes the page verbatim",
+      "quote": "They are paid a per-action reward by the protocol",
+      "bountyId": "b1-honest",
+      "reason": "GROUNDED",
+      "outcome": "RELEASE",
+      "detail": "found in 9120 chars fetched from https://docs.velocity.exchange/developers/trading-automation",
+      "url": "https://docs.velocity.exchange/developers/trading-automation",
+      "fetchedUrl": "https://docs.velocity.exchange/developers/trading-automation",
+      "pageHash": "12cf613700cc5995dd35bef921e7cdc3b518d418453db808ed61af2089200c17",
+      "evidenceHash": "b775ac2b845f74b7b7551a9b0d4b8349b466d3ca48d964fa6ec23af554bfd3d1",
+      "archived": "data/market/evidence/b1-honest-12cf613700cc.txt",
+      "decidedBy": "quoteIsGrounded() over a page the arbiter fetched itself",
+      "model": "none",
+      "startedAt": "2026-11-14T22:23:35.909Z",
+      "decidedAt": "2026-11-14T22:23:36.058Z",
+      "replay": {
+        "pageHashMatches": true,
+        "reasonMatches": true,
+        "evidenceHashMatches": true,
+        "recomputed": {
+          "pageHash": "12cf613700cc5995dd35bef921e7cdc3b518d418453db808ed61af2089200c17",
+          "reason": "GROUNDED",
+          "evidenceHash": "b775ac2b845f74b7b7551a9b0d4b8349b466d3ca48d964fa6ec23af554bfd3d1"
+        }
+      }
+    },
+    {
+      "worker": "paraphraser",
+      "behaviour": "rewords it — the failure the audit found",
+      "quote": "They remain paid a per-action reward by the protocol, and most need no capital beyond transfers fees",
+      "bountyId": "b1-paraphraser",
+      "reason": "QUOTE_NOT_IN_SOURCE",
+      "outcome": "REFUND",
+      "detail": "the quote is not in the page the worker cited",
+      "url": "https://docs.velocity.exchange/developers/trading-automation",
+      "fetchedUrl": "https://docs.velocity.exchange/developers/trading-automation",
+      "pageHash": "12cf613700cc5995dd35bef921e7cdc3b518d418453db808ed61af2089200c17",
+      "evidenceHash": "4c3532caf086d888103a98eb1bf2cfce0b840da456cd3f3276d1536d19cb685d",
+      "archived": "data/market/evidence/b1-paraphraser-12cf613700cc.txt",
+      "decidedBy": "quoteIsGrounded() over a page the arbiter fetched itself",
+      "model": "none",
+      "startedAt": "2026-11-14T22:23:36.059Z",
+      "decidedAt": "2026-11-14T22:23:36.152Z",
+      "replay": {
+        "pageHashMatches": true,
+        "reasonMatches": true,
+        "evidenceHashMatches": true,
+        "recomputed": {
+          "pageHash": "12cf613700cc5995dd35bef921e7cdc3b518d418453db808ed61af2089200c17",
+          "reason": "QUOTE_NOT_IN_SOURCE",
+          "evidenceHash": "4c3532caf086d888103a98eb1bf2cfce0b840da456cd3f3276d1536d19cb685d"
+        }
+      }
+    }
+  ],
+  "note": "The arbiter fetched each source URL itself through the whitelist fetcher and ran quoteIsGrounded against the page it fetched. No reason code was supplied by hand. Every verdict is replayable from the archived page with node verify-verdict.js."
+}
