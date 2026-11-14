@@ -1,0 +1,58 @@
+<template>
+<style>
+  #root{position:absolute;inset:0;background:var(--bone);font-family:var(--display);padding:80px 150px}
+  #a-k{font-family:var(--mono);font-size:21px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-3)}
+  #a-l1{font-size:58px;line-height:1.2;letter-spacing:-.025em;font-weight:500;color:var(--ink);
+        margin-top:26px;max-width:1420px}
+  #a-flash{position:absolute;inset:0;background:var(--red);display:flex;flex-direction:column;
+           justify-content:center;padding:0 160px;opacity:0}
+  #a-big{font-size:168px;font-weight:600;letter-spacing:-.045em;color:#fff;line-height:.98}
+  #a-bs{font-size:46px;line-height:1.28;color:rgba(255,255,255,.88);margin-top:40px;max-width:1340px}
+  #a-fix{position:absolute;left:150px;right:150px;top:300px;opacity:0}
+  #a-fix .h{font-size:54px;line-height:1.22;letter-spacing:-.025em;font-weight:500;color:var(--ink);max-width:1400px}
+  #a-fix .h span{color:var(--red)}
+  #a-after{position:absolute;left:150px;right:150px;top:560px;opacity:0;
+           display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border-top:1px solid var(--line)}
+  .ac{padding:30px 0}
+  .ac .l{font-family:var(--mono);font-size:17px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .ac .v{font-size:60px;font-weight:600;letter-spacing:-.03em;margin-top:10px;color:var(--ink)}
+  .ac .v.red{color:var(--red)}
+</style>
+<div id="root" data-composition-id="audit" data-width="1920" data-height="1080">
+  <div id="a-k"  class="clip" data-start="0"   data-duration="5" data-track-index="0">So I pointed that standard at my own system</div>
+  <div id="a-l1" class="clip" data-start="0.3" data-duration="4.7" data-track-index="1">
+    I added paraphrases of real sentences, from the correct page.</div>
+  <div id="a-flash" class="clip" data-start="5" data-duration="11" data-track-index="2">
+    <div id="a-big">48.8%</div>
+    <div id="a-bs">of them passed. A model that reworded instead of quoting was
+      getting through the check the whole system rests on.</div>
+  </div>
+  <div id="a-fix" class="clip" data-start="11.6" data-duration="4.4" data-track-index="3">
+    <div class="h">A truncation drops words that are on the page.<br>
+      A paraphrase <span>introduces words that were never there</span>.</div>
+  </div>
+  <div id="a-after" class="clip" data-start="12.5" data-duration="3.5" data-track-index="4">
+    <div class="ac"><div class="l">Real quotes kept</div><div class="v">100%</div></div>
+    <div class="ac"><div class="l">Paraphrases accepted</div><div class="v red">2.3%</div></div>
+    <div class="ac"><div class="l">Tests that missed it</div><div class="v">573</div></div>
+  </div>
+</div>
+<script>
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#a-k",{opacity:0},{opacity:1,duration:.3},0);
+  tl.fromTo("#a-l1",{opacity:0,y:24},{opacity:1,y:0,duration:.5,ease:"power3.out"},.3);
+  // the number is a hit: 0ms set, no ease. Easing a hit kills it.
+  tl.set("#a-flash",{opacity:1},5);
+  tl.fromTo("#a-big",{scale:.94,opacity:0},{scale:1,opacity:1,duration:.34,ease:"power4.out"},5.02);
+  tl.fromTo("#a-bs",{opacity:0,y:22},{opacity:1,y:0,duration:.5,ease:"power3.out"},6.0);
+  // The number HOLDS at full strength, then the ground is CUT away - a
+  // crossfade here caught 48.8% mid-dissolve and read as a rendering fault
+  // rather than a transition. A cut that is meant to feel like a cut.
+  tl.set("#a-flash",{opacity:0},11.6);
+  tl.fromTo("#a-fix",{opacity:0,y:26},{opacity:1,y:0,duration:.5,ease:"power3.out"},11.7);
+  tl.fromTo("#a-after",{opacity:0,y:22},{opacity:1,y:0,duration:.45,ease:"power3.out"},12.5);
+  window.__timelines["audit"] = tl; tl.seek(0);
+})();
+</script>
+</template>

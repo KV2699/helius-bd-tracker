@@ -1,0 +1,48 @@
+<template>
+<style>
+  #root{position:absolute;inset:0;background:var(--bone);font-family:var(--display);padding:84px 120px}
+  #refuse-h{font-size:70px;line-height:1.12;letter-spacing:-.03em;font-weight:500;color:var(--ink);max-width:1280px}
+  #refuse-h em{font-style:normal;color:var(--red)}
+  #refuse-panel{position:absolute;left:120px;right:120px;top:330px;bottom:96px;
+                background:#fff;border:1px solid var(--line);display:flex;flex-direction:column}
+  .rhd{display:flex;gap:16px;align-items:center;padding:20px 28px;border-bottom:1px solid var(--line);
+       font-family:var(--mono);font-size:17px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .rhd b{color:var(--ink);font-weight:500}
+  .rhd .sp{margin-left:auto;color:var(--red)}
+  .row{display:grid;grid-template-columns:330px 1fr 150px;gap:28px;padding:21px 28px;
+       border-bottom:1px solid var(--line);align-items:baseline}
+  .row .n{font-size:28px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
+  .row .q{font-size:20px;line-height:1.45;color:var(--ink-2)}
+  .row .f{font-family:var(--mono);font-size:19px;color:var(--red);text-align:right}
+</style>
+<div id="root" data-composition-id="refuse" data-width="1920" data-height="1080">
+  <div id="refuse-h" class="clip" data-start="0" data-duration="12" data-track-index="0">
+    So we built one that <em>refuses</em>.</div>
+  <div id="refuse-panel" class="clip" data-start="1.8" data-duration="10.2" data-track-index="1">
+    <div class="rhd"><b>25</b> opportunities · <b>98</b> accounts
+      <span class="sp">every row carries a quote, a source and a counter-rationale</span></div>
+    <div class="row" id="rw1"><div class="n">BAM</div>
+      <div class="q">Block Assembly Marketplace — validator</div><div class="f">fit 59</div></div>
+    <div class="row" id="rw2"><div class="n">BlockPI</div>
+      <div class="q">RPC Nodes</div><div class="f">fit 59</div></div>
+    <div class="row" id="rw3"><div class="n">Chorus One</div>
+      <div class="q">Validator-as-a-Service</div><div class="f">fit 55</div></div>
+    <div class="row" id="rw4"><div class="n">Astralane</div>
+      <div class="q">Shred Delivery — $1,000 a month per IP</div><div class="f">fit 51</div></div>
+    <div class="row" id="rw5"><div class="n">Velocity Protocol</div>
+      <div class="q">RPC Nodes, grounded in their own documentation</div><div class="f">fit 33</div></div>
+  </div>
+</div>
+<script>
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#refuse-h", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0);
+  tl.fromTo("#refuse-panel", { opacity: 0, y: 46 },
+      { opacity: 1, y: 0, duration: .6, ease: "power3.out" }, 1.8);
+  // rows arrive one at a time, so it reads as a list being built, not a slide
+  ["#rw1","#rw2","#rw3","#rw4","#rw5"].forEach((s,i) =>
+    tl.fromTo(s, { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: .34, ease: "power2.out" }, 2.4 + i*.3));
+  window.__timelines["refuse"] = tl; tl.seek(0);
+})();
+</script>
+</template>

@@ -1,0 +1,50 @@
+<template>
+<style>
+  #root{position:absolute;inset:0;background:var(--bone);font-family:var(--display);padding:76px 140px}
+  #c-k{font-family:var(--mono);font-size:20px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  #c-h{font-size:56px;line-height:1.18;letter-spacing:-.025em;font-weight:500;color:var(--ink);margin-top:22px;max-width:1420px}
+  #c-steps{position:absolute;left:140px;right:140px;top:330px}
+  .st{display:grid;grid-template-columns:72px 1fr 230px;gap:26px;align-items:center;
+      padding:24px 26px;border:1px solid var(--line);background:#fff;margin-bottom:14px}
+  .st .i{font-family:var(--mono);font-size:20px;color:var(--ink-3)}
+  .st .d{font-size:27px;color:var(--ink)}
+  .st .d b{font-weight:500}
+  .st .r{font-family:var(--mono);font-size:19px;letter-spacing:.07em;text-align:right;color:var(--ink-3)}
+  .st.bad{border-color:var(--red)}
+  .st.bad .r{color:var(--red)}
+  .st.good .r{color:var(--red)}
+  #c-tx{position:absolute;left:140px;right:140px;bottom:78px;font-family:var(--mono);
+        font-size:19px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:20px}
+  #c-tx b{color:var(--ink);font-weight:400}
+</style>
+<div id="root" data-composition-id="chain" data-width="1920" data-height="1080">
+  <div id="c-k" class="clip" data-start="0"   data-duration="12" data-track-index="0">NEAR testnet · helius-escrow-81631.testnet</div>
+  <div id="c-h" class="clip" data-start="0.2" data-duration="11.8" data-track-index="1">
+    The verifier's verdict is the only thing that moves the money.</div>
+  <div id="c-steps" class="clip" data-start="1.6" data-duration="10.4" data-track-index="2">
+    <div class="st" id="cs1"><div class="i">1</div>
+      <div class="d">Buyer funds <b>3 NEAR</b></div><div class="r">FUNDED</div></div>
+    <div class="st" id="cs2"><div class="i">2</div>
+      <div class="d">Worker delivers <b>a paraphrase</b></div><div class="r">DELIVERED</div></div>
+    <div class="st bad" id="cs3"><div class="i">3</div>
+      <div class="d">Worker tries to <b>pay itself</b></div><div class="r">REVERTED</div></div>
+    <div class="st good" id="cs4"><div class="i">4</div>
+      <div class="d">Arbiter settles <b>QUOTE_NOT_IN_SOURCE</b></div><div class="r">REFUNDED</div></div>
+  </div>
+  <div id="c-tx" class="clip" data-start="8.4" data-duration="3.6" data-track-index="3">
+    <b>23DsHwtrve8XQBYDTqKhrukqqYPfQTBj2josAZErkR67</b> &nbsp;·&nbsp; buyer 6.9998 → 9.9998 NEAR &nbsp;·&nbsp; worker never paid</div>
+</div>
+<script>
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#c-k",{opacity:0},{opacity:1,duration:.3},0);
+  tl.fromTo("#c-h",{opacity:0,y:24},{opacity:1,y:0,duration:.5,ease:"power3.out"},.2);
+  ["#cs1","#cs2","#cs3","#cs4"].forEach((s,i) =>
+    tl.fromTo(s,{opacity:0,x:-26},{opacity:1,x:0,duration:.38,ease:"power3.out"},1.6+i*1.5));
+  // step 3 is the one that matters - it gets a shake, because it is a refusal
+  tl.fromTo("#cs3",{x:0},{x:9,duration:.07,repeat:3,yoyo:true,ease:"none"},4.7);
+  tl.fromTo("#c-tx",{opacity:0},{opacity:1,duration:.45,ease:"power2.out"},8.4);
+  window.__timelines["chain"] = tl; tl.seek(0);
+})();
+</script>
+</template>

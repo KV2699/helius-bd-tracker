@@ -1,0 +1,88 @@
+<template>
+<style>
+  #root{position:absolute;inset:0;background:var(--bone);font-family:var(--display);padding:70px 110px}
+  #g-h{font-family:var(--mono);font-size:20px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  #g-sub{font-size:46px;line-height:1.2;letter-spacing:-.02em;font-weight:500;color:var(--ink);margin-top:14px}
+  .gp{position:absolute;top:268px;bottom:210px;background:#fff;border:1px solid var(--line);padding:30px 34px}
+  #g-left,#g-left2{left:110px;width:800px} #g-right,#g-right2{left:960px;right:110px}
+  .gl{font-family:var(--mono);font-size:16px;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--ink-3);margin-bottom:22px}
+  .qt{font-size:29px;line-height:1.52;color:var(--ink)}
+  .pg{font-family:var(--mono);font-size:19px;line-height:1.8;color:var(--ink-2)}
+  .w,.pw{padding:1px 2px;border-radius:2px}
+  .gv{position:absolute;left:110px;right:110px;bottom:84px;height:92px;display:flex;align-items:center;color:#fff}
+  #g-v1{background:var(--red)} #g-v2{background:var(--ink)}
+  .gvm{font-family:var(--mono);font-size:19px;letter-spacing:.14em;padding:0 34px;border-right:1px solid rgba(255,255,255,.26)}
+  .gvt{font-size:28px;font-weight:500;padding:0 34px}
+</style>
+<div id="root" data-composition-id="ground" data-width="1920" data-height="1080">
+  <div id="g-h"   class="clip" data-start="0"   data-duration="16"   data-track-index="0">The grounding check</div>
+  <div id="g-sub" class="clip" data-start="0.2" data-duration="15.8" data-track-index="1">Code searches the page we fetched for the exact words.</div>
+
+  <!-- PASS: the model quoted the page, so every word is found -->
+  <div id="g-left"  class="gp clip" data-start="1.2" data-duration="8.8" data-track-index="2">
+    <div class="gl">What the model returned</div>
+    <div class="qt"><span class="w" id="gw0">Ellipsis</span> <span class="w" id="gw1">Labs</span> <span class="w" id="gw2">builds</span> <span class="w" id="gw3">applications</span> <span class="w" id="gw4">and</span> <span class="w" id="gw5">infrastructure</span> <span class="w" id="gw6">to</span> <span class="w" id="gw7">create</span> <span class="w" id="gw8">a</span> <span class="w" id="gw9">sustainable</span> <span class="w" id="gw10">foundation</span> <span class="w" id="gw11">for</span> <span class="w" id="gw12">finance.</span></div></div>
+  <div id="g-right" class="gp clip" data-start="1.2" data-duration="8.8" data-track-index="3">
+    <div class="gl">The page we fetched ourselves</div>
+    <div class="pg"><span class="pw" id="gp0">Ellipsis</span> <span class="pw" id="gp1">Labs</span> <span class="pw" id="gp2">builds</span> <span class="pw" id="gp3">applications</span> <span class="pw" id="gp4">and</span> <span class="pw" id="gp5">infrastructure</span> <span class="pw" id="gp6">to</span> <span class="pw" id="gp7">create</span> <span class="pw" id="gp8">a</span> <span class="pw" id="gp9">sustainable</span> <span class="pw" id="gp10">foundation</span> <span class="pw" id="gp11">for</span> <span class="pw" id="gp12">finance.</span><span class="pw"> We are the team behind Phoenix, a fully on-chain limit order book on Solana.</span></div></div>
+  <div id="g-v1" class="gv clip" data-start="6.4" data-duration="3.6" data-track-index="4">
+    <div class="gvm">PASS</div><div class="gvt">Admitted. The span is in the page.</div></div>
+
+  <!-- STOP: a sentence worth paying for, that nobody ever wrote -->
+  <div id="g-left2"  class="gp clip" data-start="10.2" data-duration="5.8" data-track-index="5">
+    <div class="gl">What the model returned</div>
+    <div class="qt">Velocity told us their transaction landing is failing badly under load.</div></div>
+  <div id="g-right2" class="gp clip" data-start="10.2" data-duration="5.8" data-track-index="6">
+    <div class="gl">The page we fetched ourselves</div>
+    <div class="pg">This section is for anyone running code that trades or maintains Velocity without a person at the keyboard.</div></div>
+  <div id="g-v2" class="gv clip" data-start="11.6" data-duration="4.4" data-track-index="7">
+    <div class="gvm">STOP</div><div class="gvt">Refused. The model invented the sentence.</div></div>
+</div>
+<script>
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#g-h",{opacity:0},{opacity:1,duration:.3},0);
+  tl.fromTo("#g-sub",{opacity:0,y:18},{opacity:1,y:0,duration:.45,ease:"power3.out"},.2);
+  tl.fromTo(["#g-left","#g-right"],{opacity:0,y:32},
+    {opacity:1,y:0,duration:.5,ease:"power3.out",stagger:.08},1.2);
+
+  // THE SEARCH, word by word. Both sides light together: the claim on the left,
+  // the run confirmed in the page on the right. This is the comparison the
+  // pipeline runs, drawn at a speed a person can follow.
+  tl.to("#gw0", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.1);
+  tl.to("#gp0", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.1);
+  tl.to("#gw1", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.27);
+  tl.to("#gp1", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.27);
+  tl.to("#gw2", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.44);
+  tl.to("#gp2", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.44);
+  tl.to("#gw3", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.61);
+  tl.to("#gp3", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.61);
+  tl.to("#gw4", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.78);
+  tl.to("#gp4", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.78);
+  tl.to("#gw5", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.95);
+  tl.to("#gp5", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.95);
+  tl.to("#gw6", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.12);
+  tl.to("#gp6", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.12);
+  tl.to("#gw7", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.29);
+  tl.to("#gp7", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.29);
+  tl.to("#gw8", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.46);
+  tl.to("#gp8", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.46);
+  tl.to("#gw9", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.63);
+  tl.to("#gp9", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.63);
+  tl.to("#gw10", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.8);
+  tl.to("#gp10", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.8);
+  tl.to("#gw11", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.97);
+  tl.to("#gp11", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.97);
+  tl.to("#gw12", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 4.14);
+  tl.to("#gp12", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 4.14);
+  tl.fromTo("#g-v1",{opacity:0,y:20},{opacity:1,y:0,duration:.4,ease:"power3.out"},6.4);
+
+  // then the one that matters
+  tl.fromTo(["#g-left2","#g-right2"],{opacity:0,y:26},
+    {opacity:1,y:0,duration:.45,ease:"power3.out",stagger:.06},10.2);
+  tl.fromTo("#g-v2",{opacity:0,y:20},{opacity:1,y:0,duration:.4,ease:"power3.out"},11.6);
+  window.__timelines["ground"] = tl; tl.seek(0);
+})();
+</script>
+</template>

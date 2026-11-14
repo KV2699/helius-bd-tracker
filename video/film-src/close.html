@@ -1,0 +1,46 @@
+<template>
+<style>
+  #root{position:absolute;inset:0;background:var(--bone);font-family:var(--display);padding:80px 150px}
+  #cl-grid{position:absolute;left:150px;right:150px;top:140px;display:grid;
+           grid-template-columns:1fr 1fr;gap:0 70px}
+  .cg{border-top:1px solid var(--line);padding:26px 0}
+  .cg .l{font-family:var(--mono);font-size:17px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .cg .v{font-size:40px;font-weight:500;letter-spacing:-.02em;margin-top:8px;color:var(--ink);line-height:1.25}
+  .cg .v span{color:var(--red)}
+  #cl-flash{position:absolute;inset:0;background:var(--red);display:flex;align-items:center;
+            justify-content:center;opacity:0}
+  #cl-last{font-size:92px;font-weight:600;letter-spacing:-.035em;color:#fff;text-align:center;
+           line-height:1.12;max-width:1500px}
+  #cl-repo{position:absolute;left:0;right:0;bottom:92px;text-align:center;font-family:var(--mono);
+           font-size:24px;color:rgba(255,255,255,.85);opacity:0}
+</style>
+<div id="root" data-composition-id="close" data-width="1920" data-height="1080">
+  <div id="cl-grid" class="clip" data-start="0" data-duration="5.4" data-track-index="0">
+    <div class="cg"><div class="l">Inference</div>
+      <div class="v">Runs in a <span>NEAR TEE</span>. The system fetches its own attestation.</div></div>
+    <div class="cg"><div class="l">Intel TDX quote</div>
+      <div class="v">10,012 characters, live at <span>/api/attestation</span></div></div>
+    <div class="cg"><div class="l">Found</div>
+      <div class="v">158 companies · 25 opportunities</div></div>
+    <div class="cg"><div class="l">Rejected</div>
+      <div class="v">2,275 — <span>every one with a reason</span></div></div>
+  </div>
+  <div id="cl-flash" class="clip" data-start="5.4" data-duration="4.6" data-track-index="1">
+    <div id="cl-last">We found our own flaw<br>before a judge could.</div>
+  </div>
+  <div id="cl-repo" class="clip" data-start="7.6" data-duration="2.4" data-track-index="2">
+    github.com/KV2699/helius-bd-tracker</div>
+</div>
+<script>
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  [0,1,2,3].forEach(i =>
+    tl.fromTo(".cg:nth-child("+(i+1)+")",{opacity:0,y:26},
+      {opacity:1,y:0,duration:.46,ease:"power3.out"},.2+i*.42));
+  tl.set("#cl-flash",{opacity:1},5.4);
+  tl.fromTo("#cl-last",{opacity:0,scale:.97},{opacity:1,scale:1,duration:.5,ease:"power4.out"},5.44);
+  tl.fromTo("#cl-repo",{opacity:0},{opacity:1,duration:.5,ease:"power2.out"},7.6);
+  window.__timelines["close"] = tl; tl.seek(0);
+})();
+</script>
+</template>
