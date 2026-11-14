@@ -19,7 +19,7 @@ Audited **14 Nov 2026, 12:45 UTC**. Deadline **14 Nov 2026, 23:59 UTC** — abou
 | Team lead | Kerrie Donaghue | yes |
 | Email address | on file | yes |
 | Team size | solo | yes |
-| Tracks | `["privacy", "swarms"]` — reasoning in `SUBMISSION.md` §3 | yes |
+| Tracks | `["privacy", "open"]` — reasoning in `SUBMISSION.md` §3 | yes |
 | NEAR wallet address | **needed from Kerrie** — the prize is sent here | **no** |
 | Repository link | pending the public push | **no** |
 | Demo post link | pending the X post | **no** |

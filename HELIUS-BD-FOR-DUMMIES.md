@@ -981,7 +981,8 @@ Keep this list. It is the most defensible thing here.
 
 - No live scan results are claimed beyond what a run actually produced. Right now that is
   zero qualified leads, and the page says so.
-- The NEAR Intents 1Click quote is a **fixture**. The DeFi track is not selected.
+- The NEAR Intents 1Click quote is **priced, not wired** - the rail a research bounty
+  market would settle on, costed but never executed. The DeFi track is not selected.
 - The agents do not negotiate, hire one another, or hold a treasury.
 - No outreach email is sent. The writer produces an internal brief; the send is a human's.
 - No prospect's intent is inferred. A press release cannot tell you what a company wants

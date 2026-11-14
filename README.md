@@ -42,6 +42,41 @@ output, not a gap.
 
 ---
 
+## What this is, and where it goes
+
+A verification engine. It refuses to certify a claim it cannot ground in
+a page it fetched itself. Today it is pointed at Solana BD research and
+produces a worklist a human acts on.
+
+The same engine is the arbitration layer for a research bounty market.
+Every question in the Missing view is a job: researchers bid, escrow
+holds the funds, and the verifier decides — payment releases on a
+passing grounding check, not on delivery of a claim. Settlement routes
+through NEAR Intents. The dry quote in this build is that rail, not yet
+wired.
+
+Today: the worklist. Next: the market.
+
+The settlement policy that decides whether money moves is **code, and it is
+tested offline with no key and no network**:
+
+```js
+GROUNDED            -> RELEASE
+QUOTE_NOT_IN_SOURCE -> REFUND
+CLAIM_NOT_SUPPORTED -> MANUAL_REVIEW
+DATE_UNVERIFIABLE   -> REFUND
+SOURCE_UNREACHABLE  -> REFUND
+ACCOUNT_CEASED      -> REFUND
+ACCOUNT_COMPETITOR  -> REFUND
+TIMEOUT             -> REFUND
+UNKNOWN             -> MANUAL_REVIEW   // never silently pay
+```
+
+`node pipeline/selftest-market.js` exercises it. The same table governs the
+escrow contract, so if the two disagree the test fails.
+
+---
+
 ## Judge quick start — no key, no install, no network
 
 Every command below runs **offline** on a fresh clone with Node 20+. There is nothing to
@@ -106,7 +141,25 @@ NEAR is not a payment sticker on this project. It is where the intelligence runs
 | **Inference** | Every model call goes to `https://cloud-api.near.ai/v1`. Five of the eight agents call it. There is no OpenAI, Anthropic or local model anywhere in the code. |
 | **Why that matters** | NEAR AI Cloud is TEE-verifiable inference (Intel TDX + NVIDIA GPU TEE). A BD pipeline reads commercially sensitive research about named companies; running it on attestable private inference is a real property, not a marketing line. |
 | **Cost** | Metered from the API's own `usage` numbers, never estimated. A budget cap aborts the run before it can overspend a $10 grant. |
-| **Settlement** | NEAR Intents 1Click `dry: true` quote. **Still a fixture.** See *Honest limits*. |
+| **Settlement** | NEAR Intents 1Click `dry: true` quote. **Priced, not wired** — the rail a research bounty market would settle on. See *Honest limits*. |
+| **Attested** | The attestation endpoint is live at `/api/attestation`. Open **About this build** to see the signing address and hardware quote for the current inference endpoint. |
+
+The attestation is not a claim in a README — it is a live call. The report for the endpoint
+serving this project at the time of writing (`data/snapshot/attestation.json`):
+
+```
+runtime          dstack-0.5.12
+signing address  40599fb284f43953bb356b09080fd803c960fc10285ad90eca462ca711ad4acb (ed25519)
+Intel TDX quote  present, 10,012 characters
+boot event log   present, 30 measured entries
+MRTD             7fe60787222bd394cb516abca2435f22f035ab2cc9c0a4b4b3b148e46297f3d9...
+transport        OHTTP — the request itself is sealed to the enclave's key
+```
+
+Change the image or the compose file and the measurements change. The panel prints a
+failure verbatim if the endpoint moves, because a visible failure is checkable and silence
+is not. No NVIDIA GPU payload is present in this response shape, and the panel says so
+rather than implying one.
 
 ---
 
@@ -210,7 +263,7 @@ Read this before judging the NEAR integration.
 | Code verification, reason codes, rubric, caps | **Real.** 27 assertions in `pipeline/selftest.js`. |
 | Source fetching | **Real HTTP** to a fixed whitelist. No URL is ever constructed by a model. |
 | The ten rows shipped in the page | **Demo dataset.** Hand-entered, labelled in the UI, replaced wholesale by a live run. Never merged. |
-| NEAR Intents 1Click quote | **Fixture.** Not wired to the live endpoint. |
+| NEAR Intents 1Click quote | **Priced, not wired.** The route is costed; nothing settles on it yet. The policy that would decide settlement is tested code. |
 | Outreach email | **Removed from the pipeline.** The Writer produces an internal brief only. |
 
 **We are not selecting the Unstoppable DeFi track**, because the 1Click quote is a

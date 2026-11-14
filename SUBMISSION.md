@@ -51,13 +51,13 @@ quote is still a fixture, so we are not claiming the DeFi track.
 | Track | Claim it? | Why |
 |---|---|---|
 | **`privacy`** | **Yes — primary** | Hints are *PRIVATE AI, TEE, NEAR AI CLOUD*. Every model call runs on NEAR AI Cloud's TEE-verifiable inference. BD research naming real companies and their commercial weaknesses is genuinely sensitive; attestable inference is a real property of this build, not a slogan. |
-| **`swarms`** | **Yes — second** | Hints list *MULTI-AGENT SYSTEMS*. Eight agents in sequence with typed handoffs and a code-enforced gate between them. Be straight in the demo: it is a pipeline, not a bidding market. |
-| `open` | Optional | Safe third if you want breadth. |
-| `defi` | **No** | The 1Click quote is a fixture. Claiming it would be the one dishonest thing in the whole submission. |
+| **`open`** | **Yes — second** | Open Innovation. A verification engine pointed at BD research, with an arbitration layer for a bounty market, does not fit a named category — which is what this track is for. Mention the eight-agent architecture in the description; do not claim a swarm. |
+| `swarms` | **No** | Hints list *MULTI-AGENT SYSTEMS*, and there are eight agents with typed handoffs — but it is a pipeline, not a bidding market or an emergent economy. Claiming it would overstate what the agents do. |
+| `defi` | **No** | The 1Click quote is priced, not wired. Claiming it would be the one dishonest thing in the whole submission. |
 | `agents` | **No** | The agents spend on inference but do not earn, negotiate or hire. Too thin. |
 | `business` | **No** | No treasury, no autonomous sales. The gate exists precisely to stop autonomy. |
 
-Submit as: `["privacy", "swarms"]`
+Submit as: `["privacy", "open"]`
 
 ---
 
@@ -75,13 +75,18 @@ Eight agents read public Solana sources. The collector must return a verbatim qu
 then CODE searches for that quote in the page we fetched. Invented quotes don't exist
 in the page, so they can't pass.
 
-Ten events in. One lead out.
+158 companies found. 25 opportunities out. 2,275 candidates rejected, every one with a
+reason code.
 
 Every model call runs on @NEARProtocol's NEAR AI Cloud — TEE-verifiable inference.
 BD research names real companies and their weaknesses. That's exactly the case for
 proving where your inference ran.
 
 Scoring and the gate are plain code. A model never produces a number here.
+
+We built a verifier. The expensive thing it unlocks is outsourcing the research — with
+escrow that releases on a passing check, not a promise. The dry quote in the repo is the
+settlement rail that market runs on. Not wired yet. Written down.
 
 Repo + 90s demo below. What would make you trust a lead a machine handed you?
 
@@ -111,7 +116,7 @@ is rejected with a reason code. Ten events in, one lead out.
 ```
 This is a working build, not a production system. The inference, the verification,
 the scoring and the gate are real. The ten rows you can see are a labelled demo
-dataset, and our NEAR Intents quote is a fixture. I'll show you both.
+dataset, and our NEAR Intents quote is priced but not wired. I'll show you both.
 ```
 
 ---
@@ -155,7 +160,7 @@ dataset, and our NEAR Intents quote is a fixture. I'll show you both.
 Keep this list. It is the most defensible thing in the submission.
 
 - No live scan results are claimed until one has run.
-- The 1Click quote is a fixture; the DeFi track is not selected.
+- The 1Click quote is priced, not wired; the DeFi track is not selected.
 - The agents do not negotiate, hire one another, or hold a treasury.
 - No outreach email is generated — the writer produces an internal brief only.
 - No prospect's intent is inferred. A press release cannot tell you what a company

@@ -26,6 +26,64 @@ const byStamp = (a, b) => (runStamp(a) || a).localeCompare(runStamp(b) || b);
 // nothing at all. data/snapshot/ holds one committed set of real output from
 // real runs, and every reader below falls back to it. The interface says which
 // it is showing, so a snapshot is never mistaken for a live run.
+
+/* A compact, honest view of an attestation report.
+   Reports what is present and how large it is, never the hex itself, and lists
+   any top-level field it did not recognise rather than hiding it - the shape is
+   NEAR AI's to change, and a panel that silently drops a new field is worse
+   than one that admits it saw something unexpected. */
+function summariseAttestation(body, endpoint) {
+  const g = body?.gateway_attestation || {};
+  const o = body?.ohttp_attestation || {};
+  const tcb = g?.info?.tcb_info || {};
+  const field = v => (typeof v === 'string' && v.length)
+    ? { present: true, chars: v.length, head: v.slice(0, 24) + '...' }
+    : { present: false };
+  const known = new Set(['gateway_attestation', 'ohttp_attestation', 'ohttp_key_config', 'endpoint', 'fetchedAt']);
+  return {
+    endpoint,
+    fetchedAt: new Date().toISOString(),
+    enclave: {
+      // The identity of the machine that served the inference.
+      signing_address: g.signing_address || null,
+      signing_algo: g.signing_algo || null,
+      app_name: g?.info?.app_name || null,
+      app_id: g?.info?.app_id || null,
+      instance_id: g?.info?.instance_id || null
+    },
+    hardware: {
+      // Intel TDX. The quote is the hardware's signed statement about what it booted.
+      intel_quote: field(g.intel_quote),
+      event_log: field(g.event_log),
+      report_data: field(g.report_data),
+      request_nonce: field(g.request_nonce),
+      app_cert: field(g?.info?.app_cert)
+    },
+    measurements: {
+      // The TCB: change the image or the compose file and these change.
+      mrtd: tcb.mrtd || null,
+      rtmr0: tcb.rtmr0 || null, rtmr1: tcb.rtmr1 || null,
+      rtmr2: tcb.rtmr2 || null, rtmr3: tcb.rtmr3 || null,
+      os_image_hash: tcb.os_image_hash || g?.info?.os_image_hash || null,
+      compose_hash: tcb.compose_hash || g?.info?.compose_hash || null,
+      mr_aggregated: g?.info?.mr_aggregated || null,
+      device_id: g?.info?.device_id || null,
+      event_log_entries: Array.isArray(tcb.event_log) ? tcb.event_log.length : 0
+    },
+    transport: {
+      // Oblivious HTTP: the request itself is sealed to the enclave's key.
+      ohttp_key_config: field(body?.ohttp_key_config || o.key_config),
+      ohttp_signing_key: o.signing_key || null,
+      ohttp_signature: field(o.signature)
+    },
+    // No GPU payload is present in this response shape; say so rather than
+    // implying one. Anything else new is listed instead of dropped.
+    nvidia_payload: body?.nvidia_payload ? field(body.nvidia_payload) : { present: false },
+    unrecognised_fields: Object.keys(body || {}).filter(k => !known.has(k) && k !== 'nvidia_payload'),
+    note: 'Summary. Full report: /api/attestation?full=1'
+  };
+}
+
 const SNAPSHOT = 'data/snapshot';
 async function snapshot(which) {
   try { return JSON.parse(await readFile(join(SNAPSHOT, which + '.json'), 'utf8')); }
@@ -163,6 +221,40 @@ createServer(async (req, res) => {
       out.funnelRun = fn.runId || files[files.length - 1];
       return json(res, 200, { outreach: out });
     } catch (e) { return json(res, 200, { outreach: null, error: e.message }); }
+  }
+
+  // THE PRIVACY CLAIM, DEMONSTRATED RATHER THAN ASSERTED.
+  //
+  // "Inference runs in a TEE" is a slogan until somebody can see the hardware
+  // quote. NEAR AI Cloud publishes an attestation report for the endpoint
+  // serving the request: a signing address derived inside the enclave, an Intel
+  // TDX quote, and an NVIDIA GPU payload. This hands it straight to the
+  // interface.
+  //
+  // A FAILURE IS SHOWN, NOT SWALLOWED. If the key is missing or the path has
+  // moved, the error is returned verbatim - a panel reading "401, the key is
+  // set but the path may have changed" is a stronger privacy claim than
+  // silence, because it is checkable.
+  if (url.pathname === '/api/attestation') {
+    const base = process.env.NEAR_AI_BASE_URL || 'https://cloud-api.near.ai/v1';
+    const endpoint = base + '/attestation/report';
+    if (!process.env.NEAR_AI_API_KEY)
+      return json(res, 200, { error: 'NEAR_AI_API_KEY is not set, so no attestation can be requested.', endpoint });
+    try {
+      const r = await fetch(endpoint, {
+        headers: { Authorization: `Bearer ${process.env.NEAR_AI_API_KEY}` }
+      });
+      const text = await r.text();
+      let body; try { body = JSON.parse(text); } catch { body = { raw: text.slice(0, 2000) }; }
+      if (!r.ok) return json(res, 200, { error: `HTTP ${r.status} from ${endpoint}`, status: r.status, body, endpoint });
+      // The raw report is ~100KB (a 10,012-char TDX quote, a 31,725-char
+      // compose manifest, a 30-entry event log). Summarise it: a hardware quote
+      // is proved by being present and well-formed, not by being rendered. The
+      // full report is one `?full=1` away for anyone who wants to verify it.
+      return json(res, 200, url.searchParams.get('full')
+        ? { ...body, endpoint, fetchedAt: new Date().toISOString() }
+        : summariseAttestation(body, endpoint));
+    } catch (e) { return json(res, 200, { error: e.message, endpoint }); }
   }
 
   if (url.pathname === '/api/run' && req.method === 'POST') {

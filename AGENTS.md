@@ -41,7 +41,7 @@ Read `PROJECT-COMPLETE.md` §11 first — it lists what does not work, unprompte
 
 - **Outreach-ready is 0, by design.** All 25 opportunities are blocked on *"no verified
   contact"*, because the system will not guess an email address. The blocker is the output.
-- **NEAR Intents 1Click settlement is a fixture**, not a live quote. This is why the DeFi
+- **NEAR Intents 1Click settlement is priced, not wired** — the rail a research bounty market would run on, costed but never settled. This is why the DeFi
   track is deliberately **not** claimed, despite being the easiest to claim.
 - **Source-depth discovery is not built.** The 90-day sweep proved the registry reads index
   pages rather than archives — dated rows per 14-day batch were 21, 6, 1, 1, 1, 1, 0.

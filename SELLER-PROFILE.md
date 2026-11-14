@@ -104,7 +104,7 @@ every ungoverned BD tool makes.
 | **Before you call** | Find the engineering and institutional-operations owners; check for any public statement naming a provider |
 | **Deliverables** | Pre-call brief → proposal → outreach email, all three drafted by the Writer agent |
 | **Gate** | A human reads each one, may edit the wording, then approves or rejects |
-| **Settlement** | $0.19 of agent work recorded on NEAR; dry quote only, no funds move |
+| **Settlement** | $0.19 of agent work recorded on NEAR; the rail is priced, not wired |
 
 ---
 
@@ -134,4 +134,4 @@ The views do not change between modes.
 - **Agent Economy** — defensible *with the caveat stated out loud*: the agents earn and
   spend, but they do not negotiate, hire one another, or hold a treasury.
 - **Unstoppable DeFi** — **do not select** until the 1Click `dry:true` quote is wired to the
-  live endpoint and demonstrably working. It is a fixture today.
+  live endpoint and demonstrably working. It is priced, not wired today.

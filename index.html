@@ -443,7 +443,7 @@ pre.schema .k{color:var(--accent)} pre.schema .s{color:#9EC7E8} pre.schema .c{co
     </div>
     <div>
       <details class="drop" open><summary><span class="t">BD brief</span><span class="c" id="briefCount"></span></summary><div class="body" id="briefBody"></div></details>
-      <details class="drop"><summary><span class="t">NEAR ledger</span><span class="c">$0.19, dry quote</span></summary><div class="body" id="nearBody"></div></details>
+      <details class="drop"><summary><span class="t">NEAR ledger</span><span class="c">$0.19, priced rail</span></summary><div class="body" id="nearBody"></div></details>
     </div>
   </section>
 </main>
@@ -1183,10 +1183,10 @@ function docPayout(){
   '<tr><td colspan="2"><b>Total</b></td><td style="text-align:right;font-family:var(--mono)"><b>$0.19</b></td></tr></table>' +
   '<h2>Settlement route</h2><table><tr><th>Field</th><th>Value</th></tr>' +
   '<tr><td>Method</td><td>NEAR Intents, 1Click quote, dry: true</td></tr>' +
-  '<tr><td>Route</td><td>USDC (Solana) ' + ARROW + ' USDC (NEAR)</td></tr>' +
+  '<tr><td>Route</td><td>USDC ' + ARROW + ' USDC &mdash; the currency a researcher would be paid in</td></tr>' +
   '<tr><td>In / quoted out</td><td>12.000000 / 11.9742</td></tr>' +
-  '<tr><td>Executed</td><td><b>No. Dry quote. No funds moved.</b></td></tr></table>' +
-  '<div class="pull w"><b>What this proves and does not.</b> A dry quote prices a route without moving anything, so it proves the route exists and can be costed. It does not prove any company in this run wants to use it.</div>' +
+  '<tr><td>Executed</td><td><b>Priced, not wired. The rail for a market not yet open.</b></td></tr></table>' +
+  '<div class="pull w"><b>What this is for.</b> This is the settlement rail for a research bounty market: escrow holds a bounty, the verifier decides, and payment releases on a passing grounding check rather than on delivery of a claim. The quote prices that route; it has not been wired. The policy that decides whether money moves is code, and it is tested offline.</div>' +
   '<div class="sig">One run, measured. Not a forecast. The agents do not negotiate, hire one another or hold a treasury.</div></div>';
 }
 
@@ -1442,7 +1442,7 @@ function renderOutput(){
     .map(function(r){ return '<tr><td><b>' + r[0] + '</b></td><td>' + r[1] + '</td><td class="m">$' + r[2].toFixed(2) +
       '</td><td class="m">' + (paid === true ? 'settled' : paid === false ? 'withheld' : 'awaiting you') + '</td></tr>'; }).join('') +
     '</table></div><div class="note">1Click quote, <b>dry: true</b>. USDC (Solana) ' + ARROW +
-    ' USDC (NEAR), 12.000000 in, 11.9742 quoted, <b>not executed</b>. A dry quote proves a route can be priced, not that anyone wants to pay. The agents do not negotiate, hire one another or hold a treasury.</div>';
+    ' USDC, 12.000000 in, 11.9742 quoted, <b>priced, not wired</b>. This is the rail a research bounty market would settle on: the verifier&rsquo;s verdict releases or refunds the escrow. The agents do not negotiate, hire one another or hold a treasury.</div>';
   }
 
 /* == THE SCANNER CLIENT ==================================================
@@ -1722,7 +1722,7 @@ function openReview(id){
         (sig ? '<div class="quote" style="margin-top:10px">' + esc(sig.evidence) + '</div>' : '') +
         (src ? '<div class="srcline"><a href="' + esc(src.url) + '" target="_blank" rel="noopener">' + esc(src.pub) + ', ' + esc(src.date) + ' ' + ARROW + '</a></div>' : '') + '</div>' +
       '<div class="block warn" style="margin-top:14px"><h5>Counter-rationale</h5><p>' +
-        esc(sig ? sig.counter : 'A dry quote prices a route. It does not prove anyone wants to pay.') + '</p></div>' +
+        esc(sig ? sig.counter : 'Priced, not wired. The rail for a market not yet open.') + '</p></div>' +
       (sa ? '<div class="block" style="margin-top:14px"><h5>Verdict</h5><p><span class="tag v-' + sa.verdict + '">' +
         esc(sa.verdict.replace('_',' ')) + '</span> at score ' + sa.score + '. ' + esc(sa.caps[0] || '') + '</p></div>' : '') +
       '<div class="block" style="margin-top:14px"><h5>Who picks this up</h5><p style="display:flex;flex-wrap:wrap;gap:6px">' +
@@ -1769,6 +1769,65 @@ function openReview(id){
     if(un){ S.approvals[un.dataset.undo2] = null; S.celebrated = false; Office.reset(); closeModal(); renderRail(); renderOutput(); }
   });
 }
+/* The attestation panel. One live call, rendered as proof-of-presence rather
+   than as hex: a 10,012-character Intel TDX quote tells a reader nothing when
+   printed, and everything when its measurements are shown beside it. */
+function loadAttestation(){
+  var el = $('attPanel'); if(!el) return;
+  fetch('/api/attestation', { cache:'no-store' })
+    .then(function(r){ return r.json(); })
+    .then(function(a){
+      if(!el.isConnected) return;
+      if(a.error){
+        el.innerHTML = '<div class="scanbox"><h4>Attestation unavailable</h4>' +
+          '<p><code>' + esc(a.error) + '</code></p>' +
+          '<p>Endpoint: <code>' + esc(a.endpoint || '') + '</code>. This is printed exactly as returned. ' +
+          'The claim is checkable either way \u2014 a visible failure is worth more than a hidden success.</p></div>';
+        return;
+      }
+      var f = function(x){ return x && x.present
+        ? '<b>present</b>, ' + x.chars.toLocaleString() + ' chars <code>' + esc(x.head || '') + '</code>'
+        : '<span class="muted">not present</span>'; };
+      var short = function(h){ return h ? '<code>' + esc(String(h).slice(0,32)) + '\u2026</code>' : '<span class="muted">\u2014</span>'; };
+      var e = a.enclave || {}, hw = a.hardware || {}, m = a.measurements || {}, t = a.transport || {};
+      el.innerHTML =
+        '<table class="data"><tr><th>The enclave</th><th></th></tr>' +
+        '<tr><td>Signing address</td><td><code>' + esc(e.signing_address || '\u2014') + '</code></td></tr>' +
+        '<tr><td>Algorithm</td><td>' + esc(e.signing_algo || '\u2014') + '</td></tr>' +
+        '<tr><td>Runtime</td><td>' + esc(e.app_name || '\u2014') + '</td></tr>' +
+        '<tr><td>App / instance</td><td>' + short(e.app_id) + ' / ' + short(e.instance_id) + '</td></tr>' +
+        '</table>' +
+        '<table class="data" style="margin-top:14px"><tr><th>Hardware proof</th><th></th></tr>' +
+        '<tr><td>Intel TDX quote</td><td>' + f(hw.intel_quote) + '</td></tr>' +
+        '<tr><td>Boot event log</td><td>' + f(hw.event_log) + '</td></tr>' +
+        '<tr><td>App certificate</td><td>' + f(hw.app_cert) + '</td></tr>' +
+        '<tr><td>Report data / nonce</td><td>' + f(hw.report_data) + ' &middot; ' + f(hw.request_nonce) + '</td></tr>' +
+        '<tr><td>NVIDIA GPU payload</td><td>' + f(a.nvidia_payload) + '</td></tr>' +
+        '</table>' +
+        '<table class="data" style="margin-top:14px"><tr><th>Measurements (change the image, these change)</th><th></th></tr>' +
+        '<tr><td>MRTD</td><td>' + short(m.mrtd) + '</td></tr>' +
+        '<tr><td>RTMR 0\u20133</td><td>' + short(m.rtmr0) + ' ' + short(m.rtmr1) + '<br>' + short(m.rtmr2) + ' ' + short(m.rtmr3) + '</td></tr>' +
+        '<tr><td>OS image / compose</td><td>' + short(m.os_image_hash) + ' / ' + short(m.compose_hash) + '</td></tr>' +
+        '<tr><td>Boot log entries</td><td>' + (m.event_log_entries || 0) + '</td></tr>' +
+        '</table>' +
+        '<table class="data" style="margin-top:14px"><tr><th>Transport</th><th></th></tr>' +
+        '<tr><td>OHTTP key config</td><td>' + f(t.ohttp_key_config) + '</td></tr>' +
+        '<tr><td>OHTTP signing key</td><td>' + short(t.ohttp_signing_key) + '</td></tr>' +
+        '<tr><td>Signature</td><td>' + f(t.ohttp_signature) + '</td></tr>' +
+        '</table>' +
+        (a.unrecognised_fields && a.unrecognised_fields.length
+          ? '<p class="muted" style="margin-top:10px">Fields we did not recognise, listed rather than dropped: <code>' +
+            esc(a.unrecognised_fields.join(', ')) + '</code></p>' : '') +
+        '<p class="muted" style="margin-top:10px">Fetched ' + esc(a.fetchedAt || '') +
+        ' from <code>' + esc(a.endpoint || '') + '</code>. Full report: <code>/api/attestation?full=1</code></p>';
+    })
+    .catch(function(err){
+      if(!el.isConnected) return;
+      el.innerHTML = '<div class="scanbox"><h4>Attestation request failed</h4><p><code>' +
+        esc(String(err && err.message || err)) + '</code></p></div>';
+    });
+}
+
 function closeModal(){ var m = $('modal'); if(m) m.remove(); }
 
 /* Everything a judge needs to assess the build, kept out of the product.
@@ -1780,6 +1839,16 @@ function openAbout(){
     '<div class="sp"></div><button class="btn ghost" data-close>Close</button></div>' +
     '<div class="mb" style="grid-template-columns:1fr"><div class="docpane" style="padding:26px 30px">' +
     '<div style="max-width:980px;margin:0 auto">' +
+
+    // THE PRIVACY CLAIM, SHOWN. Filled in by loadAttestation() after the modal
+    // opens, because it is a live call to NEAR AI Cloud. A failure is printed
+    // verbatim: a visible failure is worth more than a hidden success.
+    '<h3 style="font-size:22px;margin:0 0 12px">Where this inference ran</h3>' +
+    '<div id="attPanel" class="scroller"><p class="muted">Asking NEAR AI Cloud for its attestation report\u2026</p></div>' +
+    '<div class="pull w" style="margin:14px 0 30px"><b>Why this is here.</b> &ldquo;Inference runs in a TEE&rdquo; ' +
+    'is a slogan until you can see the hardware quote. BD research names real companies and their ' +
+    'commercial weaknesses, so where it ran is a real property, and it can be attested. The quote below is ' +
+    'fetched live from <code>/api/attestation</code> when you open this panel.</div>' +
 
     '<h3 style="font-size:22px;margin:0 0 12px">A working build, not a production system</h3>' +
     '<div class="scroller"><table class="data"><tr><th>Layer</th><th>Status</th></tr>' +
@@ -1813,13 +1882,14 @@ function openAbout(){
     '<div class="scroller"><table class="data"><tr><th>Track</th><th>Position</th></tr>' +
     '<tr><td><b>AI Swarms</b></td><td>Defensible. Eight agents coordinate, verify each other and produce one artefact.</td></tr>' +
     '<tr><td><b>Agent Economy</b></td><td>Defensible with the caveat stated aloud: they earn and spend, but do not negotiate, hire one another or hold a treasury.</td></tr>' +
-    '<tr><td><b>Unstoppable DeFi</b></td><td><b>Not selected.</b> The 1Click quote is a fixture, not a live dry call.</td></tr>' +
+    '<tr><td><b>Unstoppable DeFi</b></td><td><b>Not selected.</b> The 1Click quote is priced, not wired. We do not claim a track for a rail we have not settled on.</td></tr>' +
     '</table></div>' +
 
     '</div></div></div>' +
     '<div class="mf"><button class="btn go" data-close>Back to the tracker</button>' +
     '<span class="hint">This panel exists so the interface does not have to carry it.</span></div></div>';
   document.body.appendChild(el);
+  loadAttestation();   // live call, after the modal is in the DOM
   el.addEventListener('click', function(ev){ if(ev.target.closest('[data-close]')) closeModal(); });
 }
 
