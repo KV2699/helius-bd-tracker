@@ -203,6 +203,31 @@ export function pageClaimsName(name, pageText, url) {
   return { ok: false };
 }
 
+/* ---- BUYER SEGMENT, FROM THE ROSTER TIER ------------------------------
+   The funnel cannot call anything an opportunity without a buyer segment, and
+   the first run after promotion showed why that mattered: 28 promoted accounts
+   had real product fit - BAM 59 on validator, BlockPI 59 on rpc, Chorus One 55
+   on vaas, Astralane 51 on shreds - and every one was parked in research
+   reading "no buyer segment is assigned".
+
+   The roster tier is already a classification of what kind of company it is,
+   and it is grounded: the discoverer had to quote the page verbatim and the
+   quote was checked in code. So the tier maps to a segment, and the mapping is
+   recorded with its basis rather than asserted.
+
+   'unclear' maps to nothing. A tier that says "the page does not say enough to
+   place it" must not be laundered into a buyer segment. */
+export const TIER_SEGMENT = {
+  trading:       'trader',          // desks, prop shops, market makers, prop AMMs
+  institutional: 'institutional',   // exchanges, custodians, DATs, ETF issuers
+  builder:       'defi',            // protocols, wallets and apps at scale
+  infra:         'infrastructure',  // validator operators, staking, bridges
+  data:          'infrastructure',  // explorers and indexers buy the same products
+  unclear:       null               // deliberately unplaced
+};
+
+export const segmentFor = tier => TIER_SEGMENT[tier] ?? null;
+
 /* The whole bridge, for one candidate. */
 export async function bridgeCandidate(c, { rosterCache, llama, onEvent = () => {} }) {
   const out = { name: c.name, tier: c.tier, roster: c.source_url,
@@ -390,7 +415,12 @@ export async function runBridge({ candidates, onEvent = () => {}, limit = 40 }) 
     // Ready to paste into icp.js. Emitted rather than written, because the
     // registry is hand-curated on purpose and a human should see what enters it.
     registryEntries: promoted.map(r => ({
-      name: r.name, aliases: [r.name], segment: null, rel: 'PROSPECT',
+      name: r.name, aliases: [r.name],
+      segment: segmentFor(r.tier),
+      segment_basis: segmentFor(r.tier)
+        ? `roster tier "${r.tier}", from a quote grounded against ${r.roster}`
+        : 'the roster did not say enough to place this company',
+      rel: 'PROSPECT',
       status: 'active', domain: r.domain,
       // Both flags travel with the account, so nothing downstream has to guess
       // which kind of "verified" it is looking at.

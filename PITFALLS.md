@@ -1694,3 +1694,42 @@ exactly as "verified account" had meant two different things one build earlier
 (Pitfall 83 and the two-flag rule). When a word carries a decision, it has to
 mean one thing everywhere, and the place it breaks is the seam between two
 components that were right on their own.
+
+## 91. The funnel could not place the accounts the bridge had just promoted
+
+With the whitelist fixed, the sweep read all 179 surfaces and produced 232 new
+pieces of evidence. The worklist stayed at **6 opportunities.**
+
+The promoted accounts arrived with `segment: null`, and an opportunity requires
+a plausible buyer segment, so 28 accounts with real, scored product fit sat in
+Research reading *"no buyer segment is assigned"* — including BAM at fit 59 on
+validator, BlockPI 59 on rpc, Chorus One 55 on vaas, and **Astralane at 51 on
+Shred Delivery**, which is a rank-4 product at $1,000/mo per IP.
+
+The classification already existed. The discoverer assigns a roster tier and
+has to quote the page verbatim to do it, with the quote checked in code — so
+the tier is grounded evidence about what kind of company it is, not a guess.
+`TIER_SEGMENT` maps it, and records the basis on the account rather than
+asserting it. `unclear` maps to **nothing**: a tier that says "the page does not
+say enough to place this" must not be laundered into a buyer segment.
+
+Opportunities: **6 → 25.** Seven validator, seven RPC, four Sender, two VaaS,
+two webhooks, one Shred Delivery, one historical, one Wallet API.
+
+## 92. A name carrying its own acronym walked past the competitor gate
+
+The moment those 25 appeared, **Amazon Web Services (AWS)** was among them — an
+RPC Nodes opportunity at fit 21, while being on the competitor list twice over,
+as "amazon web services" *and* "aws".
+
+`flat()` turns the name into `amazon web services aws`, which equals neither
+entry. Both halves were on the list and the whole was on neither. The gate now
+checks three forms — the name, the part before the bracket, and the bracketed
+acronym on its own — and `Mango Markets (MNGO)` still passes, so the fix did not
+simply start rejecting anything with a bracket.
+
+This is the third time a name-shape assumption has broken a gate in this
+project: `(AWS)` read as a ticker (Pitfall 84), `Fwog (FWOG)` needing the quote
+rather than the name (79), and now the acronym form defeating an exact match.
+Company names are not a clean data type, and every gate that matches one needs
+the forms enumerated rather than assumed.

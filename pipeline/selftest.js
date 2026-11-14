@@ -842,6 +842,36 @@ console.log('\n"Latest" means the newest window, not the newest file');
       .sort(byWindow).pop() === 'run-2026-10-29_to_2026-11-12-2026-11-13T20-39-15.json');
 }
 
+console.log('\nA name carrying its own acronym');
+{
+  const { sellerSideReason } = await import('./helius.js');
+  const { segmentFor, TIER_SEGMENT } = await import('./bridge.js');
+
+  // "Amazon Web Services (AWS)" flattens to "amazon web services aws", which
+  // matches neither half - so AWS walked into the worklist as an RPC Nodes
+  // opportunity at fit 21 while being on the competitor list twice over.
+  t('a competitor carrying its acronym is caught',
+    /competitor/.test(sellerSideReason('Amazon Web Services (AWS)') || ''));
+  t('the bare acronym is still caught',     !!sellerSideReason('AWS'));
+  t('the bare name is still caught',        !!sellerSideReason('Amazon Web Services'));
+  t('the seller carrying a suffix is caught',
+    /Helius itself/.test(sellerSideReason('Helius (RPC)') || ''));
+  t('a real company with a ticker is not excluded', sellerSideReason('Mango Markets (MNGO)') === null);
+  t('a cold firm is still allowed through', sellerSideReason('BisonFi') === null);
+
+  // The funnel cannot place anything without a buyer segment, so 28 promoted
+  // accounts with real product fit sat in research saying "no buyer segment".
+  t('a roster tier maps to a buyer segment', segmentFor('trading') === 'trader');
+  t('institutional maps across',            segmentFor('institutional') === 'institutional');
+  t('infra and data share a segment',       segmentFor('infra') === segmentFor('data'));
+  t('UNCLEAR is deliberately unplaced',     segmentFor('unclear') === null);
+  t('an unknown tier is unplaced',          segmentFor('nonsense') === null);
+  t('every mapped segment is a real funnel segment', await (async () => {
+    const { SEGMENTS } = await import('./funnel.js');
+    return Object.values(TIER_SEGMENT).every(v => v === null || v in SEGMENTS);
+  })());
+}
+
 console.log('\nA verified surface is readable by the scan');
 {
   const { whitelistEntry } = await import('./verify.js');

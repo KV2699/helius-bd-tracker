@@ -216,15 +216,30 @@ export const COMPETITORS = [
   'google', 'google cloud', 'amazon web services', 'aws', 'infstones'
 ];
 
-const flat = n => String(n || '').toLowerCase().replace(/[^a-z0-9. ]/g, '').trim();
+const flat = n => String(n || '').toLowerCase().replace(/[^a-z0-9. ]/g, '').replace(/\s+/g, ' ').trim();
+
+// A name may arrive carrying its own acronym - "Amazon Web Services (AWS)" -
+// and that defeated an exact match against either half: the flattened form is
+// "amazon web services aws", which is neither "amazon web services" nor "aws".
+// AWS then walked into the worklist as an RPC Nodes opportunity at fit 21,
+// while being on the competitor list twice over. So check the name, the part
+// before the bracket, and the bracketed acronym on its own.
+const nameForms = name => {
+  const raw = String(name || '').trim();
+  const m = /^(.+?)\s*\(([^)]{1,20})\)\s*$/.exec(raw);
+  const forms = [flat(raw)];
+  if (m) { forms.push(flat(m[1]), flat(m[2])); }
+  return forms.filter(Boolean);
+};
 
 // Why this name is on Helius's own side of the table, or null if it is not.
 // Checked BEFORE any prospect gate, because the worst outcome in this system
 // is cold-pitching a company that is already paying, partnered, or rival.
 export function sellerSideReason(name) {
-  const n = flat(name);
-  if (SELLER_NAMES.includes(n)) return 'this is Helius itself';
-  if (COMPETITORS.includes(n))  return 'competitor: sells Solana RPC, nodes or streaming data';
+  for (const n of nameForms(name)) {
+    if (SELLER_NAMES.includes(n)) return 'this is Helius itself';
+    if (COMPETITORS.includes(n))  return 'competitor: sells Solana RPC, nodes or streaming data';
+  }
   return null;
 }
 

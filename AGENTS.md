@@ -24,7 +24,7 @@ purchase intent. Expected output: `25 attacks · 25 blocked · 0 got in`.
 Then:
 
 ```bash
-node pipeline/selftest.js      # 546 assertions, 0 failures, no test framework
+node pipeline/selftest.js      # 566 assertions, 0 failures, no test framework
 ```
 
 ## The three claims worth auditing, and where to check each
@@ -39,7 +39,7 @@ node pipeline/selftest.js      # 546 assertions, 0 failures, no test framework
 
 Read `PROJECT-COMPLETE.md` §11 first — it lists what does not work, unprompted. Summary:
 
-- **Outreach-ready is 0, by design.** All six opportunities are blocked on *"no verified
+- **Outreach-ready is 0, by design.** All 25 opportunities are blocked on *"no verified
   contact"*, because the system will not guess an email address. The blocker is the output.
 - **NEAR Intents 1Click settlement is a fixture**, not a live quote. This is why the DeFi
   track is deliberately **not** claimed, despite being the easiest to claim.
@@ -56,7 +56,7 @@ Read `PROJECT-COMPLETE.md` §11 first — it lists what does not work, unprompte
 ```
 data/snapshot/discovery.json   158 companies found, 149 new to the registry, $0.0259
 data/snapshot/bridge.json      59 promoted, 39 surface-verified, 135 surfaces
-data/snapshot/funnel.json      6 opportunity · 40 research · 33 monitor · 19 disqualified
+data/snapshot/funnel.json      25 opportunity · 20 research · 33 monitor · 20 disqualified
 data/snapshot/scan.json        one 14-day scan: rows, rejections with reason codes, cost
 data/snapshot/batches.json     the 7-batch 90-day sweep timeline
 ```

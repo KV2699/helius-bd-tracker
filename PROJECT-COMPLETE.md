@@ -51,7 +51,7 @@ REGISTRY ACCOUNTS             88 accounts (29 hand-curated + 59 promoted)
 EVIDENCE (dated + standing)   every row carries a verbatim grounded quote
    │   funnel.js   ── 4 states, mandatory counter-rationale
    ▼
-WORKLIST                      6 opportunities · 40 research · 33 monitor · 19 disqualified
+WORKLIST                      25 opportunities · 20 research · 33 monitor · 20 disqualified
    │   outreach.js ── packet a HUMAN approves; no recipient ever invented
    ▼
 HUMAN sends it from their own mail client. There is no mail server in this project.
@@ -191,7 +191,7 @@ dropped evidence would have been worse than the waste it removed.
 
 ### Current worklist
 ```
-6 opportunities · 40 research tasks · 33 to monitor · 19 disqualified
+25 opportunities · 20 research tasks · 33 to monitor · 20 disqualified
 ```
 
 ## 8. Mistakes that shaped the design
@@ -257,7 +257,7 @@ node scan.js --from 2026-10-29 --to 2026-11-12 --budget 2
 node batches.js --batches 7 --days 14 --budget 1
 node funnel.js                                # evidence -> worklist
 node server.js                                # the interface, on :8742
-node pipeline/selftest.js                     # 546 assertions
+node pipeline/selftest.js                     # 566 assertions
 ```
 
 Every command is dependency-free Node (including the XLSX writer: zip + CRC32 + inline
@@ -265,7 +265,7 @@ strings). `npm install` is not required.
 
 ## 11. What does not work yet, stated plainly
 
-- **`outreach_ready` is 0 by design right now.** All six opportunities are blocked on *"No
+- **`outreach_ready` is 0 by design right now.** All 25 opportunities are blocked on *"No
   verified contact"*, because no named infrastructure owner has been verified at any cold
   account except Flint Labs (David Gorski, CTO, ex-Jito/Jump). The system will not guess
   an address, so the blocker is the correct output.
@@ -294,7 +294,7 @@ strings). `npm install` is not required.
 | `pipeline/verify.js` | Grounding and every rejection reason |
 | `pipeline/fetch.js` | Fetching, whitelist, `shardText` overlapping windows |
 | `pipeline/sources.js` | The source plan, registry-derived |
-| `pipeline/selftest.js` | 546 assertions, no test framework |
+| `pipeline/selftest.js` | 566 assertions, no test framework |
 | `PITFALLS.md` | 89 recorded mistakes and what each one changed |
 | `HELIUS-BD-FOR-DUMMIES.md` | The long-form plain-English guide |
 | `JUDGE-SCORECARD.md` | Self-assessment against the judging criteria |

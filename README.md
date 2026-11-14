@@ -1,6 +1,6 @@
 # Helius BD Tracker
 
-![tests](https://img.shields.io/badge/tests-546%20assertions-brightgreen)
+![tests](https://img.shields.io/badge/tests-566%20assertions-brightgreen)
 ![attacks](https://img.shields.io/badge/attacks-25%20blocked%20%C2%B7%200%20through-brightgreen)
 ![dependencies](https://img.shields.io/badge/dependencies-none-blue)
 ![inference](https://img.shields.io/badge/inference-NEAR%20AI%20Cloud-informational)
@@ -33,10 +33,10 @@ credit across 71 priced artefacts):
 | Registry | **88 accounts** — 29 hand-curated, 59 promoted by the bridge |
 | Discovery | **158 companies found, 149 new to the registry, for $0.026** |
 | Surfaces verified | **135**, each fetched and confirmed as published by that company |
-| Worklist | **6 opportunities · 40 research · 33 monitor · 19 disqualified** |
-| Tests | **546 assertions**, no test framework |
+| Worklist | **25 opportunities · 20 research · 33 monitor · 20 disqualified** |
+| Tests | **566 assertions**, plus 25 adversarial attacks, all blocked |
 
-Outreach-ready is **0 — by design.** All six opportunities are blocked on *"no verified
+Outreach-ready is **0 — by design.** All 25 opportunities are blocked on *"no verified
 contact"*, because the system will not guess an email address. The blocker is the correct
 output, not a gap.
 
@@ -50,9 +50,9 @@ install: no dependencies, no build step, no `npm install`.
 | Do this | See this |
 |---|---|
 | `node attack.js` | **25 attacks on the pipeline, all blocked.** Every way we know to get a fabricated lead through — an invented quote, a memecoin as a company, the seller on its own prospect list, a dead company, a guessed homepage, a news article filed as a company's blog, a guessed email address — each run against the real code with the verdict asserted. Fully offline. |
-| `node pipeline/selftest.js` | **546 assertions, 0 failures.** No test framework. |
+| `node pipeline/selftest.js` | **566 assertions, 0 failures.** No test framework. |
 | `node server.js` then open `http://localhost:8742` | The full interface, populated from a **committed snapshot of real runs** (`data/snapshot/`), so it works with no NEAR AI key. The page says whether it is showing live or snapshot data. |
-| `node -e "..."` on `data/snapshot/funnel.json` | The actual worklist: 6 opportunities, 40 research, 33 monitor, 19 disqualified, each with a grounded quote, a source URL and a mandatory counter-rationale. |
+| `node -e "..."` on `data/snapshot/funnel.json` | The actual worklist: 25 opportunities, 20 research, 33 monitor, 20 disqualified, each with a grounded quote, a source URL and a mandatory counter-rationale. |
 | Read `PROJECT-COMPLETE.md` | The whole project in one file — architecture, every rule, measured results, and what does not work yet. |
 | Read `PITFALLS.md` | 89 recorded mistakes and what each one changed. This is the real engineering record. |
 
