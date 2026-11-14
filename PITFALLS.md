@@ -1733,3 +1733,69 @@ project: `(AWS)` read as a ticker (Pitfall 84), `Fwog (FWOG)` needing the quote
 rather than the name (79), and now the acronym form defeating an exact match.
 Company names are not a clean data type, and every gate that matches one needs
 the forms enumerated rather than assumed.
+
+## 93. The grounding check accepted a paraphrase half the time
+
+This one was found by applying *The Evidence Gap*'s admissibility standard to
+this project's own detector, and it is the most serious defect in the record —
+because `quoteIsGrounded()` is the single function the entire claim rests on.
+
+The tolerance was written for TRUNCATION: *"the model dropped or added a
+trailing clause"*. But the implementation let the matching run float anywhere
+in the quote:
+
+```js
+for (let len = words.length; len >= Math.ceil(words.length * 0.7); len--)
+  for (let i = 0; i + len <= words.length; i++)
+    if (p.includes(words.slice(i, i + len).join(' '))) return true;
+```
+
+Change one word in the middle of a twenty-word sentence and the run on one side
+of it is still 70% of the words, so it passes. Measured on 86 paraphrases of
+real sentences **from the correct page** — `is` → `remains`, `each` → `every`,
+`transactions` → `transfers` — **48.8% were accepted as grounded.**
+
+A model that reworded instead of quoting was passing the check. Not a
+fabrication, not a wrong page: simply not quoting. The thing the project exists
+to prevent, at a coin-flip rate, invisible to 566 tests.
+
+**The discriminator is what the two cases do to the words.** A truncation only
+DROPS words that are on the page. A paraphrase INTRODUCES words that were never
+there. So every substantive word of the quote must appear somewhere in the page
+before the tolerance may apply:
+
+```js
+const pageWords = new Set(p.split(' '));
+if (words.some(w => w.length >= 3 && !pageWords.has(w))) return false;
+```
+
+| | before | after |
+|---|---:|---:|
+| real quotes kept (whitespace drift, dropped clause, smart quotes) | 100% | **100%** |
+| paraphrases accepted | 48.8% | **2.3%** |
+| other-page prose accepted | 0% | **0%** |
+
+Why 566 tests never caught it: every grounding test in the suite used either a
+verbatim quote or an outright fabrication. Nobody had written the case in
+between, which is the case a real model actually produces. The audit found it
+in its first honest run, because it was built to race the detector against
+things that *nearly* work rather than things that obviously do not.
+
+The lesson is the paper's own: a detector validated only on clear positives and
+clear negatives has not been shown to discriminate. Both numbers looked
+excellent while the detector did half the work.
+
+## 94. An evaluation set can be a tautology too
+
+The first version of `audit.js` scored 100% / 0% and I nearly shipped it as a
+result. It was meaningless: the positives were sentences lifted verbatim out of
+the page text, so a substring search could not fail them. The evaluation was
+tautological in exactly the way the paper's third detector is — *what it looks
+for and what counts as a chance to look are identical*.
+
+Fixing it meant roughening the positives into what a model actually emits
+(whitespace drift, dropped terminators, dropped clauses, smart quotes) and
+adding the adversarial negative family. The honest version immediately failed,
+which is how #93 was found.
+
+A perfect score on a test you designed is a fact about the test.

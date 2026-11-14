@@ -55,6 +55,15 @@ attack('A quote that is real but reworded',
     return { ok: !quoteIsGrounded(para, page), got: 'quoteIsGrounded() = false' };
   });
 
+attack('A paraphrase instead of a quote',
+  'Reword a real sentence from the RIGHT page - keep the meaning, change the words. 48.8% of these used to pass.',
+  'rejected: a substituted word was never on the page',
+  () => {
+    const page = 'They are paid a per-action reward by the protocol, and most need no capital beyond transaction fees.';
+    const para = 'They remain paid a per-action reward by the protocol, and most need no capital beyond transfers fees';
+    return { ok: !quoteIsGrounded(para, page), got: 'quoteIsGrounded() = false — "remain" and "transfers" are not in the page' };
+  });
+
 attack('A quote padded with an invented clause',
   'Take a real sentence and append a claim the page never made.',
   'rejected unless the contiguous run still matches',

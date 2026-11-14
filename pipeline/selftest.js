@@ -842,6 +842,34 @@ console.log('\n"Latest" means the newest window, not the newest file');
       .sort(byWindow).pop() === 'run-2026-10-29_to_2026-11-12-2026-11-13T20-39-15.json');
 }
 
+console.log('\nGrounding rejects a paraphrase, not just a fabrication');
+{
+  const { quoteIsGrounded } = await import('./verify.js');
+  const page = 'This section is for anyone running code that trades or maintains Velocity ' +
+               'without a person at the keyboard. They are paid a per-action reward by the ' +
+               'protocol, and most need no capital beyond transaction fees.';
+
+  // Found by applying the Evidence Gap audit to this function: 48.8% of
+  // paraphrases of real sentences from the RIGHT page were accepted, because
+  // the truncation tolerance let the matching run float past a substituted word.
+  t('a verbatim quote is grounded',
+    quoteIsGrounded('This section is for anyone running code that trades or maintains Velocity', page));
+  t('a paraphrase is NOT grounded',
+    !quoteIsGrounded('This section remains for anyone running code that trades or maintains Velocity', page));
+  t('one substituted word is enough to reject',
+    !quoteIsGrounded('They are paid a per-action reward by the protocol, and most need no capital beyond transfers fees', page));
+
+  // The tolerance still has to do its job: these are what a model really emits.
+  t('whitespace drift is still grounded',
+    quoteIsGrounded('This  section  is  for  anyone  running  code  that  trades  or  maintains  Velocity', page));
+  t('a dropped terminator is still grounded',
+    quoteIsGrounded('They are paid a per-action reward by the protocol', page));
+  t('a dropped trailing clause is still grounded',
+    quoteIsGrounded('They are paid a per-action reward by the protocol, and most need no capital', page));
+  t('an outright fabrication is still rejected',
+    !quoteIsGrounded('Velocity told us their transaction landing is failing badly under load', page));
+}
+
 console.log('\nA name carrying its own acronym');
 {
   const { sellerSideReason } = await import('./helius.js');

@@ -94,6 +94,10 @@ proving where your inference ran.
 
 Scoring and the gate are plain code. A model never produces a number here.
 
+Then I ran my own audit standard against my own detector. It failed: the grounding check
+was accepting 48.8% of paraphrases — a model that reworded instead of quoting was passing.
+566 tests never caught it. Fixed, measured, written up as pitfall #93.
+
 I spent October auditing collusion detectors with @ApartResearch. Two of six couldn't beat
 a crowd of deliberately meaningless rivals. The rule we learned four times: make the
 detector emit the quote, and read the quote.

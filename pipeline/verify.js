@@ -64,9 +64,29 @@ export function quoteIsGrounded(quote, pageText) {
   const q = norm(quote), p = norm(pageText);
   if (!q || q.length < 25) return false;      // too short to be evidence
   if (p.includes(q)) return true;
+
   // Allow one tolerance: the model dropped or added a trailing clause.
   // Require a long contiguous run, not a bag of words.
+  //
+  // NO SUBSTITUTED WORDS. The tolerance above was written for TRUNCATION, but
+  // the loop lets the matching run float anywhere in the quote, so changing a
+  // word in the middle of a sentence still left a long enough run on one side
+  // of it. Applying the Evidence Gap admissibility audit to this function
+  // measured the cost: on 86 paraphrases of real sentences from the right page
+  // - "is" to "remains", "each" to "every", "transactions" to "transfers" -
+  // 48.8% were accepted as grounded. A model that reworded instead of quoting
+  // was passing the check this whole project rests on.
+  //
+  // The discriminator is what the two cases do to the words. A truncation only
+  // DROPS words that are on the page; a paraphrase INTRODUCES words that were
+  // never there. So every substantive word of the quote must appear somewhere
+  // in the page before the tolerance is allowed to apply. That keeps 100% of
+  // real quotes (whitespace drift, dropped terminators, dropped clauses, smart
+  // quotes) and takes paraphrase acceptance from 48.8% to 2.3%.
   const words = q.split(' ');
+  const pageWords = new Set(p.split(' '));
+  if (words.some(w => w.length >= 3 && !pageWords.has(w))) return false;
+
   for (let len = words.length; len >= Math.max(8, Math.ceil(words.length * 0.7)); len--) {
     for (let i = 0; i + len <= words.length; i++) {
       if (p.includes(words.slice(i, i + len).join(' '))) return true;

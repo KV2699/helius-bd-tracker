@@ -34,6 +34,21 @@ quotes the fetched page verbatim and is **paid**; one invents a quote that would
 paying for and is **refunded against**. The arbiter is the verifier, and it calls no model
 — the decision is a string search in a page we fetched.
 
+## The audit that found a real defect
+
+```bash
+node audit.js      # offline, no key, 11 frozen pages
+```
+
+This applies *The Evidence Gap*'s admissibility standard to this project's own detector.
+It is the most interesting thing in the repository, because **it failed us**: the grounding
+check was accepting **48.8% of paraphrases** of real sentences from the correct page. 566
+tests never caught it — they all used either a verbatim quote or an obvious fabrication,
+never the case in between, which is the one a real model produces.
+
+If you are checking whether this project's self-criticism is genuine, that is the thing to
+verify: `PITFALLS.md` #93 and #94, and the before/after numbers in the audit output.
+
 ## The research this implements
 
 `README.md` §"Why this architecture" maps it in full. The short version: *The Evidence Gap*
@@ -83,9 +98,9 @@ are fetched from NEAR AI's `/models` endpoint at run time, so the ledger is meas
 
 ## The engineering record
 
-`PITFALLS.md` has 89 entries. Each is a mistake that was actually made, what it cost, and
+`PITFALLS.md` has 94 entries. Each is a mistake that was actually made, what it cost, and
 what changed because of it. If you want to judge the quality of the thinking rather than
-the quality of the prose, read entries 79–89 — they are from the final two days and include
+the quality of the prose, read entries 79–94 — they are from the final two days and include
 two bugs introduced by the fix for an earlier bug.
 
 Notable ones:

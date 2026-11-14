@@ -108,10 +108,49 @@ there**. Four findings from that research map onto four mechanisms here:
 | **Naming is not judging.** Monitors named a planted breach 14/14 times and flagged it only 10/14. *"I can see it, but I can't say it's a breach."* | Every row is forced to a verdict — opportunity, research, monitor, disqualified — and carries a **mandatory counter-rationale**, the stated reason it might not qualify, which can veto the verdict. |
 | **Negative controls.** A detector that fires every time it can is a tautology, and you only find out by racing it against nonsense. | The rejection log is the negative control: 2,275 candidates refused, each with a reason code. `node attack.js` races the pipeline against 25 deliberate fabrications and all 25 are blocked. A system that returned "opportunity" for everything would be that tautology. |
 
-The research also audited itself: *"Applying it to our own prior work forced six corrections
-and withdrew two headline figures."* `PITFALLS.md` is the same practice — **92 entries**,
-including two bugs introduced by the fix for an earlier bug, and one case where a pass
-printed a clean zero that was actually a defect.
+### We ran the audit on ourselves, and it failed us
+
+The paper proposes what to ask before a detector's output counts as evidence: a free check
+first — *if the rule fires whenever it could fire, stop there* — then five things. So the
+standard was applied to this project's own detector, on a frozen corpus of 11 real pages,
+offline:
+
+```bash
+node audit.js
+```
+
+**It found a real defect on its first honest run.** The grounding check was accepting
+**48.8% of paraphrases** of real sentences from the *correct* page — `is` → `remains`,
+`each` → `every`, `transactions` → `transfers`. The truncation tolerance let the matching
+run float past a substituted word, so a model that *reworded instead of quoting* passed the
+check this entire project rests on. Not a fabrication. Simply not quoting. **566 tests
+never caught it**, because every grounding test used either a verbatim quote or an obvious
+fabrication — nobody had written the case in between, which is the case a real model
+produces.
+
+Fixed by requiring every substantive word to be on the page before the tolerance applies.
+Real quotes kept: 100%. Paraphrases accepted: 48.8% → **2.3%**. It is `PITFALLS.md` #93.
+
+The audit now reports:
+
+| Criterion | Result |
+|---|---|
+| **Free check** — does it fire whenever it could? | Fires on 39.8% of opportunities. Not a tautology. |
+| **1. Opportunity denominator, stated** | n=402 pairs. Reported with its sensitivity: the rate moves **6×** across defensible denominators, and two indefensible ones are named as such. |
+| **2. Quiet cases from elsewhere** | 158 real sentences from *other* pages (0.0% fire) plus 86 paraphrases from the *right* page (2.3% fire). |
+| **3. Ranked against nonsense** | **1st of 47** rivals tuned to its own firing rate. *(The paper's worst case ranked 65th of 100.)* |
+| **4. Luck-adjusted disparity** | 99.2% raw, best rate-matched coin 10.1%, **89.1% survives subtraction.** |
+| **5. Shape-preserving rivals** | Five rivals that keep the search and change the string — reversed, shuffled, fixed phrase, wrong page — all collapse. The meaning is in *which* string in *which* page. |
+
+And what it does **not** establish, printed in its own output: that a grounded quote means
+a company needs anything. One corpus, one domain of discourse, 11 pages. A second
+independent population is the obvious next test and has not been run.
+
+The research audited itself too: *"Applying it to our own prior work forced six corrections
+and withdrew two headline figures."* `PITFALLS.md` is the same practice — **94 entries**,
+including two bugs introduced by the fix for an earlier bug, one case where a pass printed
+a clean zero that was actually a defect, and #94: an evaluation set that scored 100% and
+meant nothing.
 
 ---
 
@@ -122,6 +161,8 @@ install: no dependencies, no build step, no `npm install`.
 
 | Do this | See this |
 |---|---|
+| `node audit.js` | **The Evidence Gap admissibility audit, run on our own detector.** Free check, opportunity denominator with sensitivity, independent and adversarial negative families, a ranking against 46 nonsense rivals, luck-adjusted disparity, and shape-preserving nulls. Offline. It found a real defect — see below. |
+| `node pipeline/selftest-market.js --live` | The arbitration layer: two workers answer one research bounty. The one who quotes the page verbatim is **paid**; the one who invents a quote is **refunded against**. |
 | `node attack.js` | **25 attacks on the pipeline, all blocked.** Every way we know to get a fabricated lead through — an invented quote, a memecoin as a company, the seller on its own prospect list, a dead company, a guessed homepage, a news article filed as a company's blog, a guessed email address — each run against the real code with the verdict asserted. Fully offline. |
 | `node pipeline/selftest.js` | **566 assertions, 0 failures.** No test framework. |
 | `node server.js` then open `http://localhost:8742` | The full interface, populated from a **committed snapshot of real runs** (`data/snapshot/`), so it works with no NEAR AI key. The page says whether it is showing live or snapshot data. |

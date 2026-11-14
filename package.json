@@ -28,6 +28,7 @@
     "batches": "node --env-file-if-exists=.env batches.js",
     "selftest:market": "node pipeline/selftest-market.js",
     "selftest:market:live": "node pipeline/selftest-market.js --live",
-    "attack": "node attack.js"
+    "attack": "node attack.js",
+    "audit": "node audit.js"
   }
 }
