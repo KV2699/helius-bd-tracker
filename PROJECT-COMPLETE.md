@@ -257,7 +257,7 @@ node scan.js --from 2026-10-29 --to 2026-11-12 --budget 2
 node batches.js --batches 7 --days 14 --budget 1
 node funnel.js                                # evidence -> worklist
 node server.js                                # the interface, on :8742
-node pipeline/selftest.js                     # 566 assertions
+node pipeline/selftest.js                     # 573 assertions
 ```
 
 Every command is dependency-free Node (including the XLSX writer: zip + CRC32 + inline
@@ -299,7 +299,7 @@ strings). `npm install` is not required.
 | `pipeline/verify.js` | Grounding and every rejection reason |
 | `pipeline/fetch.js` | Fetching, whitelist, `shardText` overlapping windows |
 | `pipeline/sources.js` | The source plan, registry-derived |
-| `pipeline/selftest.js` | 566 assertions, no test framework |
+| `pipeline/selftest.js` | 573 assertions, no test framework |
 | `PITFALLS.md` | 89 recorded mistakes and what each one changed |
 | `HELIUS-BD-FOR-DUMMIES.md` | The long-form plain-English guide |
 | `JUDGE-SCORECARD.md` | Self-assessment against the judging criteria |

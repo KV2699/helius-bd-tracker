@@ -1,7 +1,7 @@
 # Helius BD Tracker
 
-![tests](https://img.shields.io/badge/tests-566%20assertions-brightgreen)
-![attacks](https://img.shields.io/badge/attacks-25%20blocked%20%C2%B7%200%20through-brightgreen)
+![tests](https://img.shields.io/badge/tests-573%20assertions-brightgreen)
+![attacks](https://img.shields.io/badge/attacks-26%20blocked%20%C2%B7%200%20through-brightgreen)
 ![dependencies](https://img.shields.io/badge/dependencies-none-blue)
 ![inference](https://img.shields.io/badge/inference-NEAR%20AI%20Cloud-informational)
 
@@ -34,7 +34,7 @@ credit across 71 priced artefacts):
 | Discovery | **158 companies found, 149 new to the registry, for $0.026** |
 | Surfaces verified | **135**, each fetched and confirmed as published by that company |
 | Worklist | **25 opportunities · 20 research · 33 monitor · 20 disqualified** |
-| Tests | **566 assertions**, plus 25 adversarial attacks, all blocked |
+| Tests | **573 assertions**, plus 25 adversarial attacks, all blocked |
 
 Outreach-ready is **0 — by design.** All 25 opportunities are blocked on *"no verified
 contact"*, because the system will not guess an email address. The blocker is the correct
@@ -153,7 +153,7 @@ there**. Four findings from that research map onto four mechanisms here:
 | **The substring trap.** `"tie"` matched inside *"parties"*, *"tier"* and *"patient"*. No tie existed — a word-boundary bug. | Word boundaries on every term match. We hit the identical bug three times: `/send/` matches "**Send**er", which is a product name here. It is Pitfall 79, and twice more since. |
 | **The write channel is a read channel.** 30 of 48 crossings flowed through `cache_put`, invisible to detectors watching `get`. | The risky channel is the model's *write* — the structured JSON it emits — not the page it read. So the emitted quote is grounded against the fetched page, and a separate check asks whether the quote supports the claim (`CLAIM_NOT_SUPPORTED`). |
 | **Naming is not judging.** Monitors named a planted breach 14/14 times and flagged it only 10/14. *"I can see it, but I can't say it's a breach."* | Every row is forced to a verdict — opportunity, research, monitor, disqualified — and carries a **mandatory counter-rationale**, the stated reason it might not qualify, which can veto the verdict. |
-| **Negative controls.** A detector that fires every time it can is a tautology, and you only find out by racing it against nonsense. | The rejection log is the negative control: 2,275 candidates refused, each with a reason code. `node attack.js` races the pipeline against 25 deliberate fabrications and all 25 are blocked. A system that returned "opportunity" for everything would be that tautology. |
+| **Negative controls.** A detector that fires every time it can is a tautology, and you only find out by racing it against nonsense. | The rejection log is the negative control: 2,275 candidates refused, each with a reason code. `node attack.js` races the pipeline against 26 deliberate fabrications and all 25 are blocked. A system that returned "opportunity" for everything would be that tautology. |
 
 ### We ran the audit on ourselves, and it failed us
 
@@ -170,7 +170,7 @@ node audit.js
 **48.8% of paraphrases** of real sentences from the *correct* page — `is` → `remains`,
 `each` → `every`, `transactions` → `transfers`. The truncation tolerance let the matching
 run float past a substituted word, so a model that *reworded instead of quoting* passed the
-check this entire project rests on. Not a fabrication. Simply not quoting. **566 tests
+check this entire project rests on. Not a fabrication. Simply not quoting. **573 tests
 never caught it**, because every grounding test used either a verbatim quote or an obvious
 fabrication — nobody had written the case in between, which is the case a real model
 produces.
@@ -201,6 +201,47 @@ meant nothing.
 
 ---
 
+
+## Honest limits
+
+- **The arbiter is a single trusted key.** This is **verifier-arbitrated**, not trustless.
+  The contract enforces *who* may settle; it cannot itself check a quote against a page.
+  What makes the verdict checkable is that the page is archived and the check is a string
+  search — `node verify-verdict.js` recomputes every verdict offline.
+- **Both settlement paths work, but only REFUND is on chain so far.** The RELEASE path runs
+  offline in `node market-round.js`; putting it on testnet needs a signature and is the
+  next transaction. `docs/TESTNET_RUN.md` records what is actually on chain.
+- **The escrow was deployed on 2026-11-14**, testnet only, with faucet funds. No real value.
+- **The NEAR Intents 1Click quote is a dry quote** — priced, never settled on.
+- **The attestation is fetched and displayed, not verified.** We show what the endpoint
+  reports: signing address, a 10,012-character Intel TDX quote, TCB measurements. We do not
+  independently verify that quote, and no GPU payload is present in the response.
+- **A grounded quote is not evidence of need.** It means the claim is real, not that the
+  company wants anything. Every row carries a counter-rationale saying so.
+- **Workers in the bounty round are scripted**, run by me. There is no bidding and no open
+  market — one buyer, one arbiter, deliveries judged on their quotes.
+- **This is an independent project, not affiliated with Helius.** Every Helius product
+  fact is taken from their own published pages, with the basis recorded per entry.
+
+## Judge in 30 seconds
+
+```bash
+node judge.js
+```
+
+Six offline checks, one summary, one exit code. No key, no network, no install.
+
+```
+Unit assertions       ok    573 passed, 0 failed
+Settlement policy     ok    29 passed, 0 failed
+Adversarial attacks   ok    26 attacks · 26 blocked · 0 got in
+Admissibility audit   ok    All criteria met
+Bounty round          ok    1 paid · 1 refunded
+Verdict replay        ok    0 differ
+```
+
+---
+
 ## Judge quick start — no key, no install, no network
 
 Every command below runs **offline** on a fresh clone with Node 20+. There is nothing to
@@ -210,8 +251,8 @@ install: no dependencies, no build step, no `npm install`.
 |---|---|
 | `node audit.js` | **The Evidence Gap admissibility audit, run on our own detector.** Free check, opportunity denominator with sensitivity, independent and adversarial negative families, a ranking against 46 nonsense rivals, luck-adjusted disparity, and shape-preserving nulls. Offline. It found a real defect — see below. |
 | `node pipeline/selftest-market.js --live` | The arbitration layer: two workers answer one research bounty. The one who quotes the page verbatim is **paid**; the one who invents a quote is **refunded against**. |
-| `node attack.js` | **25 attacks on the pipeline, all blocked.** Every way we know to get a fabricated lead through — an invented quote, a memecoin as a company, the seller on its own prospect list, a dead company, a guessed homepage, a news article filed as a company's blog, a guessed email address — each run against the real code with the verdict asserted. Fully offline. |
-| `node pipeline/selftest.js` | **566 assertions, 0 failures.** No test framework. |
+| `node attack.js` | **26 attacks on the pipeline, all blocked.** Every way we know to get a fabricated lead through — an invented quote, a memecoin as a company, the seller on its own prospect list, a dead company, a guessed homepage, a news article filed as a company's blog, a guessed email address — each run against the real code with the verdict asserted. Fully offline. |
+| `node pipeline/selftest.js` | **573 assertions, 0 failures.** No test framework. |
 | `node server.js` then open `http://localhost:8742` | The full interface, populated from a **committed snapshot of real runs** (`data/snapshot/`), so it works with no NEAR AI key. The page says whether it is showing live or snapshot data. |
 | `node -e "..."` on `data/snapshot/funnel.json` | The actual worklist: 25 opportunities, 20 research, 33 monitor, 20 disqualified, each with a grounded quote, a source URL and a mandatory counter-rationale. |
 | Read `PROJECT-COMPLETE.md` | The whole project in one file — architecture, every rule, measured results, and what does not work yet. |
@@ -250,7 +291,7 @@ npm run serve          # http://localhost:8742  ->  press "Run scan"
 
 | Do this | See this |
 |---|---|
-| `node pipeline/selftest.js` | 27 assertions proving the guards work. Costs nothing, needs no key. |
+| `node pipeline/selftest.js` | 573 assertions proving the guards work. Costs nothing, needs no key. |
 | `node scan.js --days 90` *without* a key | The run **aborts** with an instruction. It does not fall back to another model, and it does not invent rows. |
 | `node scan.js --days 90` *with* a key | A real run: pages fetched, candidates extracted, rejections logged with reason codes, a JSON run file written to `data/runs/`. |
 | `npm run serve`, open the page, press **Run scan** | The eight agents run live; the 3D office animates against real stage events; the queue is replaced by verified rows. |
@@ -265,7 +306,7 @@ NEAR is not a payment sticker on this project. It is where the intelligence runs
 | | |
 |---|---|
 | **Inference** | Every model call goes to `https://cloud-api.near.ai/v1`. Five of the eight agents call it. There is no OpenAI, Anthropic or local model anywhere in the code. |
-| **Why that matters** | NEAR AI Cloud is TEE-verifiable inference (Intel TDX + NVIDIA GPU TEE). A BD pipeline reads commercially sensitive research about named companies; running it on attestable private inference is a real property, not a marketing line. |
+| **Why that matters** | Inference runs on NEAR AI Cloud, which is TEE-backed. The endpoint's attestation is **fetched and displayed** in About this build — signing address, a 10,012-character Intel TDX quote, TCB measurements. **The quote is not independently verified by this project, and no GPU payload is present in the response.** A BD pipeline reads commercially sensitive research about named companies, so where it ran is a real property; we show what the endpoint reports, and say exactly how far that goes. |
 | **Cost** | Metered from the API's own `usage` numbers, never estimated. A budget cap aborts the run before it can overspend a $10 grant. |
 | **Settlement** | NEAR Intents 1Click `dry: true` quote. **Priced, not wired** — the rail a research bounty market would settle on. See *Honest limits*. |
 | **Settled** | The escrow contract is **deployed and exercised on NEAR testnet**: [`helius-escrow-81631.testnet`](https://testnet.nearblocks.io/address/helius-escrow-81631.testnet). A worker's attempt to settle in its own favour was reverted on chain; the arbiter refunded the buyer. Every transaction is linked in [`docs/TESTNET_RUN.md`](docs/TESTNET_RUN.md). |
@@ -387,7 +428,7 @@ Read this before judging the NEAR integration.
 | Layer | Status |
 |---|---|
 | NEAR AI inference | **Real.** Every model call, metered from the API's own usage. |
-| Code verification, reason codes, rubric, caps | **Real.** 27 assertions in `pipeline/selftest.js`. |
+| Code verification, reason codes, rubric, caps | **Real.** 573 assertions in `pipeline/selftest.js`. |
 | Source fetching | **Real HTTP** to a fixed whitelist. No URL is ever constructed by a model. |
 | The ten rows shipped in the page | **Demo dataset.** Hand-entered, labelled in the UI, replaced wholesale by a live run. Never merged. |
 | NEAR Intents 1Click quote | **Priced, not wired.** The route is costed; nothing settles on it yet. The policy that would decide settlement is tested code. |
@@ -412,7 +453,7 @@ pipeline/
   verify.js             grounding, dates, entities, duplicates - all code
   score.js              rubric and caps - the single source of truth
   run.js                the six-stage orchestrator
-  selftest.js           27 assertions, no key needed
+  selftest.js           573 assertions, no key needed
 data/runs/              run output, one JSON per scan
 ```
 

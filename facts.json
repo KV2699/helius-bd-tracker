@@ -1,0 +1,30 @@
+{
+  "generated": "2026-11-14T21:38:00Z",
+  "rule": "Every figure in any doc must come from a command run this session.",
+  "facts": [
+    { "key": "assertions", "value": 573, "command": "node pipeline/selftest.js", "output": "573 passed, 0 failed" },
+    { "key": "market_assertions", "value": 29, "command": "node pipeline/selftest-market.js", "output": "29 passed, 0 failed" },
+    { "key": "attacks", "value": 26, "command": "node attack.js", "output": "26 attacks · 26 blocked · 0 got in" },
+    { "key": "attacks_blocked", "value": 26, "command": "node attack.js", "output": "26 blocked" },
+    { "key": "nonsense_rivals", "value": 46, "command": "node audit.js", "output": "beats every one of its 46 rivals; ranks 1 of 47 detectors" },
+    { "key": "detector_rank", "value": "1 of 47", "command": "node audit.js", "output": "quoteIsGrounded ranks 1 of 47." },
+    { "key": "paraphrase_before", "value": "48.8%", "command": "node audit.js", "output": "accepted at 48.8% before this audit was written" },
+    { "key": "paraphrase_after", "value": "2.3%", "command": "node audit.js", "output": "paraphrase acceptance 2.3%" },
+    { "key": "luck_adjusted_separation", "value": "89.1%", "command": "node audit.js", "output": "luck-adjusted separation 89.1%" },
+    { "key": "worklist_rows", "value": 98, "command": "node -e read data/snapshot/funnel.json", "output": "98 rows" },
+    { "key": "opportunities", "value": 25, "command": "node -e read data/snapshot/funnel.json", "output": "opportunity 25, research 20, monitor 33, disqualified 20" },
+    { "key": "registry_accounts", "value": 88, "command": "node -e import pipeline/icp.js", "output": "88 accounts (29 hand-curated + 59 promoted)" },
+    { "key": "model_calling_agents", "value": 7, "command": "node -e Object.keys(AGENTS)", "output": "collector, verifier, monitor, discovery, enricher, writer, discoverer" },
+    { "key": "verdict_vocabulary", "value": ["opportunity","research","monitor","disqualified"], "command": "node -e read data/snapshot/funnel.json", "output": "the four states the code emits" },
+    { "key": "escrow_contract", "value": "helius-escrow-81631.testnet", "command": "near contract deploy", "output": "deployed 2026-11-14, REFUND path settled" },
+    { "key": "intel_tdx_quote_chars", "value": 10012, "command": "curl /api/attestation", "output": "intel_quote present, 10012 chars" }
+  ],
+  "corrections": [
+    "98 is worklist ROWS, not accounts. Accounts are 88.",
+    "7 agents call a model, not 8 or 5. The scorer, gate and veto are code.",
+    "26 attacks, not 25.",
+    "573 assertions, not 566.",
+    "46 rivals, ranked 1 of 47 detectors.",
+    "The attestation is FETCHED AND DISPLAYED. The quote is not independently verified, and no GPU payload is present."
+  ]
+}

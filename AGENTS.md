@@ -13,19 +13,19 @@ The project claims it cannot be made to fabricate a lead. Test that claim direct
 node attack.js
 ```
 
-25 attacks, each run against the real code paths, each with an asserted verdict:
+26 attacks, each run against the real code paths, each with an asserted verdict:
 fabricated quotes, paraphrased quotes, memecoins as companies, tickers as company names,
 chains as companies, the seller on its own prospect list, competitors, existing customers,
 dead companies, somebody else's shutdown attributed to our account, a guessed homepage, a
 news article filed as a company's own blog, a directory's GitHub filed as a company's repo,
 a guessed email address, an unverified contact, suppressed counter-rationale, and claimed
-purchase intent. Expected output: `25 attacks · 25 blocked · 0 got in`.
+purchase intent. Expected output: `26 attacks · 25 blocked · 0 got in`.
 
 Then:
 
 ```bash
-node pipeline/selftest.js             # 566 assertions, 0 failures, no test framework
-node pipeline/selftest-market.js      # 29 assertions on the settlement policy
+node pipeline/selftest.js             # 573 assertions, 0 failures, no test framework
+node pipeline/selftest-market.js      # 29 settlement-policy checks
 node pipeline/selftest-market.js --live   # fetches a real page, settles twice
 ```
 
