@@ -842,6 +842,35 @@ console.log('\n"Latest" means the newest window, not the newest file');
       .sort(byWindow).pop() === 'run-2026-10-29_to_2026-11-12-2026-11-13T20-39-15.json');
 }
 
+console.log('\nA verified surface is readable by the scan');
+{
+  const { whitelistEntry } = await import('./verify.js');
+  const { BRIDGE_VERIFIED_HOSTS } = await import('./config.js');
+
+  // The two halves of the system could not talk to each other: the 90-day
+  // sweep planned 179 surfaces and refused 125 as SOURCE_NOT_WHITELISTED -
+  // every surface of all 59 bridge-promoted accounts. The bridge verified them
+  // with skipWhitelist and the scan then refused to read them.
+  t('bridge-verified hosts are collected', BRIDGE_VERIFIED_HOSTS.length > 0);
+  t('a bridge-verified surface is readable',
+    whitelistEntry('https://basis.markets/')?.type === 'bridge_verified');
+  t('its subdomains are readable too',
+    !!whitelistEntry('https://astralane.gitbook.io/docs/low-latency/quickstart'));
+  t('each one records who it was verified for',
+    !!whitelistEntry('https://basis.markets/')?.verified_for);
+
+  // Same for a HAND-verified registry surface: trusted enough to plan a run
+  // around, and previously not trusted enough to read.
+  t('a registry-verified surface is readable',
+    whitelistEntry('https://sanctum.so/blog')?.type === 'registry_verified');
+  t('the hand-written whitelist still wins',
+    whitelistEntry('https://docs.velocity.exchange/x')?.type === 'docs');
+
+  // And nothing else got in.
+  t('an unknown host is still refused',  whitelistEntry('https://evil-example.test/x') === null);
+  t('a random subdomain is still refused', whitelistEntry('https://not-basis.markets.evil.test/x') === null);
+}
+
 console.log('\nVerification is two flags, not one gate');
 {
   const { placeInFunnel, STATE } = await import('./funnel.js');

@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 // NEAR AI Cloud is the only inference path. There is no local fallback and no
 // Claude call anywhere in this pipeline - if the key is absent the run aborts.
 export const NEAR = {
@@ -174,6 +175,43 @@ export const isTokenListing = name =>
 // / Operational". The entity name alone looks like a company ("Grass",
 // "Frontier Stable Token"), so the name test cannot catch it - but the quote
 // always puts a ticker directly after the name. Test the evidence, not the name.
+/* ---- BRIDGE-VERIFIED SURFACES -----------------------------------------
+   The whitelist governs PROVENANCE: it is the list of hosts a piece of
+   evidence may come from. Every entry above was fetched and confirmed by hand.
+
+   The bridge does exactly that job automatically, and more strictly than a
+   hand-check: before it records a surface it confirms the page fetches, that
+   the company PUBLISHES it (its own registrable domain, or a docs/GitHub space
+   carrying its name), and that the page NAMES the company. A surface that has
+   passed all three is, by definition, a first-party source.
+
+   Without this, the bridge's output was locked out of the pipeline entirely:
+   the 90-day sweep planned 179 surfaces and rejected 125 of them as
+   SOURCE_NOT_WHITELISTED - every single surface of all 59 promoted accounts,
+   including save.finance, sanctum.so, loopscale.com, astralane.io and
+   basis.markets. The bridge verified them with skipWhitelist, the scan refused
+   them, and the two halves of the system could not talk to each other.
+
+   Only hosts carrying a surface marked status:'verified' are admitted, and each
+   records the account it was verified for, so provenance is still traceable. */
+export const BRIDGE_VERIFIED_HOSTS = (() => {
+  try {
+    const added = JSON.parse(readFileSync('data/registry-additions.json', 'utf8'));
+    const out = new Map();
+    for (const a of (added.accounts || [])) {
+      if (!a.surface_verified) continue;
+      for (const sf of (a.surfaces || [])) {
+        if (!sf.url || sf.status !== 'verified') continue;
+        let h; try { h = new URL(sf.url).hostname.replace(/^www\./, ''); } catch { continue; }
+        if (!out.has(h))
+          out.set(h, { host: h, tier: 1, type: 'bridge_verified',
+                       verified_for: a.name, basis: 'fetched, published by them, and names them' });
+      }
+    }
+    return [...out.values()];
+  } catch { return []; }
+})();
+
 export const isAssetListingQuote = (entity, quote) => {
   const name = String(entity || '').trim();
   const text = String(quote || '');

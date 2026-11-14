@@ -1,7 +1,8 @@
 // Verification is CODE, not a model opinion. A candidate the model invented
 // cannot survive this file, because the quote must appear character-for-character
 // in text we fetched ourselves.
-import { SOURCE_WHITELIST, BLOCKED_ALIASES, REASON, isGenericEntity, isTokenListing, isAssetListingQuote, OTHER_CHAIN_ENTITY } from './config.js';
+import { ICP } from './icp.js';
+import { SOURCE_WHITELIST, BRIDGE_VERIFIED_HOSTS, BLOCKED_ALIASES, REASON, isGenericEntity, isTokenListing, isAssetListingQuote, OTHER_CHAIN_ENTITY } from './config.js';
 
 const norm = s => String(s || '')
   .replace(/[‘’]/g, "'")
@@ -18,7 +19,43 @@ export function hostOf(url) {
 export function whitelistEntry(url) {
   const h = hostOf(url);
   if (!h) return null;
-  return SOURCE_WHITELIST.find(w => h === w.host || h.endsWith('.' + w.host)) || null;
+  const hit = SOURCE_WHITELIST.find(w => h === w.host || h.endsWith('.' + w.host));
+  if (hit) return hit;
+  // A surface the bridge verified is a first-party source by construction: it
+  // fetched, the company publishes it, and the page names the company. Without
+  // this the scan refused every surface the bridge had just verified.
+  const bridged = BRIDGE_VERIFIED_HOSTS.find(w => h === w.host || h.endsWith('.' + w.host));
+  if (bridged) return bridged;
+  // And the same for a HAND-VERIFIED registry surface. The registry's rule is
+  // that a surface appears there only if it was fetched and confirmed, so
+  // sanctum.so and loopscale.com were being refused by the scan while sitting
+  // in icp.js marked status:'verified' - the surface was trusted enough to
+  // plan a run around and not trusted enough to read.
+  return registryHost(h);
+}
+
+
+/* Hosts of registry surfaces already marked verified. Built once, lazily, so
+   config.js and icp.js never have to import each other. */
+let REGISTRY_HOSTS = null;
+function registryHost(h) {
+  if (REGISTRY_HOSTS === null) {
+    REGISTRY_HOSTS = new Map();
+    try {
+      for (const a of ICP) {
+        for (const sf of (a.surfaces || [])) {
+          if (!sf.url || (sf.status && sf.status !== 'verified')) continue;
+          let host; try { host = new URL(sf.url).hostname.replace(/^www\./, ''); } catch { continue; }
+          if (!REGISTRY_HOSTS.has(host))
+            REGISTRY_HOSTS.set(host, { host, tier: 1, type: 'registry_verified',
+                                       verified_for: a.name, basis: 'verified registry surface' });
+        }
+      }
+    } catch {}
+  }
+  for (const [host, entry] of REGISTRY_HOSTS)
+    if (h === host || h.endsWith('.' + host)) return entry;
+  return null;
 }
 
 /* The grounding check. This is the guard the inherited prompt packs never had:

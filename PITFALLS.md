@@ -1657,3 +1657,40 @@ window's end date and keep the write stamp only as the tie-break and as the
 fallback for older ids that have no window in the name. Both bugs came from the
 same root: an id gained a prefix, and every sort that assumed the id began with
 its date silently started answering a different question.
+
+## 90. The two halves of the system could not read each other
+
+The bridge verified 135 surfaces across 59 promoted accounts. The next 90-day
+sweep then planned 179 surfaces and **refused 125 of them** with
+`SOURCE_NOT_WHITELISTED` — every single surface of every account the bridge had
+just promoted: `save.finance`, `sanctum.so`, `loopscale.com`, `astralane.io`,
+`basis.markets`, `edgex-1.gitbook.io` and the rest.
+
+The cause is that the two sides used different definitions of trusted. The
+bridge fetches with `skipWhitelist: true` — it has to, because the whole point
+is reading a host we have not approved yet, which is what discovering a company
+means. It then applies a *stricter* test than any hand-check: the page must
+fetch, the company must **publish** it (its own registrable domain, or a
+docs/GitHub space carrying its name), and the page must **name** the company.
+A surface that passes all three is a first-party source by construction.
+
+The scan, meanwhile, enforced a hand-written whitelist and had never heard of
+any of them. So the bridge's entire output was locked out of the pipeline, and
+the batch sweep that was supposed to measure it read 54 sources instead of 179
+and reported "1 dated row" for windows where it had simply never opened the
+pages.
+
+`whitelistEntry()` now falls through to bridge-verified hosts, then to hosts of
+registry surfaces already marked `status: 'verified'` — which fixed a second,
+older instance of the same bug: `sanctum.so` and `loopscale.com` sat in
+`icp.js` marked verified, trusted enough to plan a run around and not trusted
+enough to read. Every admitted host records which account it was verified for,
+so provenance stays traceable, and an unknown host is still refused.
+
+Readable surfaces in the plan: **54 → 179.**
+
+The general lesson is that "verified" meant two different things in two files,
+exactly as "verified account" had meant two different things one build earlier
+(Pitfall 83 and the two-flag rule). When a word carries a decision, it has to
+mean one thing everywhere, and the place it breaks is the seam between two
+components that were right on their own.
