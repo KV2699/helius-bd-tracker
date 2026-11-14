@@ -1,0 +1,184 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Helius BD Tracker — film board</title>
+<style>
+ :root{--bone:#F1EEE7;--bone2:#E8E4DA;--ink:#17181A;--ink2:#5C5E63;--ink3:#8A8880;
+       --accent:#E8412A;--line:#D8D3C7;--mono:"Geist Mono","SF Mono",ui-monospace,Menlo,monospace;
+       --sans:"Geist",-apple-system,"Helvetica Neue",sans-serif}
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{background:var(--bone);color:var(--ink);font-family:var(--sans);line-height:1.6;
+      padding:70px 7vw 140px;max-width:1180px;margin:0 auto}
+ h1{font-size:46px;letter-spacing:-.025em;font-weight:500;margin-bottom:6px}
+ .sub{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--ink3);margin-bottom:40px}
+ h2{font-size:30px;letter-spacing:-.015em;font-weight:500;margin:64px 0 6px;padding-top:30px;
+    border-top:1px solid var(--line)}
+ h2 .c{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--accent);
+       text-transform:uppercase;display:block;margin-bottom:8px}
+ h3{font-size:19px;font-weight:500;margin:30px 0 8px}
+ p{margin:12px 0;max-width:78ch;color:var(--ink2)}
+ p b,li b{color:var(--ink);font-weight:500}
+ .stats{display:flex;gap:40px;flex-wrap:wrap;margin:28px 0 10px;border-top:1px solid var(--line);
+        border-bottom:1px solid var(--line);padding:20px 0}
+ .stat .n{font-size:30px;font-weight:500;letter-spacing:-.02em}
+ .stat .l{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+ table{border-collapse:collapse;width:100%;margin:22px 0;font-size:15px}
+ th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+ th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);font-weight:400}
+ td.t{font-family:var(--mono);font-size:13px;color:var(--accent);white-space:nowrap}
+ td.s{color:var(--ink);font-weight:500}
+ code{font-family:var(--mono);font-size:13px;background:var(--bone2);padding:2px 6px;border-radius:3px}
+ pre{font-family:var(--mono);font-size:13px;background:#fff;border:1px solid var(--line);
+     padding:18px 20px;overflow-x:auto;margin:16px 0;line-height:1.7}
+ .acid{background:var(--accent);color:#fff;padding:3px 8px;border-radius:3px;font-weight:500}
+ .note{border-left:2px solid var(--accent);padding:4px 0 4px 20px;margin:22px 0;max-width:78ch}
+ ul{margin:12px 0 12px 22px;color:var(--ink2);max-width:78ch} li{margin:7px 0}
+ .foot{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);
+       font-family:var(--mono);font-size:12px;color:var(--ink3)}
+</style>
+
+<h1>Helius BD Tracker — film board</h1>
+<div class="sub">NEAR Hackathon 2026 · tracks privacy + open · 424 words · 2:50 · cap 3:00</div>
+
+<p>Built the Auspius way: <b>one frame per phrase</b>, every boundary taken from a word
+timestamp. Two grounds only — bone with ink type, and full Helius red with white type.
+Nothing is black. Red is kept for the wordmark, the four lines that land, and the spotlight
+on a capture. A paragraph set in red is a highlighter pen, and nothing stays emphatic when
+everything is.</p>
+
+<div class="stats">
+  <div class="stat"><div class="n">2:50</div><div class="l">runtime</div></div>
+  <div class="stat"><div class="n">7</div><div class="l">beats</div></div>
+  <div class="stat"><div class="n">4</div><div class="l">red frames</div></div>
+  <div class="stat"><div class="n">6</div><div class="l">captures</div></div>
+  <div class="stat"><div class="n">4</div><div class="l">clips</div></div>
+  <div class="stat"><div class="n">1</div><div class="l">animation</div></div>
+</div>
+
+<h2><span class="c">The shape</span>The confession is the film</h2>
+<p>Most hackathon demos are a feature tour. This one is a <b>confession with evidence</b>,
+and that is the only reason a judge will remember it. The arc is: everyone guesses → we
+refuse to → here is the rule I earned in published research → <b>I pointed it at myself and
+failed</b> → here is the fix, measured → here is where NEAR actually is.</p>
+<p>Beat 4 is the film. Everything before it is setup and everything after it is proof.
+If the edit has to lose time, take it from beats 2 and 6 — never from 4.</p>
+
+<h2><span class="c">The cut</span>Seven beats · 2:50</h2>
+<table>
+<tr><th>Time</th><th>Beat</th><th>On screen</th></tr>
+<tr><td class="t">0:00–0:08</td><td class="s">Cold open</td>
+    <td><b>Footage A — desk, hands already moving.</b> No voice for 1.5s. Then the first line
+    over it. The hands are working before the film starts, which is the point.</td></tr>
+<tr><td class="t">0:08–0:26</td><td class="s">The guess</td>
+    <td><b>Footage B — trading floor / screens.</b> Three short frames, one per step:
+    finds an announcement / decides it means need / hands over a lead. Then type on bone for
+    <b>“That middle step is a guess.”</b></td></tr>
+<tr><td class="t">0:26–0:52</td><td class="s">The refusal</td>
+    <td><b>Capture 1 — the live worklist</b>, arriving on a single vertical orbit (1.45s),
+    as in Auspius. Only this one orbits; the rest mount and dissolve. Spotlight travels to the
+    counter-rationale line on “a model must never produce a number”.</td></tr>
+<tr><td class="t">0:52–1:16</td><td class="s">Where the rule came from</td>
+    <td><b>Capture 2 — the Evidence Gap paper</b>, title and abstract. Hold.
+    Then the first <span class="acid">red frame</span>:
+    <b>“Make the detector emit the quote. And read the quote.”</b></td></tr>
+<tr><td class="t">1:16–1:52</td><td class="s">The audit that failed us</td>
+    <td><b>Capture 3 — <code>node audit.js</code> running in the terminal.</b> Real output,
+    real scroll. Land on the paraphrase line. Second <span class="acid">red frame</span>:
+    <b>“Forty-nine per cent of them passed.”</b> Hold it longer than feels comfortable.</td></tr>
+<tr><td class="t">1:52–2:10</td><td class="s">The fix</td>
+    <td><b>The animation — <code>grounding-animation.html</code>.</b> This is where the
+    process animates: two quotes admitted, two refused, the page searched word by word on
+    screen. Cut on the paraphrase case.</td></tr>
+<tr><td class="t">2:10–2:30</td><td class="s">Where NEAR is</td>
+    <td><b>Footage C — server room / fibre.</b> Then <b>Capture 4 — the attestation panel</b>,
+    signing address and the Intel quote. Spotlight the quote length.</td></tr>
+<tr><td class="t">2:30–2:50</td><td class="s">Close</td>
+    <td>Every capture returns at once as a wall of evidence, pulls back and blurs, the
+    wordmark comes up in red over it. Final <span class="acid">red card</span>:
+    <b>“We found our own flaw before a judge could.”</b></td></tr>
+</table>
+
+<h2><span class="c">Captures</span>Six screens · all real, none mocked</h2>
+<p>Record these at <b>1920×1080</b>, from the running system. Every one is live data —
+no fixtures. Start the server first: <code>node server.js</code></p>
+<table>
+<tr><th>#</th><th>Screen</th><th>How to get it</th></tr>
+<tr><td class="t">1</td><td class="s">The worklist</td>
+    <td><code>localhost:8742</code> → Queue. Shows <b>25 opportunities across 98 accounts</b>,
+    each with a grounded quote, a source URL and a counter-rationale.</td></tr>
+<tr><td class="t">2</td><td class="s">The paper</td>
+    <td>The Evidence Gap title page + the abstract line about beating nonsense. From your own
+    submission PDF.</td></tr>
+<tr><td class="t">3</td><td class="s">The audit</td>
+    <td><code>node audit.js</code> — full scroll. The money frames are the
+    <b>paraphrase 2.3%</b> line and <b>ranked 1 of 47</b>.</td></tr>
+<tr><td class="t">4</td><td class="s">Attestation</td>
+    <td><code>localhost:8742</code> → About this build. Signing address, Intel TDX quote
+    10,012 chars, TCB measurements.</td></tr>
+<tr><td class="t">5</td><td class="s">The attacks</td>
+    <td><code>node attack.js</code> — <b>26 attacks, 26 blocked, 0 got in</b>. Optional, for
+    the close if you need a beat.</td></tr>
+<tr><td class="t">6</td><td class="s">The office</td>
+    <td><code>localhost:8742</code> → Office. The eight agents, two rings, Helius red.
+    Use as motion under the beat-2 voiceover if the trading-floor clip feels generic.</td></tr>
+</table>
+
+<div class="note">
+<p><b>Do not re-shoot the same screen twice.</b> The Auspius board calls this out: the earlier
+cut used one dashboard across two different beats. Each capture here answers the words over
+it, or it comes out.</p>
+</div>
+
+<h2><span class="c">The animation</span>Where the process moves</h2>
+<p><code>grounding-animation.html</code> — open it, screen-record it, it loops. 1920×1080,
+no dependencies, runs offline.</p>
+<p>It animates the single mechanism the whole film turns on. The model's quote sits on the
+left; the page we fetched sits on the right. The quote is scanned <b>word by word</b> and the
+matching run lights up in the page as it is confirmed. Four real cases, in order:</p>
+<ul>
+<li><b>Ellipsis Labs</b> — admitted, span found at offset 0.</li>
+<li><b>GSR Markets</b> — admitted, a hiring signal from their own careers page.</li>
+<li><b>Velocity Protocol</b> — <b>refused</b>, the model invented a sentence worth paying for.</li>
+<li><b>Velocity Protocol</b> — <b>refused</b>, a paraphrase. <em>This case passed 49% of the
+time until the audit.</em></li>
+</ul>
+<p>The data is lifted from <code>data/snapshot/scan.json</code>. The comparison on screen is
+the comparison the pipeline runs.</p>
+
+<h2><span class="c">Footage</span>Four clips · Mixkit, free for commercial use</h2>
+<p>Same source as Auspius — <b>mixkit.co</b>, free for commercial use, no attribution
+required. Download at 1080p, save into <code>footage/</code>. Search terms, not filenames,
+because you pick the take:</p>
+<table>
+<tr><th>Clip</th><th>Search</th><th>Where it goes</th></tr>
+<tr><td class="t">A</td><td class="s">“hands typing laptop desk”</td>
+    <td>0:00–0:08. Cold open. Hands already moving before the voice starts.</td></tr>
+<tr><td class="t">B</td><td class="s">“stock market screens trading floor”</td>
+    <td>0:08–0:26. Under “finds an announcement / decides / hands over a lead.”</td></tr>
+<tr><td class="t">C</td><td class="s">“server room data centre lights”</td>
+    <td>2:10–2:18. Under the TEE line, straight into the attestation capture.</td></tr>
+<tr><td class="t">D</td><td class="s">“city crowd commuters”</td>
+    <td>Spare. Only if beat 2 needs a third frame — otherwise type on bone is the right weight.</td></tr>
+</table>
+
+<h2><span class="c">What the judges are scoring</span>Mapped, line by line</h2>
+<table>
+<tr><th>Their criterion</th><th>The frame that answers it</th></tr>
+<tr><td>What did you build?</td><td>Beats 1–2. A verification engine pointed at BD research.</td></tr>
+<tr><td>Does it work?</td><td>Beat 5 animation + capture 1. Real runs, real numbers, on screen.</td></tr>
+<tr><td>How does NEAR fit?</td><td>Beat 6. Not a payment sticker — the inference runs in a NEAR AI Cloud enclave and the system <b>fetches its own attestation</b>.</td></tr>
+<tr><td>Privacy track</td><td>Beat 6. Probed, not configured: a live Intel TDX quote, not a claim in a README.</td></tr>
+<tr><td>Open Innovation track</td><td>Beat 4. A published admissibility standard applied to its own implementation — this does not fit a named category, which is what the track is for.</td></tr>
+<tr><td>Is it honest?</td><td>Beat 4, the whole of it. Nobody else will show you a number where they failed.</td></tr>
+</table>
+
+<div class="note">
+<p><b>One thing to resist.</b> Do not add a line claiming the escrow is live. It is not —
+the contract is written and not deployed, because this machine has no wasm toolchain. The
+script never mentions it, and that is deliberate: every claim in the film is exercisable by a
+judge in one command. If the edit tempts you to add “and it settles on NEAR”, cut the
+temptation instead.</p>
+</div>
+
+<div class="foot">Helius BD Tracker · NEAR Hackathon 2026 · film board v1 ·
+script 424 words · narration to be recorded · repo github.com/KV2699/helius-bd-tracker</div>
