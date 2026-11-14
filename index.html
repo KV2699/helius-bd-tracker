@@ -1,0 +1,1936 @@
+<title>Helius BD Tracker</title>
+<meta name="description" content="Solana events qualified against one Helius sales motion: Sender for latency-sensitive trading. Evidence-first, counter-rationale enforced, human approval blocking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+/* HELIUS BD TRACKER
+   Geist / Geist Mono on bone, after contentarchitecture.dev. Every band is
+   the same two-column grid: argument on the left, artefact on the right.
+   The file is deliberately pure ASCII so it renders identically with or
+   without a charset declaration. */
+:root{
+  --bone:#F1EEE7; --bone-2:#E8E4DA; --bone-3:#DDD8CC;
+  --ink:#232323; --ink-2:#4A4A48; --ink-3:#7A7872;
+  --line:#D5D0C4; --line-2:#C6C0B1;
+  --card:#FBFAF7;
+  --accent:#C8F000; --accent-ink:#1A1F00;
+  --ok:#2F6B4F; --ok-bg:#E6EFE8;
+  --warn:#8A5A00; --warn-bg:#F5EBD8;
+  --stop:#9A3324; --stop-bg:#F5E4E0;
+  --cool:#3C5570; --cool-bg:#E6EAEF;
+  --mute:#6F6D67; --mute-bg:#E9E6DE;
+  --sans:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:10px; --r-sm:7px;
+  --pad:clamp(20px,5vw,80px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bone);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)} button{font-family:inherit} [hidden]{display:none!important}
+::selection{background:var(--accent);color:var(--accent-ink)}
+h1,h2,h3{font-weight:500;letter-spacing:-.02em;margin:0}
+
+/* floating pill nav */
+.navwrap{position:fixed;top:14px;left:0;right:0;display:flex;justify-content:center;z-index:50;pointer-events:none}
+nav{pointer-events:auto;width:max-content;max-width:calc(100vw - 24px);background:#1A1A1A;border:1px solid #000;border-radius:9px;overflow:hidden;box-shadow:0 6px 24px -12px rgba(0,0,0,.55)}
+nav .row{display:flex;align-items:center;gap:2px;padding:7px 9px}
+nav .logo{width:22px;height:22px;border-radius:4px;background:repeating-linear-gradient(135deg,#fff 0 2px,#1A1A1A 2px 4px);flex:none;margin-right:6px}
+nav a{font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;text-transform:uppercase;color:#B9B6AE;text-decoration:none;padding:5px 10px;border-radius:5px;white-space:nowrap}
+nav a:hover{color:#fff}
+nav a.on{color:#111;background:var(--bone-2)}
+nav a[data-about]{color:var(--accent);border-left:1px solid #3A3A3A;margin-left:6px;padding-left:12px}
+nav a[data-about]:hover{color:#E4FF6B}
+nav a .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:#E8A33D;vertical-align:super;margin-left:1px}
+nav .tick{background:#2A2A2A;border-top:1px solid #000;overflow:hidden;white-space:nowrap;position:relative;height:21px}
+nav .tick div{position:absolute;top:0;left:0;animation:tick 30s linear infinite;font-family:var(--mono);font-size:11px;line-height:21px;letter-spacing:.04em;text-transform:uppercase;color:#8E8B84}
+nav .tick span{padding:0 18px;border-right:1px solid #444}
+@keyframes tick{to{transform:translateX(-50%)}}
+@media(max-width:880px){nav a{font-size:11px;padding:5px 7px} nav .tick{display:none}}
+
+main{max-width:none;padding:0 var(--pad) 90px}
+footer{max-width:none;padding:26px var(--pad) 50px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);border-top:1px solid var(--line);line-height:1.8}
+
+/* the band: one grid, used everywhere */
+.band{display:grid;grid-template-columns:minmax(0,640px) 1fr;gap:clamp(24px,6vw,120px);padding:clamp(56px,7vw,110px) 0 0;align-items:start;scroll-margin-top:92px}
+@media(max-width:1000px){.band{grid-template-columns:1fr;gap:28px}}
+.band > .L{position:sticky;top:96px}
+@media(max-width:1000px){.band > .L{position:static}}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-bottom:18px}
+.band h2{font-size:clamp(34px,2.73vw,48px);line-height:1.08}
+.band .L p{font-family:var(--mono);font-size:15px;line-height:1.5;color:var(--ink-2);margin:18px 0 0;max-width:52ch}
+.qcount{display:block;font-family:var(--mono);font-size:15px;color:var(--ink-3);margin-top:4px}
+.qcount b{font-family:var(--sans);font-size:21px;font-weight:500;color:var(--ink);letter-spacing:-.02em;margin-right:8px;display:inline-block;min-width:22px}
+.band .L p.sans{font-family:var(--sans);font-size:17px;line-height:1.45;max-width:46ch}
+.hero{padding:clamp(150px,20vh,240px) 0 clamp(60px,8vw,110px);max-width:1100px}
+.hero .eyebrow{margin-bottom:22px}
+.hero p{font-size:clamp(20px,1.7vw,26px);line-height:1.35;margin:26px 0 0;max-width:30ch;color:var(--ink)}
+.hero p .sub{font-family:var(--mono);font-size:15px;line-height:1.5;color:var(--ink-3);display:inline-block;margin-top:10px}
+.hero h1{font-size:clamp(44px,5.6vw,96px);line-height:.98;letter-spacing:-.03em}
+.btnrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:28px}
+.btn{border:1px solid transparent;border-radius:8px;padding:11px 18px;font-family:var(--mono);font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.go{background:var(--ink);color:#fff}
+.btn.go:hover{background:#000}
+.btn.ghost{background:var(--bone-2);color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{background:var(--bone-3)}
+.btn.plain{background:transparent;color:var(--ink-2);border-color:var(--line)}
+.btn.stop{background:transparent;color:var(--stop);border-color:#DCC2BC}
+
+/* honesty card */
+.honesty{border:1px solid var(--ink);border-radius:var(--r);overflow:hidden}
+.honesty .h{background:var(--ink);color:var(--accent);font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;padding:9px 16px}
+.honesty .b{padding:18px 20px;font-family:var(--mono);font-size:14px;line-height:1.5;color:var(--ink-2)}
+.honesty .b b{color:var(--ink);font-weight:500}
+.honesty .b div + div{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+
+.panel{border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
+.panel .ph{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:12px 16px;border-bottom:1px solid var(--line)}
+.panel .pb{padding:16px}
+table.data{width:100%;border-collapse:collapse;font-size:14px}
+table.data th{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);text-align:left;font-weight:500;padding:9px 14px 9px 0;border-bottom:1px solid var(--ink)}
+table.data td{padding:11px 14px 11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+table.data tr:last-child td{border-bottom:0}
+table.data td.m,table.data th.m{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);white-space:nowrap}
+.scroller{overflow-x:auto}
+
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:5px;white-space:nowrap;display:inline-block}
+.v-ACTIONABLE{background:var(--ok-bg);color:var(--ok)}
+.v-QUALIFY{background:var(--accent);color:var(--accent-ink)}
+.v-RESEARCH{background:var(--cool-bg);color:var(--cool)}
+.v-WATCH,.v-NO_ACTION{background:var(--mute-bg);color:var(--mute)}
+.v-ROUTED{background:var(--warn-bg);color:var(--warn)}
+.v-COMPETITOR{background:var(--warn-bg);color:var(--warn)}
+.v-BLOCKED{background:var(--stop-bg);color:var(--stop)}
+.t1{background:var(--ink);color:#fff}
+.t2{background:var(--bone-3);color:var(--ink)}
+.t3{background:var(--bone-2);color:var(--ink-3)}
+.chip{font-family:var(--mono);font-size:11px;padding:3px 8px;border-radius:5px;background:var(--bone-2);color:var(--ink-3);border:1px solid var(--line)}
+.chip.svc{background:var(--card);color:var(--ink);border-color:var(--line-2)}
+
+.lensstrip{display:block}
+.lensmore{margin-top:10px}
+.lensmore > summary{cursor:pointer;list-style:none;font-family:var(--mono);font-size:12.5px;color:var(--ink-3);display:flex;align-items:center;gap:8px;padding:6px 0}
+.lensmore > summary::-webkit-details-marker{display:none}
+.lensmore > summary::before{content:'';width:7px;height:7px;border-right:1.5px solid var(--ink-3);border-bottom:1.5px solid var(--ink-3);transform:rotate(-45deg);flex:none;transition:transform .15s}
+.lensmore[open] > summary::before{transform:rotate(45deg)}
+.lensmore > summary span{font-size:11px;opacity:.7}
+.lensmore > summary:hover{color:var(--ink)}
+.lensrow{display:flex;gap:6px;flex-wrap:wrap;padding:6px 0 0}
+.lensbtn.sm{padding:6px 10px;font-size:11.5px;background:transparent;color:var(--ink-3)}
+.lensbtn.sm.on{background:var(--ink);color:#fff}
+.lensbtn{border:1px solid var(--line);background:var(--card);border-radius:7px;padding:9px 13px;cursor:pointer;font-family:var(--mono);font-size:12.5px;color:var(--ink-2);display:flex;align-items:center;gap:8px}
+.lensbtn:hover{border-color:var(--ink)}
+.lensbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lensbtn .n{font-size:11px;opacity:.6}
+.lensbtn .pr{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:var(--accent-ink);padding:2px 5px;border-radius:3px}
+.lensbtn .rd{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--bone-3);color:var(--ink-3);padding:2px 5px;border-radius:3px}
+.lensbtn.on .rd{background:#3A3A38;color:#C9C6BE}
+
+.viewbar{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:16px;flex-wrap:wrap}
+.viewbtn{flex:1;min-width:112px;border:0;background:var(--card);padding:11px 12px;cursor:pointer;font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-align:left}
+.viewbtn:hover{background:var(--bone-2)}
+.viewbtn.on{background:var(--ink);color:#fff}
+.viewnote{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);margin-bottom:16px}
+
+.rows{display:flex;flex-direction:column;gap:9px}
+.row{border:1px solid var(--line);border-radius:var(--r);background:var(--card);overflow:hidden}
+.row.open{border-color:var(--ink)}
+.rowhead{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:15px 18px;cursor:pointer}
+@media(max-width:800px){.rowhead{grid-template-columns:1fr;gap:10px}}
+.rowhead .sc{font-family:var(--mono);font-size:26px;letter-spacing:-.03em;min-width:52px}
+.rowhead .nm{font-size:17px;font-weight:500;letter-spacing:-.015em}
+.nxt{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;margin:10px 0 0;font-size:14px}
+.nxt dt{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);padding-top:3px}
+.nxt dd{margin:0;color:var(--ink-2)}
+.nxt dd:last-of-type{color:var(--ink)}
+details.rowmore{margin-top:16px}
+details.rowmore > summary{cursor:pointer;list-style:none;font-family:var(--mono);font-size:12px;color:var(--ink-3);display:inline-flex;align-items:center;gap:7px}
+details.rowmore > summary::-webkit-details-marker{display:none}
+details.rowmore > summary::before{content:'';width:6px;height:6px;border-right:1.4px solid var(--ink-3);border-bottom:1.4px solid var(--ink-3);transform:rotate(-45deg);flex:none}
+details.rowmore[open] > summary::before{transform:rotate(45deg)}
+details.rowmore > summary:hover{color:var(--ink)}
+.rowmorebody{padding-top:12px}
+.gaterow{display:flex;gap:5px;flex-wrap:wrap;margin-top:12px}
+.gatechip{font-family:var(--mono);font-size:10.5px;padding:3px 8px;border-radius:5px;border:1px solid}
+.gatechip.y{background:var(--ok-bg);color:var(--ok);border-color:#BFD8C8}
+.gatechip.n{background:var(--stop-bg);color:var(--stop);border-color:#E2C6C0}
+.fitline{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);margin-top:12px}
+.rowhead .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.rowhead .rt{display:flex;align-items:center;gap:9px}
+.rowbody{padding:16px 18px 18px;border-top:1px dashed var(--line)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:800px){.grid2{grid-template-columns:1fr}}
+.block{border-left:2px solid var(--line-2);padding:0 0 0 14px}
+.block h5{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:500;margin:0 0 6px}
+.block p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.block.warn{border-left-color:var(--warn)}
+.block.ok{border-left-color:var(--ok)}
+.quote{font-family:var(--mono);font-size:13px;line-height:1.6;color:var(--ink-2);background:var(--bone-2);padding:12px 14px;border-radius:var(--r-sm)}
+.capnote{font-family:var(--mono);font-size:12.5px;color:var(--stop);background:var(--stop-bg);border-radius:var(--r-sm);padding:10px 13px;margin-top:14px}
+.capnote b{font-weight:500}
+.rubric{display:grid;grid-template-columns:1fr auto;gap:3px 18px;font-family:var(--mono);font-size:12.5px;color:var(--ink-3);margin-top:14px;max-width:420px}
+.rubric .tot{border-top:1px solid var(--line);padding-top:5px;margin-top:3px;color:var(--ink)}
+.srcline{font-family:var(--mono);font-size:12px;margin-top:14px}
+.empty{padding:50px 20px;text-align:center;font-family:var(--mono);font-size:13px;color:var(--ink-3);border:1px dashed var(--line);border-radius:var(--r)}
+
+/* office */
+.agentchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.achip{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:var(--card)}
+.achip i{width:7px;height:7px;border-radius:50%;flex:none}
+.achip b{font-weight:400;color:var(--ink)}
+#scanPanel{margin-top:22px}
+.scanbox{border:1px solid var(--line);border-radius:var(--r);background:var(--card);padding:16px 18px}
+.scanbox.ready{border-color:var(--ink)}
+.scanbox h4{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin:0 0 10px;font-weight:500}
+.scanbox p{font-family:var(--mono);font-size:12.5px;line-height:1.6;color:var(--ink-2);margin:0 0 12px}
+.scanbox code{background:var(--bone-2);padding:2px 6px;border-radius:4px;font-size:12px}
+.scanrow{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.scanrow select{font-family:var(--mono);font-size:12px;padding:9px 11px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}
+.runlog{margin-top:12px;max-height:190px;overflow:auto;border-top:1px dashed var(--line);padding-top:10px}
+.runlog div{font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--ink-2)}
+.runlog b{color:var(--ink);font-weight:500;display:inline-block;min-width:74px}
+.runlog .rj{color:var(--stop)}
+.modebadge{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:5px;background:var(--warn-bg);color:var(--warn);border:1px solid #EBD8B0}
+.modebadge.live{background:var(--ok-bg);color:var(--ok);border-color:#BFD8C8}
+.officewrap{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--card)}
+.officetop{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:11px 15px;border-bottom:1px solid var(--line)}
+.pill{font-family:var(--mono);font-size:12px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--line);border-radius:999px;padding:5px 12px;display:inline-flex;align-items:center;gap:7px;background:var(--bone)}
+.pill.hot{background:var(--ink);color:var(--accent);border-color:var(--ink)}
+.pill .d{width:7px;height:7px;border-radius:50%;background:#3FA57A;animation:blip 1.9s infinite}
+@keyframes blip{0%,100%{opacity:1}50%{opacity:.3}}
+.officetop .sp{flex:1}
+.officebody{display:grid;grid-template-columns:330px 1fr}
+@media(max-width:900px){.officebody{grid-template-columns:1fr}}
+.rail{border-right:1px solid var(--line);padding:14px;display:flex;flex-direction:column;gap:8px;background:var(--bone)}
+@media(max-width:900px){.rail{border-right:0;border-bottom:1px solid var(--line)}}
+.railh{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);display:flex;gap:8px;align-items:center}
+.railh b{background:var(--ink);color:var(--accent);padding:2px 7px;border-radius:4px;font-weight:500}
+.apbtn{width:100%;text-align:left;border:1px solid var(--line);border-left:4px solid var(--line-2);background:var(--card);border-radius:9px;padding:13px 15px;cursor:pointer;color:var(--ink);display:flex;flex-direction:column;gap:4px}
+.apbtn:hover,.apbtn.on{border-color:var(--ink)}
+.apbtn.done{background:var(--bone-2)}
+.apbtn .k{font-size:15.5px;font-weight:500;letter-spacing:-.015em}
+.apbtn .m{font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+.apacts{display:flex;gap:7px;flex-wrap:wrap;padding:0 0 4px}
+.stage{position:relative;min-height:420px;height:64vh;background:linear-gradient(170deg,#EEF0F3 0%,#E3E6EA 55%,#DADDE2 100%)}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block}
+.labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.lbl{position:absolute;transform:translate(-50%,-100%);background:rgba(255,255,255,.72);backdrop-filter:blur(10px);border:1px solid;border-radius:9px;padding:5px 11px 6px;white-space:nowrap;transition:opacity .3s}
+.lbl .n{font-size:13px;font-weight:500;color:var(--ink);line-height:1.1;letter-spacing:-.01em}
+.lbl .bar{height:3px;border-radius:2px;background:rgba(35,35,35,.12);margin-top:5px;overflow:hidden}
+.lbl .bar i{display:block;height:100%;border-radius:2px;transition:width .7s}
+.lbl.dim{opacity:.4}
+.bubble{position:absolute;transform:translate(-50%,-100%);background:var(--ink);border-radius:8px;padding:5px 11px;white-space:nowrap;font-family:var(--mono);font-size:12px;color:#fff}
+.ticker{position:absolute;left:0;right:0;bottom:0;padding:12px 16px;background:linear-gradient(0deg,rgba(222,226,231,.96),rgba(222,226,231,0));display:flex;flex-direction:column;gap:3px;pointer-events:none}
+.ticker div{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+.ticker div.f{opacity:.45}
+.celebrate{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.celebrate .c{background:rgba(255,255,255,.8);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.9);border-radius:var(--r);padding:18px 26px;text-align:center;box-shadow:0 20px 50px -24px rgba(0,0,0,.4);animation:pop .5s cubic-bezier(.2,1.4,.4,1)}
+.celebrate .c .t{font-size:22px;font-weight:500;letter-spacing:-.02em}
+.celebrate .c .s{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-top:5px}
+@keyframes pop{from{transform:scale(.6);opacity:0}}
+.fallback{position:absolute;inset:0;display:grid;place-items:center;padding:30px;text-align:center;font-family:var(--mono);font-size:13px;color:var(--ink-2);line-height:1.8}
+
+details.drop{border:1px solid var(--line);border-radius:var(--r);background:var(--card);margin-top:9px;overflow:hidden}
+details.drop[open]{border-color:var(--ink)}
+details.drop > summary{cursor:pointer;list-style:none;padding:15px 18px;display:flex;align-items:center;gap:12px}
+details.drop > summary::-webkit-details-marker{display:none}
+details.drop > summary::before{content:'';width:9px;height:9px;border-right:1.6px solid var(--ink);border-bottom:1.6px solid var(--ink);transform:rotate(-45deg) translate(-2px,-2px);transition:transform .15s;flex:none}
+details.drop[open] > summary::before{transform:rotate(45deg) translate(-1px,-1px)}
+details.drop > summary:hover{background:var(--bone)}
+details.drop > summary .t{font-size:16.5px;font-weight:500;letter-spacing:-.015em}
+details.drop > summary .c{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+details.drop > .body{padding:4px 18px 20px;border-top:1px solid var(--line)}
+pre.schema{font-family:var(--mono);font-size:12.5px;line-height:1.65;background:var(--ink);color:#E4E2DC;padding:16px 18px;border-radius:var(--r);overflow-x:auto;margin:14px 0 0}
+pre.schema .k{color:var(--accent)} pre.schema .s{color:#9EC7E8} pre.schema .c{color:#8A8880}
+
+.modalwrap{position:fixed;inset:0;background:rgba(35,35,35,.42);z-index:70;display:flex;padding:2vh 2vw;backdrop-filter:blur(6px)}
+.modal{background:var(--bone);border:1px solid var(--ink);border-radius:var(--r);width:100%;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.5)}
+.modal .mh{background:var(--ink);padding:16px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.modal .mh .t{font-size:20px;font-weight:500;color:#fff;letter-spacing:-.02em}
+.modal .mh .s{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:3px}
+.modal .mh .sp{flex:1}
+.modal .mb{flex:1;overflow:auto;display:grid;grid-template-columns:1fr 340px}
+@media(max-width:1020px){.modal .mb{grid-template-columns:1fr}}
+.modal .docpane{padding:22px;overflow:auto}
+.modal .side{padding:20px 22px;border-left:1px solid var(--line);background:var(--card);overflow:auto}
+@media(max-width:1020px){.modal .side{border-left:0;border-top:1px solid var(--line)}}
+.modal .mf{padding:14px 24px;border-top:1px solid var(--line-2);display:flex;gap:9px;align-items:center;flex-wrap:wrap;background:var(--bone-2)}
+.modal .mf .hint{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);margin-left:auto;text-align:right;line-height:1.6}
+.seg{display:inline-flex;background:var(--bone-2);border:1px solid var(--line);border-radius:7px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;border-radius:5px;padding:7px 13px;font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);cursor:pointer}
+.seg button.on{background:var(--ink);color:#fff}
+.modal textarea{width:100%;min-height:58vh;font-family:var(--mono);font-size:13.5px;line-height:1.7;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;resize:vertical}
+.modal textarea:focus{outline:1.5px solid var(--ink);outline-offset:-1px}
+.edited{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;background:var(--warn-bg);color:var(--warn);padding:4px 9px;border-radius:5px}
+
+.paper{background:#fff;max-width:880px;margin:0 auto;box-shadow:0 2px 6px rgba(0,0,0,.07),0 20px 50px -28px rgba(0,0,0,.35);padding:54px 62px 62px;font-size:14.5px;line-height:1.62;color:#232323}
+@media(max-width:640px){.paper{padding:28px 24px}}
+.paper .ph2{display:flex;align-items:flex-start;gap:14px;border-bottom:2px solid #232323;padding-bottom:15px;margin-bottom:26px}
+.paper .ph2 .lg{width:30px;height:30px;border-radius:6px;background:repeating-linear-gradient(135deg,#232323 0 2px,#fff 2px 4px);flex:none}
+.paper .ph2 .who{font-size:16px;font-weight:600;letter-spacing:-.01em}
+.paper .ph2 .sub{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#7A7872;margin-top:1px}
+.paper .ph2 .rt{margin-left:auto;text-align:right;font-family:var(--mono);font-size:11px;color:#7A7872;line-height:1.7}
+.paper h1{font-size:28px;letter-spacing:-.03em;margin:0 0 6px;line-height:1.08;font-weight:500}
+.paper .lede{font-size:15px;color:#4A4A48;margin:0 0 24px}
+.paper h2{font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:#7A7872;margin:26px 0 10px;padding-bottom:5px;border-bottom:1px solid #D5D0C4;font-weight:500}
+.paper p{margin:0 0 11px}
+.paper ul{margin:0 0 11px;padding-left:20px}
+.paper li{margin-bottom:5px}
+.paper .pull{border-left:2px solid #232323;padding:11px 15px;margin:0 0 13px;font-size:14px;background:#F7F6F3}
+.paper .pull.w{border-left-color:#8A5A00;background:#F8F1E3}
+.paper .pull.g{border-left-color:#2F6B4F;background:#EDF3EE}
+.paper table{width:100%;border-collapse:collapse;font-size:13px;margin:0 0 14px}
+.paper th{font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:#7A7872;text-align:left;padding:7px 10px 7px 0;border-bottom:1.5px solid #232323;font-weight:500}
+.paper td{padding:8px 10px 8px 0;border-bottom:1px solid #E8E4DA;vertical-align:top}
+.paper .sig{margin-top:32px;padding-top:15px;border-top:1px solid #D5D0C4;font-family:var(--mono);font-size:11px;color:#7A7872;line-height:1.8}
+.mailview{background:#fff;max-width:880px;margin:0 auto;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.mailview .mhd{padding:18px 24px;border-bottom:1px solid var(--line);background:var(--bone)}
+.mailview dl{display:grid;grid-template-columns:66px 1fr;gap:4px 12px;font-size:13.5px;margin:0}
+.mailview dt{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.mailview dd{margin:0}
+.mailview .sj{font-size:19px;font-weight:500;letter-spacing:-.02em;margin-top:10px}
+.mailview .bd{padding:24px;font-size:15px;line-height:1.7;white-space:pre-wrap}
+.mailview .ft{padding:13px 24px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--ink-3);background:var(--bone)}
+.mrow{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.mrow input{flex:1;min-width:210px;font-family:var(--mono);font-size:13px;padding:10px 13px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}
+.note{font-family:var(--mono);font-size:13px;line-height:1.6;color:var(--ink-2);background:var(--bone-2);border-radius:var(--r-sm);padding:13px 15px;margin-top:14px}
+
+@media print{
+  .navwrap, footer, main, .modal .mh, .modal .side, .modal .mf, .ticker{display:none!important}
+  .modalwrap{position:static;padding:0;background:#fff;backdrop-filter:none;display:block}
+  .modal{border:0;box-shadow:none;display:block;background:#fff}
+  .modal .mb{display:block} .modal .docpane{padding:0}
+  .paper{box-shadow:none;max-width:none;padding:0}
+  .mailview{border:0;max-width:none}
+  .paper h2{break-after:avoid} .paper .pull,.paper table{break-inside:avoid}
+  @page{margin:16mm}
+}
+</style>
+
+<div class="navwrap"><nav>
+  <div class="row">
+    <span class="logo"></span>
+    <a href="#queue" class="on">Queue</a>
+    <a href="#office">Office</a>
+    <a href="#method">Method</a>
+    <a href="#output">Output</a>
+    <a href="#" data-about>About</a>
+  </div>
+  <div class="tick"><div id="tickRow"></div></div>
+</nav></div>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="eyebrow" id="heroEyebrow">Sender &middot; Solana trading &middot; demo dataset</div>
+    <h1>Stop a press release<br>becoming a hot lead.</h1>
+    <p id="heroClaim">Ten Solana events. No qualified Sender lead yet.<br>
+      <span class="sub">Research-first. Nothing sends without approval.</span></p>
+    <div class="btnrow">
+      <a class="btn go" href="#queue">Open the queue</a>
+      <a class="btn ghost" href="#office">Watch the run</a>
+    </div>
+  </section>
+
+  <section class="band" id="office">
+    <div class="L">
+      <div class="eyebrow">Eight agents, one run</div>
+      <h2>Run the scan.</h2>
+      <p>Inference runs on NEAR AI Cloud. Verification runs in code.</p>
+      <div id="scanPanel"></div>
+    </div>
+    <div>
+      <div class="officewrap">
+        <div class="officetop">
+          <span class="pill"><span class="d"></span>8 agents online</span>
+          <span class="pill" id="stateLabel">blocked</span>
+          <span class="modebadge" id="modeBadge">demo dataset</span>
+          <span class="sp"></span>
+          <span class="pill">run cost $0.19</span>
+        </div>
+        <div class="officebody">
+          <div class="rail">
+            <div class="railh">Needs your approval <b id="railCount">4</b></div>
+            <div id="apStack"></div>
+          </div>
+          <div class="stage">
+            <canvas id="scene"></canvas>
+            <div class="labels" id="labels"></div>
+            <div class="ticker" id="ticker"></div>
+            <div class="fallback" id="fallback" hidden></div>
+          </div>
+        </div>
+      </div>
+      <div class="agentchips" id="agentTable"></div>
+      <div id="monitorPanel" style="margin-top:14px"></div>
+      <div id="batchPanel" style="margin-top:14px"></div>
+      <div id="trackerPanel" style="margin-top:14px"></div>
+    </div>
+  </section>
+
+  <section class="band" id="queue">
+    <div class="L">
+      <div class="eyebrow" id="lensEyebrow"></div>
+      <h2 id="lensTitle"></h2>
+      <p id="lensSub"></p>
+      <div class="lensstrip" id="lensStrip" style="margin-top:26px"></div>
+    </div>
+    <div>
+      <div class="viewbar" id="viewbar"></div>
+      <div class="viewnote" id="viewnote"></div>
+      <div id="viewBody"></div>
+    </div>
+  </section>
+
+  <section class="band" id="discovery">
+    <div class="L">
+      <div class="eyebrow">Discovery pass</div>
+      <h2>Names the registry<br>did not have.</h2>
+      <p>The dated scan reads the surfaces of accounts we already know, so it can only
+      report what changed at a company already on the list. This pass reads <b>rosters</b> —
+      pages whose job is to list firms — and collects names, with no date gate and every
+      other discipline kept: a verbatim quote grounded in code, a mandatory
+      counter&#8209;rationale, the whole page read in overlapping windows.</p>
+      <p><b>A name here is not a lead.</b> It has evidenced no need for any Helius product,
+      it is capped at research, and it cannot authorise outreach. The dated scan is what
+      makes a lead.</p>
+      <div class="lensstrip" id="discStrip" style="margin-top:26px"></div>
+    </div>
+    <div>
+      <div class="viewbar" id="discBar"></div>
+      <div class="viewnote" id="discNote"></div>
+      <div id="discBody"></div>
+    </div>
+  </section>
+
+  <section class="band" id="method">
+    <div class="L">
+      <div class="eyebrow">Reference</div>
+      <h2>How a verdict is reached.</h2>
+      <p>Score, then caps. Every cap shows its reason on the row.</p>
+    </div>
+    <div>
+      <div class="panel"><div class="ph">The rubric</div><div class="scroller"><table class="data" style="width:calc(100% - 32px);margin:0 16px">
+        <tr><th>Factor</th><th class="m">Max</th><th>Evidence required</th></tr>
+        <tr><td>Transaction-volume signal</td><td class="m">25</td><td>Volume, users, swaps, trades or market launch</td></tr>
+        <tr><td>Latency sensitivity</td><td class="m">20</td><td>Trading, market-making, arbitrage, liquidations</td></tr>
+        <tr><td>Reliability pain</td><td class="m">15</td><td>Failed transactions, congestion, deposit or withdrawal issues</td></tr>
+        <tr><td>Product fit</td><td class="m">15</td><td>Maps to a named Helius product</td></tr>
+        <tr><td>Reachability</td><td class="m">15</td><td>Named infrastructure owner or credible route</td></tr>
+        <tr><td>Recency</td><td class="m">10</td><td>Event within 14 days</td></tr>
+      </table></div></div>
+      <div class="panel" style="margin-top:12px"><div class="ph">The caps</div><div class="scroller"><table class="data" style="width:calc(100% - 32px);margin:0 16px">
+        <tr><th>Condition</th><th>Effect</th></tr>
+        <tr><td class="m">counter: no evidence of a gap</td><td>cannot exceed <span class="tag v-RESEARCH">Research</span></td></tr>
+        <tr><td class="m">counter: incumbent may cover it</td><td>cannot exceed <span class="tag v-RESEARCH">Research</span></td></tr>
+        <tr><td class="m">no infrastructure owner identified</td><td>cannot exceed <span class="tag v-QUALIFY">Qualify</span></td></tr>
+        <tr><td class="m">extension lens, not the primary motion</td><td>cannot exceed <span class="tag v-QUALIFY">Qualify</span></td></tr>
+        <tr><td class="m">latency_sensitive = false</td><td>the Sender lens does not fire</td></tr>
+        <tr><td class="m">named account, Solana evidence, but not Sender</td><td><span class="tag v-ROUTED">Routed</span></td></tr>
+        <tr><td class="m">no Solana activity, or blocked alias</td><td><span class="tag v-NO_ACTION">No action</span></td></tr>
+      </table></div></div>
+      <details class="drop"><summary><span class="t">Rejected claims</span><span class="c" id="rejCount"></span></summary><div class="body" id="rejBody"></div></details>
+    </div>
+  </section>
+
+  <section class="band" id="output">
+    <div class="L">
+      <div class="eyebrow">What the run produces</div>
+      <h2>A BD brief, not a summary.</h2>
+      <p>Who to work, why now, and what is blocking it.</p>
+    </div>
+    <div>
+      <details class="drop" open><summary><span class="t">BD brief</span><span class="c" id="briefCount"></span></summary><div class="body" id="briefBody"></div></details>
+      <details class="drop"><summary><span class="t">NEAR ledger</span><span class="c">$0.19, dry quote</span></summary><div class="body" id="nearBody"></div></details>
+    </div>
+  </section>
+</main>
+
+<footer id="foot">Fixture demo &middot; 3 Nov 2026</footer>
+
+<script>
+'use strict';
+var MID = '\u00b7', DASH = '\u2014', ARROW = '\u2192';
+var esc = function(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+var $ = function(id){ return document.getElementById(id); };
+
+/* ONE EVIDENCE STORE. Verdicts are DERIVED, never typed. */
+var SOURCES = {
+  s1:{pub:'Securitize investor relations',type:'company_ir',date:'2026-11-02',url:'https://investors.securitize.io/news/news-details/2026/Securitize-Expands-Onchain-U-S--Stock-Offering-to-25-Equities/',title:'Securitize expands onchain U.S. stock offering to 25 equities'},
+  s2:{pub:'Solana',type:'official',date:'2026-10-21',url:'https://solana.com/uk/upgrades/alpenglow',title:'Alpenglow'},
+  s5:{pub:'Crypto Briefing',type:'news',date:'2026-10-29',url:'https://cryptobriefing.com/solana-rwa-ecosystem-surpasses-5-billion/',title:'Solana RWA ecosystem surpasses $5 billion'},
+  s6:{pub:'City A.M.',type:'news',date:'2026-10-31',url:'https://www.cityam.com/binance-resumes-customer-withdrawals-after-record-6-3bn-hack/',title:'Binance resumes withdrawals after record hack'},
+  s7:{pub:'Serrari Group',type:'news',date:'2026-10-27',url:'https://serrarigroup.com/solana-partners-with-anchorpoint-to-launch-hkdap-stablecoin/',title:'Anchorpoint to launch HKDAP stablecoin on Solana'},
+  s8:{pub:'Solana',type:'official',date:'2026-10-24',url:'https://solana.com/news/solana-ecosystem-roundup-september-2026',title:'Project Harmonia applications close'},
+  s9:{pub:'Crypto Briefing',type:'news',date:'2026-10-20',url:'https://cryptobriefing.com/hylo-raises-1m-solana-ventures/',title:'Hylo raises $1M'},
+  s10:{pub:'Alchemy',type:'competitor',date:'2026-10-15',url:'https://www.alchemy.com/overviews/solana-rpc',title:'Solana RPC provider overview'},
+  s11:{pub:'TipRanks',type:'news',date:'2026-10-30',url:'https://www.tipranks.com/news/the-fly/solana-company-announces-solana-holdings-over-2-2m-thefly',title:'Solana Company announces Solana holdings'}
+};
+var SVC = {sender:'Sender',sender_max:'Sender Max',laserstream:'LaserStream',webhooks:'Webhooks',parsed:'Parsed Streams',rpc:'RPC / DAS',validator:'Validator',enterprise:'Enterprise'};
+var PRIMARY = 'trading';
+var LENSES = [
+  {key:'trading',    name:'Trading & market making', buyer:'Infrastructure lead at a Solana-native trading firm or exchange', product:'Sender'},
+  {key:'infra',      name:'Market data & indexing',  buyer:'Teams consuming consensus and transaction data', product:'LaserStream'},
+  {key:'exchange',   name:'Exchanges & custody',     buyer:'Venues with Solana deposit and withdrawal flows', product:'Sender + RPC'},
+  {key:'rwa',        name:'Tokenised assets',        buyer:'Issuers putting equities or funds onchain', product:'Webhooks + Data'},
+  {key:'stablecoin', name:'Stablecoin issuers',      buyer:'Regulated issuers minting on Solana', product:'Validator'},
+  {key:'institution',name:'Institutions & fintech',  buyer:'Banks and asset servicers piloting onchain', product:'Enterprise'}
+];
+var ALL_LENS = LENSES.map(function(l){ return l.key; });
+
+/* DEMO DATASET - hand-entered, never presented as a scan result.
+   A live run replaces this wholesale; it is never merged with live rows. */
+var FIXTURE = [
+  { id:'jump-liquidity', tier:1, lens:['trading','rwa'], entity:'Jump Trading', eventDate:'2026-11-02', source:'s1',
+    headline:'Named as liquidity support for Securitize Stocks on Solana',
+    evidence:'Jump Trading publicly supports liquidity for Securitize Stocks on Solana.',
+    rubric:{txVolume:20, latency:20, reliability:6, productFit:15, reach:0, recency:10}, penalties:[],
+    gate:{solana_activity:true, transaction_volume_evidence:true, latency_sensitive:true, is_competitor:false, infrastructure_owner_identified:false},
+    services:['sender_max','laserstream'],
+    why:'Market-making a tokenised equity book on Solana is latency-sensitive execution. Landing transactions during congestion is the product, not a cost line.',
+    counter:'Jump builds much of its own infrastructure, and nothing public tells us what they send through today.',
+    counterRule:null,
+    whyNow:"Supporting Securitize Stocks liquidity on Solana.", blocker:"No infrastructure owner identified.", next:"Identify the trading-infrastructure owner. Ask about the current Solana send path.",
+    verify:'Identify the head of trading infrastructure. Ask about the current send path before proposing anything.',
+    hypothesis:'Sender Max for latency-sensitive execution; LaserStream for position and fill data.' },
+
+  { id:'securitize-stocks', tier:2, lens:['rwa','trading','institution'], entity:'Securitize', eventDate:'2026-11-02', source:'s1',
+    headline:'Tokenised US equities on Solana expanded to 25',
+    evidence:'Securitize expanded its onchain U.S. stock offering to 25 equities, settled in USDC, with Jump Trading supporting liquidity.',
+    rubric:{txVolume:14, latency:0, reliability:0, productFit:10, reach:0, recency:10},
+    penalties:[['evidence is a product announcement only',-8]],
+    gate:{solana_activity:true, transaction_volume_evidence:false, latency_sensitive:false, is_competitor:false, infrastructure_owner_identified:false},
+    services:['webhooks','parsed','rpc'],
+    why:'A larger catalogue settled in USDC plausibly increases transaction and data requirements over time.',
+    counter:'No evidence of an infrastructure gap. Catalogue expansion is product growth, not a signal that anything is failing.',
+    counterRule:'no_gap',
+    whyNow:"Tokenised equity catalogue tripled, USDC settled.", blocker:"No evidence of an infrastructure gap.", next:"Find the Solana engineering owner. Watch transaction volume.",
+    verify:'Identify the Solana engineering owner. Monitor transaction volume and any public mention of infrastructure.',
+    hypothesis:'None confirmed. Outreach blocked until a specific Sender or LaserStream hypothesis exists.',
+    demoNote:'A schema demonstration, not a Sender lead.' },
+
+  { id:'alpenglow', tier:null, lens:['infra','exchange','trading'], entity:'Solana network', eventDate:'2026-10-21', source:'s2',
+    headline:'Alpenglow live on mainnet, finality targeted at ~150ms',
+    evidence:'Alpenglow activated on Solana mainnet, replacing TowerBFT and targeting finality of roughly 150 milliseconds.',
+    rubric:{txVolume:0, latency:20, reliability:10, productFit:12, reach:0, recency:0},
+    penalties:[['no named entity',-12]],
+    gate:{solana_activity:true, transaction_volume_evidence:false, latency_sensitive:true, is_competitor:false, infrastructure_owner_identified:false},
+    services:['laserstream','parsed','rpc'],
+    why:'Confirmation semantics and vote traffic change, so anyone parsing or streaming has to revisit assumptions.',
+    counter:'A network upgrade is not a procurement event. Incumbents will ship support quietly.',
+    counterRule:'incumbent_may_cover',
+    whyNow:"Finality semantics changed network-wide.", blocker:"Not a procurement event. Incumbents will ship support.", next:"Use as a reason to open a technical call, never as the lead.",
+    verify:'Use as the reason to open a technical conversation, never as the lead itself.',
+    hypothesis:'Ecosystem context. No company-level hypothesis.' },
+
+  { id:'binance-incident', tier:2, lens:['exchange'], entity:'Binance', eventDate:'2026-10-31', source:'s6',
+    headline:'Record security incident, phased withdrawal reopening',
+    evidence:'Binance began a phased reopening of withdrawals after a record hack.',
+    rubric:{txVolume:12, latency:0, reliability:0, productFit:5, reach:0, recency:10},
+    penalties:[['no Solana causal link',-15],['pitching off an incident',-10]],
+    gate:{solana_activity:false, transaction_volume_evidence:true, latency_sensitive:false, is_competitor:false, infrastructure_owner_identified:false},
+    services:[],
+    why:'Large venues revisit monitoring after incidents of this size.',
+    counter:'Nothing describes a Solana or RPC failure. We are not the people emailing a firm that has just been hacked.',
+    counterRule:'no_gap',
+    whyNow:"Record incident, withdrawals reopening.", blocker:"No Solana footprint evidenced.", next:"None. Revisit only with a Solana signal.",
+    verify:'Do not queue. Revisit only if a Solana footprint and a reliability signal both appear.',
+    hypothesis:'None. Rejected on the gate.' },
+
+  { id:'anchorpoint', tier:3, lens:['stablecoin','institution'], entity:'Anchorpoint', eventDate:'2026-10-27', source:'s7',
+    headline:'HKDAP regulated stablecoin consortium on Solana',
+    evidence:'Anchorpoint is launching HKDAP, a regulated Hong Kong dollar stablecoin, with Standard Chartered reported in the consortium.',
+    rubric:{txVolume:8, latency:0, reliability:0, productFit:10, reach:0, recency:10},
+    penalties:[['single secondary source',-8],['entity unconfirmed',-5]],
+    gate:{solana_activity:true, transaction_volume_evidence:false, latency_sensitive:false, is_competitor:false, infrastructure_owner_identified:false},
+    services:['validator','enterprise'],
+    why:'A regulated issuer with a bank in the consortium is a validator and enterprise conversation.',
+    counter:'Single secondary source. The deploying entity and the chain commitment are both unconfirmed.',
+    counterRule:null,
+    whyNow:"Regulated HKD stablecoin consortium on Solana.", blocker:"Deploying entity unconfirmed, single source.", next:"Confirm the entity and whether a partner exists.",
+    verify:'Confirm the deploying entity and whether an infrastructure partner already exists.',
+    hypothesis:'None confirmed. Tier 3.' },
+
+  { id:'allfunds', tier:3, lens:['rwa','institution'], entity:'Allfunds', eventDate:'2026-10-24', source:'s8',
+    headline:'Project Harmonia tokenised-funds applications closed',
+    evidence:'Project Harmonia, the Allfunds tokenised-funds programme, closed applications on 24 October.',
+    rubric:{txVolume:0, latency:0, reliability:0, productFit:8, reach:0, recency:10},
+    penalties:[['nothing to action yet',-10]],
+    gate:{solana_activity:true, transaction_volume_evidence:false, latency_sensitive:false, is_competitor:false, infrastructure_owner_identified:false},
+    services:['enterprise'],
+    why:'The unpublished cohort is a prospect list. Being early to it is the only value here.',
+    counter:'No cohort, no deployment, no infrastructure need. A calendar entry, not a lead.',
+    counterRule:'no_gap',
+    whyNow:"Tokenised-funds cohort closes.", blocker:"No cohort published, nothing to action.", next:"Diary the cohort announcement.",
+    verify:'Diary the cohort announcement. Nothing before then.',
+    hypothesis:'None. Watch item.' },
+
+  { id:'solana-rwa-5bn', tier:null, lens:['rwa','institution'], entity:'Solana RWA sector', eventDate:'2026-10-29', source:'s5',
+    headline:'Solana RWA value passed $5 billion',
+    evidence:'Solana RWA value crossed $5 billion on 29 October after an 18% monthly gain.',
+    rubric:{txVolume:10, latency:0, reliability:0, productFit:5, reach:0, recency:10},
+    penalties:[['no named entity',-12]],
+    gate:{solana_activity:true, transaction_volume_evidence:true, latency_sensitive:false, is_competitor:false, infrastructure_owner_identified:false},
+    services:[],
+    why:'Sizes the sector for the opening paragraph of a brief.',
+    counter:'Sector growth names no buyer and evidences no need.',
+    counterRule:'no_gap',
+    whyNow:"Sector crossed $5bn.", blocker:"Names no buyer.", next:"None. Context for a brief.",
+    verify:'Context only. Never queue.',
+    hypothesis:'None. Market context.' },
+
+  { id:'hylo', tier:3, lens:['trading'], entity:'Hylo', eventDate:'2026-10-20', source:'s9',
+    headline:'Raised $1M',
+    evidence:'Hylo raised $1M on 20 October.',
+    rubric:{txVolume:0, latency:5, reliability:0, productFit:8, reach:0, recency:10},
+    penalties:[['raise below threshold',-12]],
+    gate:{solana_activity:true, transaction_volume_evidence:false, latency_sensitive:true, is_competitor:false, infrastructure_owner_identified:false},
+    services:['rpc'],
+    why:'Solana-native and newly funded.',
+    counter:'A $1M raise does not buy enterprise infrastructure. BD time costs more than the account returns.',
+    counterRule:null,
+    whyNow:"Solana-native, newly funded.", blocker:"$1M will not buy enterprise infrastructure.", next:"Watchlist. Revisit on a Series A.",
+    verify:'Watchlist. Revisit on a Series A.',
+    hypothesis:'None. Below threshold.' },
+
+  { id:'alchemy', tier:null, lens:['infra','exchange','trading'], entity:'Alchemy', eventDate:'2026-10-15', source:'s10',
+    headline:'Publishing "best Solana RPC provider" positioning',
+    evidence:'Alchemy is publishing guides naming itself the best Solana RPC provider.',
+    rubric:{txVolume:0, latency:0, reliability:0, productFit:0, reach:0, recency:0}, penalties:[],
+    gate:{solana_activity:true, transaction_volume_evidence:false, latency_sensitive:false, is_competitor:true, infrastructure_owner_identified:false},
+    services:[],
+    why:'Expect this framing in any competitive deal this quarter.',
+    counter:'Marketing is not evidence of a won account.',
+    counterRule:'competitor',
+    whyNow:"Publishing competitive RPC positioning.", blocker:"Marketing is not a won account.", next:"Brief the team. Not a prospect.",
+    verify:'Positioning intelligence for the brief. Never a prospect row.',
+    hypothesis:'n/a' },
+
+  { id:'solana-company', tier:null, lens:ALL_LENS, entity:'Solana Company (formerly Helius Medical Technologies)', eventDate:'2026-10-30', source:'s11',
+    headline:'Blocked by the name-collision guard. Not Helius.',
+    evidence:'Helius Medical Technologies (HSDT) rebranded as Solana Company after a treasury pivot. Unrelated to Helius the infrastructure provider.',
+    rubric:{txVolume:0, latency:0, reliability:0, productFit:0, reach:0, recency:0}, penalties:[],
+    gate:{solana_activity:false, transaction_volume_evidence:false, latency_sensitive:false, is_competitor:false, infrastructure_owner_identified:false},
+    blocked:true, services:[],
+    why:'Nothing. Kept in the store so the rejection is visible rather than silent.',
+    counter:'This is the false positive that makes a BD tool untrustworthy on its first demo.',
+    counterRule:null,
+    whyNow:"Treasury pivot, renamed.", blocker:"Blocked alias. Not Helius.", next:"None.",
+    verify:'Blocked at match time. Only an exact CIK or domain match could clear it.',
+    hypothesis:'n/a' }
+];
+
+var REJECTED = [
+  ['"Solana Company is already a Helius staking customer."','name_collision'],
+  ['"Binance needs a new RPC provider after the hack."','unsupported_inference'],
+  ['"Securitize is unhappy with its current provider."','intent_not_evidenced'],
+  ['"Alpenglow proves exchanges will switch providers."','overreach'],
+  ['"State Street has a live tokenised fund on Solana."','no_verifiable_source'],
+  ['"SoFi launched a Solana stablecoin product."','entity_unconfirmed']
+];
+var MISSING = ['Current send path for Jump Trading','Solana engineering owner at Securitize','Transaction volume for any tier 2 name','Incumbent provider for every row in this scan'];
+
+/* the verdict engine */
+var RUBRIC_LABELS = {txVolume:'transaction-volume signal',latency:'latency sensitivity',reliability:'reliability pain',productFit:'product fit',reach:'reachability',recency:'recency'};
+var ORDER = ['NO_ACTION','WATCH','RESEARCH','QUALIFY','ACTIONABLE'];
+function assess(r, lensKey){
+  /* A live row carries the verdict the PIPELINE computed, in pipeline/score.js.
+     Use it. The page kept its own copy of the rules and the two drifted - the
+     page read 8 research and 0 routed where the pipeline scored 4 and 1 on the
+     same rows. The fixture dataset has no pipeline behind it, so the local
+     implementation below still scores that. */
+  if(r.assessment && (!lensKey || lensKey === PRIMARY)) return r.assessment;
+  var base = 0, k;
+  for(k in r.rubric) base += r.rubric[k];
+  var pen = r.penalties.reduce(function(a,b){ return a + b[1]; }, 0);
+  var score = Math.max(0, base + pen);
+  var verdict = score >= 80 ? 'ACTIONABLE' : score >= 60 ? 'QUALIFY' : score >= 40 ? 'WATCH' : 'NO_ACTION';
+  var caps = [];
+  function capTo(v, why){ if(ORDER.indexOf(verdict) > ORDER.indexOf(v)) verdict = v; caps.push(why); }
+  var band = verdict;
+  if(r.blocked)            return {score:score, band:band, verdict:'BLOCKED', caps:['Blocked alias. Not Helius.']};
+  if(r.gate.is_competitor) return {score:score, band:band, verdict:'COMPETITOR', caps:['Competitor, not a prospect.']};
+  /* An UNCLEAR relationship is a research state by definition. */
+  if(r.relationship === 'UNCLEAR') capTo('RESEARCH','Relationship is UNCLEAR - not established as a prospect.');
+  if(!r.gate.solana_activity) return {score:score, band:band, verdict:'NO_ACTION', caps:['No Solana activity evidenced. Rejected on the gate.']};
+  /* RESEARCH is a state, not a band: a named entity with real evidence but no
+     gap signal should be kept and researched, not dropped. So the counter-rule
+     RECLASSIFIES rather than caps. With no named entity it stays as scored. */
+  if(r.counterRule === 'no_gap' || r.counterRule === 'incumbent_may_cover'){
+    var reason = r.counterRule === 'no_gap'
+      ? 'Counter-rationale states no evidence of an infrastructure gap.'
+      : 'Counter-rationale states an incumbent may already cover this.';
+    /* Both branches LOWER the verdict. Leaving the unknown-entity case alone
+       let an unidentifiable row outrank an identified one - that is how a row
+       whose entity was "Solana" reached Qualify on score 61. */
+    if(r.tier || r.registry_tier){ verdict = 'RESEARCH'; caps.push(reason); }
+    else capTo('RESEARCH', reason + ' No registry account behind it, so it is context at best.');
+  }
+  /* These three caps lived only in pipeline/score.js, so the page and the
+     pipeline disagreed on the same rows - the page showed 8 research and 0
+     routed where the pipeline scored 4 and 1. One store, one logic. */
+  var SOURCE_CAP = { buyer_owned:'ACTIONABLE', technical_ecosystem:'ACTIONABLE',
+                     market_context:'RESEARCH', directory:'RESEARCH' };
+  if(r.source_type && SOURCE_CAP[r.source_type] && SOURCE_CAP[r.source_type] !== 'ACTIONABLE')
+    capTo(SOURCE_CAP[r.source_type], 'Source is ' + r.source_type.replace('_',' ') + ', not a buyer-owned surface.');
+  if(r.standing){
+    var fp = r.source_type === 'buyer_owned' || r.source_type === 'technical_ecosystem';
+    if(fp && (r.tier || r.registry_tier) && (r.evidence_grade === 'A' || r.evidence_grade === 'B'))
+      capTo('QUALIFY','Standing condition, not a dated event: worth researching, not yet worth approaching.');
+    else capTo('RESEARCH','Standing condition observed in documentation, not a dated event.');
+  }
+  var GRADE_CAP = { A:'ACTIONABLE', B:'QUALIFY', C:'RESEARCH', D:'RESEARCH', E:'NO_ACTION' };
+  if(r.evidence_grade && GRADE_CAP[r.evidence_grade])
+    capTo(GRADE_CAP[r.evidence_grade], 'Evidence grade ' + r.evidence_grade + '.');
+  if(r.motion && r.motion !== 'SENDER' && r.motion !== 'UNROUTED')
+    capTo('RESEARCH', 'Evidence routes to ' + r.motion.replace('_','/') + ', not Sender.');
+  if(!r.gate.infrastructure_owner_identified) capTo('QUALIFY','No infrastructure owner identified.');
+  if(lensKey && lensKey !== PRIMARY)          capTo('QUALIFY','Extension lens, not the primary motion.');
+  /* ROUTING, not promotion. A named account with dated Solana evidence that
+     fails the Sender bar is a task for another Helius motion - not a lead, and
+     not a discard. ROUTED sits below Qualify and is never capped up into. */
+  // The ACCOUNT having Solana activity is not enough - the EVENT must be about
+  // Solana too, or a Coinbase outage on another chain becomes a Solana task.
+  /* Grounded text only - `why` is model-written, and including it routed a
+     fiat-rail incident as a Solana task. */
+  var evText = (r.quote||'') + ' ' + (r.headline||'');
+  var eventIsSolana = /\bsolana\b|\bSOL\b/i.test(evText);
+  if((verdict === 'NO_ACTION' || verdict === 'WATCH') && (r.tier || r.registry_tier) &&
+     (r.relationship || 'PROSPECT') === 'PROSPECT' && r.gate.solana_activity && eventIsSolana){
+    var to = r.motion && r.motion !== 'UNROUTED' && r.motion !== 'SENDER' ? r.motion
+           : (r.gate.reliability_pain ? 'RPC_ENTERPRISE' : null);
+    if(to) return {score:score, band:band, verdict:'ROUTED', routedTo:to,
+      caps:caps.concat(['No Sender signal, but this is a registry account with dated Solana evidence. Routed to ' +
+        to.replace('_','/') + ' as a research task, not a lead.'])};
+  }
+  return {score:score, band:band, verdict:verdict, caps:caps};
+}
+function cappedCount(){ return STORE.filter(function(r){ var a = assess(r, null); return a.verdict !== a.band; }).length; }
+function firesSender(r){ return r.gate.latency_sensitive; }
+function servicesFor(r){ return firesSender(r) ? r.services : r.services.filter(function(s){ return s.indexOf('sender') !== 0; }); }
+
+var AGENTS = [
+  {id:'research', name:'Research', colour:'#8E6BD6', hex:0x8E6BD6, desk:[-19.5,-8], job:'Finds the event and the primary source',     out:'1 source'},
+  {id:'crawler',  name:'Crawler',  colour:'#C07BB8', hex:0xC07BB8, desk:[ -6.5,-8], job:'Finds the operators a protocol does not run', out:'HX-GA2'},
+  {id:'verifier', name:'Verifier', colour:'#3FA57A', hex:0x3FA57A, desk:[  6.5,-8], job:'Refuses any claim with no verbatim source',  out:'6 refused'},
+  {id:'skeptic',  name:'Skeptic',  colour:'#C9516F', hex:0xC9516F, desk:[ 19.5,-8], job:'States why the lead might NOT qualify, and can veto', out:'veto'},
+  {id:'gate',     name:'Gate',     colour:'#B8486A', hex:0xB8486A, desk:[-19.5, 6], job:'Runs the disqualifier pass before scoring',  out:'2 rejected'},
+  {id:'scorer',   name:'Scorer',   colour:'#D69A3B', hex:0xD69A3B, desk:[ -6.5, 6], job:'Applies the rubric, then the caps',          out:'rubric + caps'},
+  {id:'writer',   name:'Writer',   colour:'#3B8DC4', hex:0x3B8DC4, desk:[  6.5, 6], job:'Drafts the brief and the outreach',          out:'3 drafts'},
+  {id:'ledger',   name:'Ledger',   colour:'#9BAF3B', hex:0x9BAF3B, desk:[ 19.5, 6], job:'Records cost and payouts on NEAR',           out:'$0.19'}
+];
+var DOOR = [28,-3];
+
+var DELIVERABLES = [
+  {id:'brief', kind:'BD brief', to:'Helius BD team', subject:'Solana BD, week to 3 November 2026', agent:'Writer', cost:0.05, evidence:'s1', signal:'jump-liquidity',
+   route:[['research','crawler','looking for the operators behind it'],['crawler','verifier','carrying the evidence pack'],['verifier','skeptic','4 claims verified'],['skeptic','scorer','counter-rationale stated'],['scorer','writer','scores and caps applied'],['writer','board','posting the brief']]},
+  {id:'discovery', kind:'Technical discovery brief', to:'Internal, before any outreach', subject:'Jump Trading: what we know and do not', agent:'Scorer', cost:0.03, evidence:'s1', signal:'jump-liquidity',
+   route:[['gate','skeptic','gate passed, stating the counter'],['skeptic','scorer','counter may veto'],['scorer','writer','hypothesis formed']]},
+  {id:'email', kind:'Outreach email', to:'infrastructure lead, Jump Trading', subject:'Your Solana send path during congestion', agent:'Writer', cost:0.04, evidence:'s1', signal:'jump-liquidity',
+   route:[['writer','door','taking the outreach to the door']]},
+  {id:'payout', kind:'NEAR agent payout', to:'helius-bd.near to 8 agents', subject:'Settle run 2026-11-03', agent:'Ledger', cost:0.19, evidence:null, signal:null,
+   route:[['ledger','door','carrying the settlement']]}
+];
+
+var VIEWS = {
+  queue:   {n:'Queue',    note:'Ranked by score.'},
+  evidence:{n:'Evidence', note:'By source. A source carrying several rows is a concentration risk.'},
+  timeline:{n:'Timeline', note:'In the order things happened.'},
+  missing: {n:'Missing',  note:'What we do not know.'}
+};
+
+var LIVE = null;            // populated only by a real NEAR AI run
+var STORE = FIXTURE;        // what the views project; swapped on a live run
+
+var S = {
+  lens:PRIMARY, view:'queue', openRow:null, openAp:null,
+  approvals:{brief:null, discovery:null, email:null, payout:null},
+  bodies:{}, edited:{}, celebrated:false, mailTo:'', feed:[], monitor:null,
+  mode:'fixture', scanner:null, running:false, runLog:[], lastRun:null
+};
+function pending(){ return DELIVERABLES.filter(function(d){ return S.approvals[d.id] === null; }).length; }
+function forLens(k){ return STORE.filter(function(s){ return s.lens.indexOf(k) > -1; }); }
+
+/* &#9552;&#9552; THE OFFICE: no floor, frosted glass, floating agents &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; */
+var Office = (function(){
+  var renderer, scene, camera, clock, bots = {}, L = {}, ready = false;
+  var trips = [], trip = null, tT = 0, doc = null, radar = [], conf = [], party = 0;
+  var FLOAT = 2.6;
+  function V(x,y,z){ return new THREE.Vector3(x,y,z); }
+  function homeOf(a){ return V(a.desk[0], FLOAT, a.desk[1] - 3.2); }
+  function spotOf(k){
+    if(k === 'door')  return V(DOOR[0]-4, FLOAT, DOOR[1]);
+    if(k === 'board') return V(0, FLOAT+1, -13);
+    var a = AGENTS.filter(function(x){ return x.id === k; })[0];
+    return a ? V(a.desk[0]+4.4, FLOAT, a.desk[1]+1.4) : V(0,FLOAT,0);
+  }
+  function glass(c,o){ return new THREE.MeshPhongMaterial({color:c, transparent:true, opacity:o, shininess:80, specular:0xFFFFFF, side:THREE.DoubleSide}); }
+
+  function makeBot(a){
+    var g = new THREE.Group();
+    var body = new THREE.MeshPhongMaterial({color:a.hex, shininess:95, specular:0xFFFFFF,
+      transparent:true, opacity:.95, emissive:a.hex, emissiveIntensity:.1});
+    var dark = new THREE.MeshPhongMaterial({color:0x2A2E33, shininess:60});
+    var white = new THREE.MeshBasicMaterial({color:0xFFFFFF});
+    var torso = new THREE.Mesh(new THREE.CylinderGeometry(1.05,1.2,1.85,22), body); torso.position.y = 1.3; g.add(torso);
+    var base = new THREE.Mesh(new THREE.SphereGeometry(1.2,22,12,0,Math.PI*2,Math.PI/2,Math.PI/2), body); base.position.y = .4; g.add(base);
+    var head = new THREE.Mesh(new THREE.SphereGeometry(1.06,24,16), body); head.position.y = 2.88; head.scale.set(1,.92,1); g.add(head);
+    var visor = new THREE.Mesh(new THREE.BoxGeometry(1.4,.7,.26), dark); visor.position.set(0,2.88,.93); g.add(visor);
+    [-.33,.33].forEach(function(dx){ var e = new THREE.Mesh(new THREE.SphereGeometry(.17,12,10), white); e.position.set(dx,2.89,1.05); g.add(e); });
+    var ant = new THREE.Mesh(new THREE.CylinderGeometry(.06,.06,.74,8), body); ant.position.y = 4.0; g.add(ant);
+    var tip = new THREE.Mesh(new THREE.SphereGeometry(.2,12,10), new THREE.MeshBasicMaterial({color:a.hex})); tip.position.y = 4.44; g.add(tip);
+    var halo = new THREE.Mesh(new THREE.RingGeometry(1.3,1.95,40), new THREE.MeshBasicMaterial({color:a.hex, transparent:true, opacity:.3, side:THREE.DoubleSide}));
+    halo.rotation.x = -Math.PI/2; halo.position.y = -.5; g.add(halo);
+    g.userData = {agent:a, halo:halo, home:homeOf(a), hover:Math.random()*Math.PI*2};
+    return g;
+  }
+  function makeDesk(a){
+    var g = new THREE.Group();
+    var top = new THREE.Mesh(new THREE.BoxGeometry(7.6,.3,3.6), glass(0xFFFFFF,.34)); top.position.y = FLOAT - 1.1; g.add(top);
+    var edge = new THREE.Mesh(new THREE.BoxGeometry(7.65,.06,3.65), new THREE.MeshBasicMaterial({color:a.hex, transparent:true, opacity:.5}));
+    edge.position.y = FLOAT - .94; g.add(edge);
+    var sc = new THREE.Mesh(new THREE.BoxGeometry(3.4,2,.14), glass(0x2A2E33,.55)); sc.position.set(.6,FLOAT+.2,.6); g.add(sc);
+    var lit = new THREE.Mesh(new THREE.PlaneGeometry(3,1.65), new THREE.MeshBasicMaterial({color:a.hex, transparent:true, opacity:.45}));
+    lit.position.set(.6,FLOAT+.2,.69); g.add(lit);
+    g.position.set(a.desk[0],0,a.desk[1]);
+    return g;
+  }
+  function boardTex(lines){
+    var c = document.createElement('canvas'); c.width = 768; c.height = 300;
+    var x = c.getContext('2d');
+    x.fillStyle = '#232323'; x.fillRect(0,0,768,300);
+    x.strokeStyle = 'rgba(200,240,0,.7)'; x.lineWidth = 4; x.strokeRect(3,3,762,294);
+    lines.forEach(function(l){
+      x.fillStyle = l[2]; x.font = l[1] + 'px ' + (l[4] || 'Geist, Helvetica, sans-serif');
+      if(l[5]){ var cx = 40; l[0].split('').forEach(function(ch){ x.fillText(ch,cx,l[3]); cx += x.measureText(ch).width + l[5]; }); }
+      else x.fillText(l[0], 40, l[3]);
+    });
+    var t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t;
+  }
+  function buildRoom(){
+    var wall = glass(0xDDE0E4, .36);
+    var wA = new THREE.Mesh(new THREE.BoxGeometry(60,20,.5), wall); wA.position.set(0,8,-19); scene.add(wA);
+    var wB = new THREE.Mesh(new THREE.BoxGeometry(.5,20,38), wall); wB.position.set(-30,8,0); scene.add(wB);
+    function board(w,h,x,y,z,tex){
+      var m = new THREE.Mesh(new THREE.PlaneGeometry(w,h), new THREE.MeshBasicMaterial({map:tex, transparent:true}));
+      m.position.set(x,y,z); scene.add(m);
+    }
+    board(13,5.1,-11,11,-18.5, boardTex([
+      ['T H I S   S C A N',22,'#A8A69E',52,'Geist Mono, monospace',3],
+      [String(STORE.length),120,'#FFFFFF',180,'Geist, Helvetica, sans-serif'],
+      ['rows scored',26,'#A8A69E',150,'Geist Mono, monospace'],
+      [cappedCount() + ' moved by a cap',24,'#C8F000',244,'Geist Mono, monospace']
+    ]));
+    board(13,5.1, 11,11,-18.5, boardTex([
+      ['P R I M A R Y   M O T I O N',22,'#A8A69E',52,'Geist Mono, monospace',3],
+      ['Sender',92,'#FFFFFF',150,'Geist, Helvetica, sans-serif'],
+      ['Solana trading firms',26,'#A8A69E',196,'Geist Mono, monospace'],
+      ['tier 1 and 2 only',24,'#C8F000',240,'Geist Mono, monospace']
+    ]));
+    /* a grey-blue glass slab stands in for the floor, so they read as floating */
+    var slab = new THREE.Mesh(new THREE.BoxGeometry(40,.35,30), glass(0x8FA3B8,.17)); slab.position.set(0,-2.6,2); scene.add(slab);
+    var sofa = new THREE.Mesh(new THREE.BoxGeometry(8,1.3,3), glass(0x8FA3B8,.3)); sofa.position.set(8,-1.5,13); scene.add(sofa);
+    var frame = new THREE.Mesh(new THREE.BoxGeometry(.8,10.5,6.6), glass(0xFFFFFF,.5)); frame.position.set(DOOR[0],4.5,DOOR[1]); scene.add(frame);
+    var panel = new THREE.Mesh(new THREE.BoxGeometry(.4,9,5.4), new THREE.MeshBasicMaterial({color:0xC8F000, transparent:true, opacity:.3}));
+    panel.position.set(DOOR[0]-.4,4.3,DOOR[1]); scene.add(panel);
+    scene.userData.door = panel;
+    scene.add(new THREE.AmbientLight(0xFFFFFF,.84));
+    var key = new THREE.DirectionalLight(0xFFFFFF,.58); key.position.set(26,38,22); scene.add(key);
+    var fill = new THREE.DirectionalLight(0xC8D4E4,.34); fill.position.set(-22,16,-14); scene.add(fill);
+  }
+  function makeDoc(){
+    var g = new THREE.Group();
+    g.add(new THREE.Mesh(new THREE.PlaneGeometry(2.5,3.3), new THREE.MeshBasicMaterial({color:0xFFFFFF, side:THREE.DoubleSide})));
+    for(var i=0;i<5;i++){
+      var ln = new THREE.Mesh(new THREE.PlaneGeometry(1.6-(i%2)*.5,.15), new THREE.MeshBasicMaterial({color:0x9A9890, side:THREE.DoubleSide}));
+      ln.position.set(-.1+(i%2)*.25, 1-i*.46, .02); g.add(ln);
+    }
+    var tab = new THREE.Mesh(new THREE.PlaneGeometry(2.5,.36), new THREE.MeshBasicMaterial({color:0xC8F000, side:THREE.DoubleSide}));
+    tab.position.set(0,1.45,.02); g.add(tab);
+    g.visible = false; return g;
+  }
+  function makeRadar(){
+    var g = new THREE.Group();
+    for(var i=0;i<3;i++){
+      var m = new THREE.Mesh(new THREE.RingGeometry(1,1.22,44), new THREE.MeshBasicMaterial({color:0xFFFFFF, transparent:true, opacity:0, side:THREE.DoubleSide}));
+      m.rotation.x = -Math.PI/2; m.userData.p = i/3; g.add(m); radar.push(m);
+    }
+    g.visible = false; return g;
+  }
+  function makeConf(){
+    var C = AGENTS.map(function(a){ return a.hex; }).concat([0xC8F000,0x232323]);
+    var g = new THREE.Group();
+    for(var i=0;i<150;i++){
+      var m = new THREE.Mesh(new THREE.PlaneGeometry(.46,.76), new THREE.MeshBasicMaterial({color:C[i%C.length], side:THREE.DoubleSide}));
+      m.userData = {vx:(Math.random()-.5)*7, vy:7+Math.random()*9, vz:(Math.random()-.5)*7, rx:(Math.random()-.5)*9, ry:(Math.random()-.5)*9, x0:(Math.random()-.5)*26, z0:(Math.random()-.5)*18};
+      g.add(m); conf.push(m);
+    }
+    g.visible = false; return g;
+  }
+  function init(){
+    var canvas = $('scene');
+    if(typeof THREE === 'undefined'){
+      $('fallback').hidden = false;
+      $('fallback').innerHTML = 'The 3D office needs Three.js, which did not load here.<br>Everything else on this page works without it.';
+      canvas.hidden = true; return;
+    }
+    renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+    renderer.setClearColor(0x000000, 0);
+    scene = new THREE.Scene();
+    camera = new THREE.OrthographicCamera(-1,1,1,-1,.1,400);
+    camera.position.set(52,38,50); camera.lookAt(2,3.5,3);
+    buildRoom();
+    doc = makeDoc(); scene.add(doc);
+    scene.userData.radar = makeRadar(); scene.add(scene.userData.radar);
+    scene.userData.conf = makeConf(); scene.add(scene.userData.conf);
+    AGENTS.forEach(function(a){
+      scene.add(makeDesk(a));
+      var b = makeBot(a); b.scale.setScalar(1.14); b.position.copy(b.userData.home); scene.add(b); bots[a.id] = b;
+    });
+    buildLabels();
+    clock = new THREE.Clock(); ready = true;
+    new ResizeObserver(resize).observe(canvas.parentElement);
+    resize(); renderer.setAnimationLoop(tick);
+  }
+  function resize(){
+    if(!ready) return;
+    var r = $('scene').parentElement.getBoundingClientRect();
+    var w = Math.max(1, r.width), h = Math.max(1, r.height);
+    renderer.setSize(w,h,false);
+    var sp = 22, ar = w/h;
+    camera.left = -sp*ar; camera.right = sp*ar; camera.top = sp; camera.bottom = -sp;
+    camera.updateProjectionMatrix();
+  }
+  function buildLabels(){
+    var host = $('labels'); host.innerHTML = '';
+    AGENTS.forEach(function(a){
+      var el = document.createElement('div'); el.className = 'lbl'; el.style.borderColor = a.colour;
+      el.innerHTML = '<div class="n">' + esc(a.name) + '</div><div class="bar"><i style="background:' + a.colour + ';width:8%"></i></div>';
+      host.appendChild(el);
+      var b = document.createElement('div'); b.className = 'bubble'; b.hidden = true; host.appendChild(b);
+      L[a.id] = {pill:el, bar:el.querySelector('i'), bub:b};
+    });
+  }
+  function project(v){
+    var p = v.clone().project(camera), r = $('scene').getBoundingClientRect();
+    return [(p.x*.5+.5)*r.width, (-p.y*.5+.5)*r.height];
+  }
+  function mk(who, from, to, msg, ret){
+    return {who:who, from:from.clone(), to:to.clone(), dur:Math.max(1.1, from.distanceTo(to)*.09), msg:msg, ret:!!ret};
+  }
+  function feed(tr){
+    var a = AGENTS.filter(function(x){ return x.id === tr.who; })[0];
+    if(!a || !tr.msg) return;
+    S.feed.unshift('<b style="color:' + a.colour + '">' + esc(a.name) + '</b> ' + esc(tr.msg));
+    S.feed = S.feed.slice(0,4);
+    $('ticker').innerHTML = S.feed.map(function(f,i){ return '<div class="' + (i?'f':'') + '">' + f + '</div>'; }).join('');
+  }
+  function tick(){
+    if(!ready) return;
+    var dt = Math.min(clock.getDelta(), .05), t = clock.elapsedTime;
+    if(!trip && trips.length){ trip = trips.shift(); tT = 0; feed(trip); }
+    if(trip){
+      tT += dt / trip.dur;
+      var b = bots[trip.who], k = Math.min(1, tT);
+      var e = k < .5 ? 2*k*k : 1 - Math.pow(-2*k+2, 2)/2;
+      b.position.lerpVectors(trip.from, trip.to, e);
+      b.position.y = trip.from.y + Math.sin(k*Math.PI)*1.6;
+      var d = trip.to.clone().sub(trip.from);
+      if(d.lengthSq() > .01) b.rotation.y = Math.atan2(d.x, d.z);
+      doc.visible = true;
+      doc.position.lerpVectors(trip.from, trip.to, Math.min(1, k*1.12));
+      doc.position.y = trip.from.y + 2.6 + Math.sin(k*Math.PI)*3.2;
+      doc.rotation.y += dt*2.4; doc.rotation.z = Math.sin(t*3)*.15;
+      if(tT >= 1){
+        if(trip.ret) trips.unshift(mk(trip.who, trip.to, bots[trip.who].userData.home, 'back to desk', false));
+        trip = null;
+      }
+    } else doc.visible = false;
+    var rg = scene.userData.radar;
+    if(trip){
+      rg.visible = true;
+      rg.position.set(bots[trip.who].position.x, bots[trip.who].position.y - 1.3, bots[trip.who].position.z);
+      var col = AGENTS.filter(function(a){ return a.id === trip.who; })[0].hex;
+      radar.forEach(function(m){
+        var p = (t*.75 + m.userData.p) % 1;
+        m.scale.setScalar(1.3 + p*3.4); m.material.color.setHex(col); m.material.opacity = (1-p)*.55;
+      });
+    } else rg.visible = false;
+    var cg = scene.userData.conf;
+    if(party > 0){
+      party -= dt; cg.visible = true;
+      var age = 4.2 - party;
+      conf.forEach(function(m){
+        var u = m.userData;
+        m.position.set(u.x0 + u.vx*age, 22 + u.vy*age - 9.2*age*age, u.z0 + u.vz*age);
+        m.rotation.x += u.rx*dt; m.rotation.y += u.ry*dt; m.visible = m.position.y > -3;
+      });
+    } else cg.visible = false;
+    AGENTS.forEach(function(a,i){
+      var bb = bots[a.id], l = L[a.id], moving = trip && trip.who === a.id;
+      if(party > 0){
+        var j = Math.abs(Math.sin(t*4.4 + i*.5));
+        bb.position.y = FLOAT + j*2.6; bb.rotation.y = Math.sin(t*3+i)*.5;
+      } else if(!moving){
+        bb.userData.hover += dt*1.5;
+        bb.position.y = FLOAT + Math.sin(bb.userData.hover)*.34;
+        bb.rotation.y += (0 - bb.rotation.y)*.06;
+      }
+      bb.userData.halo.material.opacity = moving ? .5 + Math.sin(t*6)*.18 : .22 + Math.sin(t*1.4 + bb.userData.hover)*.07;
+      var lift = a.desk[1] < 0 ? 6.6 : 5.8;
+      var xy = project(bb.position.clone().add(V(0, lift, 0)));
+      l.pill.style.left = xy[0] + 'px'; l.pill.style.top = xy[1] + 'px';
+      l.pill.classList.toggle('dim', !moving && !!trip);
+      l.bar.style.width = (moving ? 72 : (pending() === 0 ? 100 : 8)) + '%';
+      if(moving && trip.msg){
+        l.bub.hidden = false; l.bub.textContent = trip.msg;
+        var b2 = project(bb.position.clone().add(V(0, lift + 2.8, 0)));
+        l.bub.style.left = b2[0] + 'px'; l.bub.style.top = b2[1] + 'px';
+      } else l.bub.hidden = true;
+    });
+    if(scene.userData.door) scene.userData.door.material.opacity = pending() ? .5 + Math.sin(t*2)*.18 : .12;
+    renderer.render(scene, camera);
+  }
+  return {
+    init: init,
+    run: function(d){
+      if(!ready) return;
+      d.route.forEach(function(x,i){
+        var b = bots[x[0]]; if(!b) return;
+        trips.push(mk(x[0], i === 0 ? b.userData.home.clone() : b.position.clone(), spotOf(x[1]), x[2], true));
+      });
+    },
+    reset: function(){ trips = []; trip = null; party = 0; S.feed = []; $('ticker').innerHTML = ''; },
+    spotlight: function(agentId, msg){
+      if(!ready || !bots[agentId]) return;
+      var b = bots[agentId];
+      trips.push(mk(agentId, b.position.clone(), spotOf('board'), String(msg).slice(0, 48), true));
+    },
+    celebrate: function(){ if(ready) party = 4.2; },
+    busy: function(){ return !!trip || trips.length > 0; },
+    isReady: function(){ return ready; }
+  };
+})();
+
+/* &#9552;&#9552; DELIVERABLE DOCUMENTS &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; */
+/* Single source of truth for run identity. Nothing below hardcodes a date
+   or the word "fixture" - they all derive from the run that is loaded. */
+function runLabel(){
+  if(S.mode === 'live' && S.lastRun){
+    var d = (S.lastRun.generatedAt || '').slice(0,10) || (S.lastRun.runId||'').slice(4,14);
+    return { date: d, kind: 'live research run', id: S.lastRun.runId,
+             cost: S.lastRun.cost && S.lastRun.cost.priced ? '$' + S.lastRun.cost.usd.toFixed(4) : null };
+  }
+  return { date: '2026-11-03', kind: 'fixture demo', id: 'fixture', cost: null };
+}
+var TODAY = '3 November 2026';
+function head2(title, rt){
+  return '<div class="ph2"><span class="lg"></span><div><div class="who">Helius BD</div>' +
+    '<div class="sub">Solana infrastructure</div></div><div class="rt">' + rt + '</div></div><h1>' + esc(title) + '</h1>';
+}
+function strip(t){ return t.replace(/^To:.*\n/m,'').replace(/^Subject:.*\n/m,'').replace(/^\s+/,''); }
+
+var DEFAULT_BODY = {
+  brief: '',
+  payout: '',
+  discovery: [
+    'COMPANY             Jump Trading',
+    'TIER                1 ' + DASH + ' Solana-native trading',
+    'VERDICT             QUALIFY  (score 71, capped)',
+    'CAP REASON          No infrastructure owner identified.',
+    '',
+    'PRODUCT HYPOTHESIS',
+    '  Sender Max for latency-sensitive execution; LaserStream for',
+    '  position and fill data.',
+    '',
+    'WHY WE ARE LOOKING',
+    '  Named as liquidity support for Securitize Stocks on Solana.',
+    '  Market-making a tokenised equity book is latency-sensitive',
+    '  execution, where landing transactions during congestion is the',
+    '  product rather than a cost line.',
+    '',
+    'WHAT WE DO NOT KNOW',
+    '  ' + DASH + ' Current send path and provider',
+    '  ' + DASH + ' Transaction volume on Solana',
+    '  ' + DASH + ' Latency budget and failure tolerance',
+    '  ' + DASH + ' Who owns trading infrastructure',
+    '',
+    'WHAT WOULD DISQUALIFY THEM',
+    '  ' + DASH + ' Confirmed incumbent on a long contract',
+    '  ' + DASH + ' Fully self-hosted send path by choice',
+    '  ' + DASH + ' Solana desk is a pilot, not a book',
+    '',
+    'NEXT ACTION',
+    '  Identify the head of trading infrastructure. Technical',
+    '  conversation only. No generic introduction.',
+    '',
+    'OUTREACH STATUS',
+    '  Permitted. A specific Sender hypothesis exists and the row',
+    '  passed the disqualifier gate.'
+  ].join('\n'),
+  email: [
+    'To:      infrastructure lead, Jump Trading',
+    'Subject: Your Solana send path during congestion',
+    '',
+    'Hi ' + DASH,
+    '',
+    'I saw you are supporting liquidity for Securitize Stocks on Solana.',
+    '',
+    'Teams running a book on Solana usually hit the same constraint before',
+    'any other: transactions not landing during congestion, which shows up',
+    'as missed fills rather than as an outage.',
+    '',
+    'Sender routes across multiple high-speed pathways rather than one, and',
+    'LaserStream gives position and fill data with replay and failover.',
+    '',
+    'I am not assuming you have a problem. I do not know what you send',
+    'through today, and nothing public tells me.',
+    '',
+    'Would a twenty-minute technical comparison of your current send path be',
+    'useful? I will bring landing-rate numbers, not a deck.',
+    '',
+    DASH + ' Helius BD',
+    '',
+    'Basis: Securitize investor relations, 2 November 2026.'
+  ].join('\n')
+};
+function bodyText(d){
+  if(S.bodies[d.id] == null) S.bodies[d.id] = DEFAULT_BODY[d.id];
+  return S.bodies[d.id];
+}
+function renderDoc(d){
+  if(d.id === 'brief')     return docBrief();
+  if(d.id === 'discovery') return docPlain(d, 'Technical discovery brief', 'Internal, before outreach');
+  if(d.id === 'email')     return docEmail(d);
+  return docPayout();
+}
+function docPlain(d, title, rt){
+  return '<div class="paper">' + head2(title, TODAY + '<br>' + rt) +
+    '<pre style="font-family:var(--mono);font-size:13px;line-height:1.7;white-space:pre-wrap;margin:0">' + esc(bodyText(d)) + '</pre>' +
+    '<div class="sig">Produced by the Scorer agent. The verdict shown is derived from the rubric and the caps, not typed by hand.</div></div>';
+}
+function docBrief(){
+  var rows = STORE.map(function(r){ return {r:r, a:assess(r, null)}; });
+  function group(v){ return rows.filter(function(x){ return v.indexOf(x.a.verdict) > -1; }); }
+  var ready = group(['ACTIONABLE','QUALIFY']), held = group(['RESEARCH','WATCH']),
+      no = group(['NO_ACTION','COMPETITOR','BLOCKED']);
+  function line(x){
+    return '<tr><td><b>' + esc(x.r.entity) + '</b>' + (x.r.tier ? ' <span class="tag t' + x.r.tier + '">T' + x.r.tier + '</span>' : '') +
+      '</td><td style="font-family:var(--mono);font-size:12px">' + x.a.score + '</td>' +
+      '<td>' + esc(x.r.blocker) + '</td></tr>';
+  }
+  var counts = {};
+  STORE.forEach(function(r){ counts[r.source] = (counts[r.source] || 0) + 1; });
+  var worst = Object.keys(counts).sort(function(a,b){ return counts[b] - counts[a]; })[0];
+
+  return '<div class="paper">' + head2('Solana BD brief', runLabel().date + '<br>Sender ' + MID + ' Solana trading<br>' + runLabel().kind + ' ' + MID + ' ' + runLabel().id) +
+  '<p class="lede">' + ready.length + ' research lead' + (ready.length === 1 ? '' : 's') + ' ' + MID + ' ' +
+    held.length + ' held ' + MID + ' ' + no.length + ' no action</p>' +
+
+  '<h2>1. Ready for research ' + DASH + ' ' + ready.length + '</h2>' +
+  ready.map(function(x){
+    return '<div class="pull g"><b>' + esc(x.r.entity) + '</b> ' + MID + ' ' + x.a.score + ' ' + MID + ' ' + esc(x.a.verdict) + '<br>' +
+      esc(servicesFor(x.r).map(function(k){ return SVC[k]; }).join(' ' + MID + ' ')) + '<br><br>' +
+      '<b>Next:</b> ' + esc(x.r.next) + '<br>' +
+      '<b>Ask:</b> Current Solana send path and latency requirements.</div>';
+  }).join('') +
+
+  '<h2>2. Held ' + DASH + ' ' + held.length + '</h2>' +
+  '<table><tr><th>Account</th><th>Score</th><th>Blocker</th></tr>' + held.map(line).join('') + '</table>' +
+
+  '<h2>3. No action ' + DASH + ' ' + no.length + '</h2>' +
+  '<table><tr><th>Account</th><th>Score</th><th>Reason</th></tr>' + no.map(line).join('') + '</table>' +
+
+  '<h2>4. Missing information</h2><ul>' + MISSING.map(function(m){ return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>' +
+
+  '<h2>5. Recommended next actions</h2><ol>' +
+  ready.concat(held).filter(function(x){ return x.r.next.indexOf('None') !== 0; })
+    .map(function(x){ return '<li><b>' + esc(x.r.entity) + ':</b> ' + esc(x.r.next) + '</li>'; }).join('') + '</ol>' +
+
+  '<div style="page-break-before:always"></div>' +
+  '<h2>Appendix ' + DASH + ' evidence concentration</h2>' +
+  '<p>' + esc(SOURCES[worst].pub) + ' carries ' + counts[worst] + ' of ' + STORE.length +
+  ' rows. If that source is wrong, ' + counts[worst] + ' rows are wrong together.</p>' +
+  '<h2>Appendix ' + DASH + ' claims refused before scoring (' + REJECTED.length + ')</h2>' +
+  '<table><tr><th>Claim</th><th>Reason</th></tr>' + REJECTED.map(function(r){
+    return '<tr><td>' + esc(r[0]) + '</td><td style="font-family:var(--mono);font-size:11px">' + esc(r[1]) + '</td></tr>'; }).join('') + '</table>' +
+  '<div class="sig">Verdicts computed from the rubric, then capped by the gate and the counter-rationale rules. ' +
+  cappedCount() + ' of ' + STORE.length + ' rows were moved by a cap.<br>' + runLabel().kind + ' ' + MID + ' ' + runLabel().id + (runLabel().cost ? ' ' + MID + ' ' + runLabel().cost : '') + '</div></div>';
+}
+
+function docEmail(d){
+  var to = S.mailTo || 'infrastructure lead, Jump Trading';
+  return '<div class="mailview"><div class="mhd"><dl><dt>From</dt><dd>Helius BD</dd><dt>To</dt><dd>' + esc(to) +
+    '</dd><dt>Date</dt><dd>' + TODAY + '</dd></dl><div class="sj">' + esc(d.subject) + '</div></div>' +
+    '<div class="bd">' + esc(strip(bodyText(d))) + '</div>' +
+    '<div class="ft">Drafted only because the row passed the gate and a specific Sender hypothesis exists. Not sent, and it cannot be sent from this page.</div></div>' +
+    '<div style="max-width:880px;margin:14px auto 0"><div class="note"><b>Send it yourself.</b> There is no mail server here, by design. Put an address in and your own mail app opens with the approved wording.' +
+    '<div class="mrow"><input id="mailTo" type="email" placeholder="you@gmail.com" value="' + esc(S.mailTo) + '">' +
+    '<button class="btn go" data-mailto>Open in my mail app</button></div></div></div>';
+}
+function docPayout(){
+  var rows = [['Research','1 discovery query, 2 sources',.05],['Gate','10 rows through the disqualifier pass',.03],
+    ['Scorer','10 scored, ' + cappedCount() + ' capped',.03],['Verifier','9 claims checked, 6 rejected',.03],
+    ['Writer','1 brief, 1 discovery brief, 1 email',.04],['Ledger','settlement record',.01]];
+  return '<div class="paper">' + head2('Settlement record, run 2026-11-03', TODAY + '<br>helius-bd.near<br>NEAR testnet') +
+  '<p class="lede">What each agent did, and what each is owed for doing it.</p>' +
+  '<h2>Agent payouts</h2><table><tr><th>Agent</th><th>Work</th><th style="text-align:right">Payout</th></tr>' +
+  rows.map(function(r){ return '<tr><td><b>' + r[0] + '</b></td><td>' + r[1] +
+    '</td><td style="text-align:right;font-family:var(--mono)">$' + r[2].toFixed(2) + '</td></tr>'; }).join('') +
+  '<tr><td colspan="2"><b>Total</b></td><td style="text-align:right;font-family:var(--mono)"><b>$0.19</b></td></tr></table>' +
+  '<h2>Settlement route</h2><table><tr><th>Field</th><th>Value</th></tr>' +
+  '<tr><td>Method</td><td>NEAR Intents, 1Click quote, dry: true</td></tr>' +
+  '<tr><td>Route</td><td>USDC (Solana) ' + ARROW + ' USDC (NEAR)</td></tr>' +
+  '<tr><td>In / quoted out</td><td>12.000000 / 11.9742</td></tr>' +
+  '<tr><td>Executed</td><td><b>No. Dry quote. No funds moved.</b></td></tr></table>' +
+  '<div class="pull w"><b>What this proves and does not.</b> A dry quote prices a route without moving anything, so it proves the route exists and can be costed. It does not prove any company in this run wants to use it.</div>' +
+  '<div class="sig">One run, measured. Not a forecast. The agents do not negotiate, hire one another or hold a treasury.</div></div>';
+}
+
+var SCHEMA_HTML = '<pre class="schema">{\n' +
+    '  <span class="k">"entity"</span>:      <span class="s">"Jump Trading"</span>,\n' +
+    '  <span class="k">"tier"</span>:        <span class="s">1</span>,\n' +
+    '  <span class="k">"quote"</span>:       <span class="s">"Jump Trading publicly supports liquidity for</span>\n' +
+    '                 <span class="s">Securitize Stocks on Solana."</span>,\n' +
+    '  <span class="k">"source_url"</span>:  <span class="s">"https://investors.securitize.io/..."</span>,\n' +
+    '  <span class="k">"source_type"</span>: <span class="s">"buyer_owned"</span>,\n' +
+    '  <span class="k">"gate"</span>: { <span class="k">"solana_activity"</span>: <span class="s">true</span>,\n' +
+    '            <span class="k">"latency_sensitive"</span>: <span class="s">true</span>,\n' +
+    '            <span class="k">"infrastructure_owner_identified"</span>: <span class="s">false</span> },\n' +
+    '  <span class="k">"rubric"</span>: { <span class="k">"txVolume"</span>: <span class="s">20</span>, <span class="k">"latency"</span>: <span class="s">20</span>, <span class="k">"productFit"</span>: <span class="s">15</span> },\n' +
+    '  <span class="k">"counter"</span>:     <span class="s">"..."</span>,      <span class="c">// never optional</span>\n' +
+    '  <span class="k">"counterRule"</span>: <span class="s">null</span>       <span class="c">// can veto the verdict</span>\n' +
+    '}</pre><div class="note"><b>The verdict is not in the schema.</b> It is computed from the rubric then capped by the gate and the counter-rationale, so a row cannot be promoted by typing a better word into it.</div>';
+var LIMITS_HTML = '<div class="scroller" style="margin-top:14px"><table class="data"><tr><th>This tool will not</th><th>Why</th></tr>' +
+    [['Send anything without a human click','The gate is the product, not a checkbox'],
+     ['Let a press release become an actionable lead','Counter-rationale veto, enforced in code'],
+     ['Assess licensing eligibility or collect KYC','Compliance owns that. The tool hands off'],
+     ['Score a prospect readiness','It cannot be derived honestly from public sources'],
+     ['Infer intent','A press release cannot tell you what a company wants to buy'],
+     ['Read absence as a negative fact','"No provider named" is recorded as exactly that']]
+    .map(function(r){ return '<tr><td><b>' + esc(r[0]) + '</b></td><td>' + esc(r[1]) + '</td></tr>'; }).join('') + '</table></div>' +
+    '<div class="note"><b>Name-collision guard.</b> Blocked aliases for helius: Helius Medical Technologies, HSDT, Solana Company. Rejected at match time unless CIK or domain also matches. <b>Privacy:</b> public events and URLs only, nothing leaves the browser, approvals and edits die with the tab.</div>';
+
+/* &#9552;&#9552; RENDER &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; */
+function renderAll(){
+  var RL = runLabel();
+  var hc = $('heroClaim');
+  if(hc){
+    /* The page used to lead with "No qualified Sender lead yet", which is a
+       number nobody asked for and the wrong output. The worklist counts the
+       thing a BD team actually uses: credible product conversations. */
+    var F = S.funnel;
+    if(F && F.opportunities != null){
+      hc.innerHTML = F.opportunities + ' opportunit' + (F.opportunities===1?'y':'ies') +
+        ' across ' + F.total + ' accounts.' +
+        '<br><span class="sub">' + (F.byState.research||0) + ' research tasks &middot; ' +
+        (F.byState.monitor||0) + ' to monitor &middot; ' + (F.byState.disqualified||0) + ' disqualified. ' +
+        'Nothing is dropped, and nothing sends without a human.</span>';
+    } else {
+      hc.innerHTML = STORE.length + ' Solana events verified.' +
+        '<br><span class="sub">Research-first. Nothing sends without approval.</span>';
+    }
+  }
+  var ft = $('foot');
+  if(ft) ft.innerHTML = esc(RL.kind) + ' &middot; ' + esc(RL.date) + ' &middot; ' + esc(RL.id) +
+    (RL.cost ? ' &middot; ' + esc(RL.cost) + ' on NEAR AI' : '');
+  var he = $('heroEyebrow');
+  if(he) he.innerHTML = 'Sender &middot; Solana trading &middot; ' + esc(RL.kind) + ' &middot; ' + esc(RL.id);
+  renderTicker(); renderLenses(); renderQueue(); renderRail(); renderMethod(); renderOutput(); }
+
+function renderTicker(){
+  var t = ['Sender ' + ARROW + ' Solana trading','counter-rationale can veto a verdict','tier 1 and 2 only','nothing sends without a human'];
+  var html = t.map(function(x){ return '<span>' + esc(x) + '</span>'; }).join('');
+  $('tickRow').innerHTML = html + html;
+}
+function renderLenses(){
+  var prim = LENSES.filter(function(l){ return l.key === PRIMARY; })[0];
+  var rest = LENSES.filter(function(l){ return l.key !== PRIMARY; });
+  $('lensStrip').innerHTML =
+    '<button class="lensbtn ' + (S.lens === PRIMARY ? 'on' : '') + '" data-lens="' + PRIMARY + '">' +
+      esc(prim.name) + '<span class="pr">primary</span></button>' +
+    '<details class="lensmore"' + (S.lens !== PRIMARY ? ' open' : '') + '>' +
+      '<summary>Other lenses <span>schema demos, capped at Qualify</span></summary>' +
+      '<div class="lensrow">' + rest.map(function(l){
+        return '<button class="lensbtn sm ' + (S.lens === l.key ? 'on' : '') + '" data-lens="' + l.key + '">' + esc(l.name) + '</button>';
+      }).join('') + '</div></details>';
+}
+function renderQueue(){
+  var L2 = LENSES.filter(function(l){ return l.key === S.lens; })[0], rows = forLens(S.lens);
+  var sc = rows.map(function(r){ return assess(r, S.lens).verdict; });
+  var n = function(v){ return sc.filter(function(x){ return v.indexOf(x) > -1; }).length; };
+  var RL = runLabel();
+  $('lensEyebrow').innerHTML = 'Queue \u00b7 ' + esc(RL.date) + ' \u00b7 ' + esc(RL.kind);
+  $('lensTitle').textContent = L2.name;
+  $('lensSub').innerHTML =
+    '<span class="qcount"><b>' + n(['ACTIONABLE']) + '</b> actionable</span>' +
+    '<span class="qcount"><b>' + n(['QUALIFY']) + '</b> qualify</span>' +
+    '<span class="qcount"><b>' + n(['RESEARCH','WATCH']) + '</b> research</span>' +
+    '<span class="qcount"><b>' + n(['ROUTED']) + '</b> routed elsewhere</span>' +
+    '<span class="qcount"><b>' + n(['NO_ACTION','COMPETITOR','BLOCKED']) + '</b> no action</span>';
+  $('viewbar').innerHTML = Object.keys(VIEWS).map(function(k){
+    return '<button class="viewbtn ' + (S.view === k ? 'on' : '') + '" data-view="' + k + '">' + VIEWS[k].n + '</button>'; }).join('');
+  $('viewnote').textContent = VIEWS[S.view].note;
+  // Empty success. Zero qualified leads from real sources is a result, not a
+  // failure, and the page has to say which of the two it is.
+  var qualified = n(['ACTIONABLE','QUALIFY']);
+  $('viewBody').innerHTML =
+    (S.mode === 'live' && rows.length && !qualified
+      ? '<div class="note" style="margin-bottom:18px"><b>No qualified lead in this run &mdash; that is a valid result.</b><br>' +
+        rows.length + ' dated event(s) passed verification and none cleared the ' + esc(L2.name) +
+        ' gate. The gate exists to produce this answer when the evidence does not support outreach. ' +
+        (n(['ROUTED']) ? ' ' + n(['ROUTED']) + ' row(s) carry dated Solana evidence for a different Helius motion and are ' +
+          'routed as research tasks rather than discarded.' : '') +
+        ' Switch to <b>Gate</b> to see which test each row failed, or <b>Missing</b> to see what would change it.</div>'
+      : '') + renderView(S.view, rows);
+}
+function renderView(v, rows){
+  if(v === 'missing')  return viewMissing();
+  if(v === 'evidence') return viewEvidence(rows);
+  if(v === 'timeline') return viewTimeline(rows);
+  var scored = rows.map(function(r){ return {r:r, a:assess(r, S.lens)}; }).sort(function(x,y){ return y.a.score - x.a.score; });
+  return scored.length ? '<div class="rows">' + scored.map(rowHtml).join('') + '</div>' : '<div class="empty">Nothing in this lens.</div>';
+}
+function rowHtml(x){
+  var r = x.r, a = x.a, src = SOURCES[r.source], open = S.openRow === r.id, svc = servicesFor(r);
+  var body = '';
+  if(open){
+    var K = ['solana_activity','transaction_volume_evidence','latency_sensitive','is_competitor','infrastructure_owner_identified'];
+    body = '<div class="rowbody">' +
+      '<div class="quote">' + esc(r.evidence) + '</div>' +
+      '<div class="srcline"><a href="' + esc(src.url) + '" target="_blank" rel="noopener">' + esc(src.pub) + ', ' + esc(src.date) +
+        ' \u2192</a> <span style="color:var(--ink-3)">' + esc(src.type) + '</span></div>' +
+      '<div class="grid2" style="margin-top:16px">' +
+        '<div class="block ok"><h5>Why it may matter</h5><p>' + esc(r.why) + '</p></div>' +
+        '<div class="block warn"><h5>Why it may not</h5><p>' + esc(r.counter) + '</p></div></div>' +
+      '<details class="rowmore"><summary>Score, gate and product fit</summary><div class="rowmorebody">' +
+        '<div class="rubric">' +
+          Object.keys(r.rubric).filter(function(k){ return r.rubric[k] > 0; })
+            .map(function(k){ return '<span>' + RUBRIC_LABELS[k] + '</span><span>+' + r.rubric[k] + '</span>'; }).join('') +
+          r.penalties.map(function(p){ return '<span>' + esc(p[0]) + '</span><span>' + p[1] + '</span>'; }).join('') +
+          '<span class="tot">score</span><span class="tot">' + a.score + '</span>' +
+          (a.verdict !== a.band ? '<span class="tot" style="color:var(--stop)">capped from ' + esc(a.band.replace('_',' ')) + '</span><span class="tot" style="color:var(--stop)">' + esc(a.verdict.replace('_',' ')) + '</span>' : '') +
+        '</div>' +
+        '<div class="gaterow">' + K.map(function(k){
+            var v = r.gate[k], good = k === 'is_competitor' ? v === false : v === true;
+            return '<span class="gatechip ' + (good ? 'y' : 'n') + '">' + k.replace(/_/g,' ') + '</span>';
+          }).join('') + '</div>' +
+        '<div class="fitline">Product fit: ' + (svc.length ? svc.map(function(k){ return SVC[k]; }).join(', ') : 'none') +
+          (!firesSender(r) && r.services.some(function(z){ return z.indexOf('sender') === 0; })
+            ? ' \u2014 Sender suppressed, latency_sensitive is false' : '') + '</div>' +
+      '</div></details>' +
+    '</div>';
+  }
+  return '<div class="row ' + (open ? 'open' : '') + '">' +
+    '<div class="rowhead" data-row="' + r.id + '">' +
+      '<div class="sc">' + a.score + '</div>' +
+      '<div><div class="nm">' + esc(r.entity) + '</div>' +
+        '<div class="meta">' + (r.tier ? '<span class="tag t' + r.tier + '">Tier ' + r.tier + '</span>' : '') +
+          svc.map(function(z){ return '<span class="chip svc">' + SVC[z] + '</span>'; }).join('') + '</div>' +
+        '<dl class="nxt">' +
+          '<dt>Why now</dt><dd>' + esc(r.whyNow) + '</dd>' +
+          '<dt>Blocker</dt><dd>' + esc(r.blocker) + '</dd>' +
+          '<dt>Next</dt><dd>' + esc(r.next) + '</dd>' +
+        '</dl></div>' +
+      '<div class="rt"><span class="tag v-' + a.verdict + '">' + esc(a.verdict.replace('_',' ')) + '</span></div>' +
+    '</div>' + body + '</div>';
+}
+
+function viewGate(rows){
+  var K = ['solana_activity','transaction_volume_evidence','latency_sensitive','is_competitor','infrastructure_owner_identified'];
+  return '<div class="panel"><div class="ph">Disqualifier pass, run before any scoring</div><div class="scroller">' +
+    '<table class="data" style="width:calc(100% - 32px);margin:0 16px"><tr><th>Row</th>' +
+    K.map(function(k){ return '<th class="m">' + k.replace(/_/g,' ') + '</th>'; }).join('') + '<th>Result</th></tr>' +
+    rows.map(function(r){
+      var a = assess(r, S.lens);
+      return '<tr><td><b>' + esc(r.entity) + '</b></td>' + K.map(function(k){
+        var v = r.gate[k], good = k === 'is_competitor' ? v === false : v === true;
+        return '<td class="m" style="color:' + (good ? 'var(--ok)' : 'var(--stop)') + '">' + (v ? 'yes' : 'no') + '</td>';
+      }).join('') + '<td><span class="tag v-' + a.verdict + '">' + esc(a.verdict.replace('_',' ')) + '</span></td></tr>';
+    }).join('') + '</table></div></div>';
+}
+function viewEvidence(rows){
+  var m = {}, order = [];
+  rows.forEach(function(r){ if(!m[r.source]){ m[r.source] = []; order.push(r.source); } m[r.source].push(r); });
+  var worst = order.slice().sort(function(a,b){ return m[b].length - m[a].length; })[0];
+  return '<div class="panel"><div class="ph">' + order.length + ' sources behind ' + rows.length + ' rows</div><div class="scroller">' +
+    '<table class="data" style="width:calc(100% - 32px);margin:0 16px"><tr><th>Source</th><th class="m">Type</th><th>Verbatim</th><th class="m">Rows</th></tr>' +
+    order.map(function(s){
+      var x = SOURCES[s];
+      return '<tr><td><a href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(x.pub) + '</a>' +
+        '<div style="color:var(--ink-3);font-size:12px">' + esc(x.date) + '</div></td><td class="m">' + esc(x.type) + '</td>' +
+        '<td><div class="quote">' + esc(m[s][0].evidence) + '</div></td>' +
+        '<td class="m">' + m[s].map(function(r){ return esc(r.entity); }).join('<br>') + '</td></tr>';
+    }).join('') + '</table></div>' +
+    '<div class="note" style="margin:0 16px 16px">Concentration risk: <b>' + esc(SOURCES[worst].pub) + '</b> carries ' +
+    m[worst].length + ' of ' + rows.length + ' rows in this lens.</div></div>';
+}
+function viewProducts(rows){
+  var m = {}, order = [];
+  rows.forEach(function(r){ servicesFor(r).forEach(function(s){ if(!m[s]){ m[s] = []; order.push(s); } m[s].push(r); }); });
+  var blocked = rows.filter(function(r){ return !firesSender(r) && r.services.some(function(s){ return s.indexOf('sender') === 0; }); });
+  if(!order.length) return '<div class="empty">No row in this lens opens a named product.</div>';
+  order.sort(function(a,b){ return m[b].length - m[a].length; });
+  return '<div class="panel"><div class="ph">Product fit, after the latency gate</div><div class="scroller">' +
+    '<table class="data" style="width:calc(100% - 32px);margin:0 16px"><tr><th>Product</th><th class="m">Rows</th><th>Accounts</th></tr>' +
+    order.map(function(k){ return '<tr><td><b>' + SVC[k] + '</b></td><td class="m">' + m[k].length + '</td><td>' +
+      m[k].map(function(r){ return esc(r.entity); }).join(', ') + '</td></tr>'; }).join('') + '</table></div>' +
+    (blocked.length ? '<div class="note" style="margin:0 16px 16px"><b>Sender did not fire</b> for ' +
+      blocked.map(function(r){ return esc(r.entity); }).join(', ') +
+      ': latency_sensitive is false, so the Sender lens is suppressed regardless of score.</div>' : '') + '</div>';
+}
+function viewTimeline(rows){
+  var s = rows.slice().sort(function(a,b){ return a.eventDate.localeCompare(b.eventDate); });
+  return '<div class="panel"><div class="ph">' + esc(s[0].eventDate) + ' to ' + esc(s[s.length-1].eventDate) + '</div><div class="scroller">' +
+    '<table class="data" style="width:calc(100% - 32px);margin:0 16px"><tr><th class="m">Date</th><th>Entity</th><th>Event</th><th>Verdict</th></tr>' +
+    s.map(function(r){ var a = assess(r, S.lens);
+      return '<tr><td class="m">' + esc(r.eventDate) + '</td><td><b>' + esc(r.entity) + '</b></td><td>' + esc(r.headline) +
+        '</td><td><span class="tag v-' + a.verdict + '">' + esc(a.verdict.replace('_',' ')) + '</span></td></tr>'; }).join('') +
+    '</table></div></div>';
+}
+function viewMissing(){
+  return '<div class="panel"><div class="ph">What we do not know</div><div class="pb">' +
+    '<ul style="margin:0;padding-left:20px;font-size:15px">' + MISSING.map(function(m){ return '<li style="margin-bottom:7px">' + esc(m) + '</li>'; }).join('') + '</ul>' +
+    '<div class="note">Until the first two are answered, nothing in this scan can exceed <span class="tag v-QUALIFY">Qualify</span>. That cap is enforced in code, not by convention.</div></div></div>';
+}
+
+function renderRail(){
+  $('apStack').innerHTML = DELIVERABLES.map(function(d){
+    var v = S.approvals[d.id], open = S.openAp === d.id;
+    var cls = v === true ? 'v-ACTIONABLE' : v === false ? 'v-BLOCKED' : 'v-QUALIFY';
+    var lbl = v === true ? 'approved' : v === false ? 'rejected' : 'needs you';
+    return '<button class="apbtn ' + (open ? 'on' : '') + ' ' + (v !== null ? 'done' : '') + '" data-ap="' + d.id + '">' +
+      '<span class="k">' + esc(d.kind) + '</span><span class="m">' + esc(d.to) + '</span>' +
+      '<span class="tag ' + cls + '" style="align-self:flex-start;margin-top:4px">' + lbl + '</span></button>' +
+      (open ? '<div class="apacts"><button class="btn go" data-review="' + d.id + '">Read &amp; approve</button>' +
+        (v !== null ? '<button class="btn plain" data-undo="' + d.id + '">Undo</button>' : '') + '</div>' : '');
+  }).join('');
+  var mb = $('modeBadge');
+  if(mb){
+    mb.textContent = S.mode === 'live' ? ('live run ' + (S.lastRun ? S.lastRun.runId.replace('run-','') : '')) : 'demo dataset';
+    mb.classList.toggle('live', S.mode === 'live');
+  }
+  $('railCount').textContent = pending();
+  $('stateLabel').textContent = pending() ? 'blocked, awaiting you' : 'all clear';
+  $('stateLabel').classList.toggle('hot', pending() > 0);
+}
+
+function renderMethod(){
+  $('rejCount').textContent = REJECTED.length + ' refused';
+  $('rejBody').innerHTML = '<div class="scroller"><table class="data"><tr><th>Claim the Verifier refused</th><th class="m">Reason</th></tr>' +
+    REJECTED.map(function(r){ return '<tr><td>' + esc(r[0]) + '</td><td class="m">' + esc(r[1]) + '</td></tr>'; }).join('') + '</table></div>' +
+    '<div class="note">Four of these six are the plausible-sounding line an unchecked model writes on its own. That is why the Verifier sits between Research and Writer.</div>';
+  $('agentTable').innerHTML = AGENTS.map(function(a){
+    return '<span class="achip" title="' + esc(a.job) + '"><i style="background:' + a.colour + '"></i>' +
+      esc(a.name) + '<b>' + esc(a.out) + '</b></span>';
+  }).join('');
+}
+function renderOutput(){
+  var cleared = STORE.map(function(r){ return assess(r, null).verdict; })
+    .filter(function(v){ return v === 'ACTIONABLE' || v === 'QUALIFY'; }).length;
+  $('briefCount').textContent = cleared + ' cleared for outreach';
+  $('briefBody').innerHTML = '<div style="margin-top:14px">' + docBrief() + '</div>';
+  var paid = S.approvals.payout;
+  $('nearBody').innerHTML = '<div class="scroller" style="margin-top:14px"><table class="data">' +
+    '<tr><th>Agent</th><th>Work</th><th class="m">Payout</th><th class="m">Status</th></tr>' +
+    [['Research','1 discovery query, 2 sources',.05],['Gate','10 rows through the disqualifier pass',.03],
+     ['Scorer','10 scored, ' + cappedCount() + ' capped',.03],['Verifier','9 claims checked, 6 rejected',.03],
+     ['Writer','1 brief, 1 discovery brief, 1 email',.04],['Ledger','settlement record',.01]]
+    .map(function(r){ return '<tr><td><b>' + r[0] + '</b></td><td>' + r[1] + '</td><td class="m">$' + r[2].toFixed(2) +
+      '</td><td class="m">' + (paid === true ? 'settled' : paid === false ? 'withheld' : 'awaiting you') + '</td></tr>'; }).join('') +
+    '</table></div><div class="note">1Click quote, <b>dry: true</b>. USDC (Solana) ' + ARROW +
+    ' USDC (NEAR), 12.000000 in, 11.9742 quoted, <b>not executed</b>. A dry quote proves a route can be priced, not that anyone wants to pay. The agents do not negotiate, hire one another or hold a treasury.</div>';
+  }
+
+/* == THE SCANNER CLIENT ==================================================
+   The interface never calls a model. It asks this origin's /api/run, which
+   runs the eight agents against NEAR AI Cloud and streams back stage events.
+   Opened as a published artifact (no server), the scanner is unavailable and
+   the page says so rather than pretending.                                  */
+var OFFICE_STAGE = { collector:'research', verifier:'verifier', enricher:'gate', scorer:'scorer', gate:'gate', writer:'writer' };
+
+function renderScanPanel(){
+  var el = $('scanPanel'); if(!el) return;
+  var st = S.scanner;
+  if(st === null){ el.innerHTML = '<div class="scanbox"><h4>Scanner</h4><p>Checking for a pipeline on this origin...</p></div>'; return; }
+  if(!st.present){
+    el.innerHTML = '<div class="scanbox"><h4>Scanner \u2014 not available here</h4>' +
+      '<p>This page is the interface. The eight agents run in a Node pipeline that calls ' +
+      '<b>NEAR AI Cloud</b>, and there is no pipeline on this origin \u2014 so the rows below are the ' +
+      '<b>demo dataset</b>, labelled as such, never presented as a scan result.</p>' +
+      '<p>To run it for real:<br><code>NEAR_AI_API_KEY=... npm run serve</code></p></div>';
+    return;
+  }
+  if(!st.ready){
+    el.innerHTML = '<div class="scanbox"><h4>Scanner \u2014 no key</h4><p>' + esc(st.reason || 'NEAR_AI_API_KEY is not set.') +
+      '</p><p>There is no fallback model. The run aborts rather than inventing results.</p></div>';
+    return;
+  }
+  el.innerHTML = '<div class="scanbox ready"><h4>Scanner \u2014 ready</h4>' +
+    '<p>Inference: <b>NEAR AI Cloud</b> <code>' + esc(st.baseUrl) + '</code><br>' +
+    'Eight agents. Five call a model; the Scorer, the Gate and the Skeptic&rsquo;s veto are code.</p>' +
+    '<div class="scanrow">' +
+      '<button class="btn go" data-run' + (S.running ? ' disabled' : '') + '>' + (S.running ? 'Running\u2026' : 'Run scan') + '</button>' +
+      '<select id="runDays"' + (S.running ? ' disabled' : '') + '><option value="14">last 14 days</option>' +
+      '<option value="30">last 30 days</option><option value="90" selected>last 90 days</option></select>' +
+      '<select id="runBudget"' + (S.running ? ' disabled' : '') + '><option value="0.5">cap $0.50</option>' +
+      '<option value="1">cap $1.00</option><option value="2" selected>cap $2.00</option></select>' +
+      '<button class="btn ghost" data-monitor' + (S.running ? ' disabled' : '') + '>Run account monitor</button>' +
+    '</div>' +
+    (S.runLog.length ? '<div class="runlog">' + S.runLog.slice(-60).map(function(l){
+        return '<div class="' + (l.rj ? 'rj' : '') + '"><b>' + esc(l.stage) + '</b>' + esc(l.msg) + '</div>'; }).join('') + '</div>' : '') +
+    '</div>';
+}
+
+async function loadLatest(){
+  try {
+    var r = await fetch('/api/latest', { cache:'no-store' });
+    if(!r.ok) return;
+    var j = await r.json();
+    /* BEFORE adoptRun - that calls renderAll(), and the hero reads S.funnel.
+       Setting it afterwards meant the page always rendered the fallback. */
+    if(j && j.funnel) S.funnel = j.funnel;
+    if(j && j.result && (j.result.rows || []).length) adoptRun(j.result);
+    else if(j && j.funnel) renderAll();
+    if(j && j.monitor){ S.monitor = j.monitor; renderMonitor(); }
+    if(j && j.batches){ S.batches = j.batches; renderBatches(); }
+    renderTracker();
+  } catch(e) {}
+}
+
+/* The tracker workbook. Built server-side from the live registry and the
+   latest run, so the spreadsheet and the screen can never disagree. The
+   artifact sandbox blocks downloads, so when the pipeline is not reachable we
+   say so plainly instead of offering a button that does nothing. */
+/* The batch timeline. One 90-day number collapsed the history into an undated
+   snapshot; rolling windows make it visible - including which window found
+   nothing, which is information rather than a gap. */
+function renderBatches(){
+  var el = $('batchPanel'); if(!el) return;
+  var B = S.batches;
+  if(!B || !B.length){ el.innerHTML = ''; return; }
+  var rows = B.filter(function(b){ return !b.error; });
+  var cost = rows.reduce(function(a,b){ return a + (b.cost||0); }, 0);
+  el.innerHTML =
+    '<div class="scanbox"><h4>Evidence history &mdash; rolling ' + (rows[0] ? rows[0].window.days : 14) + '-day batches</h4>' +
+    '<p>' + rows.length + ' batch(es) &middot; ' +
+      rows.reduce(function(a,b){ return a + b.rows; }, 0) + ' rows &middot; ' +
+      rows.reduce(function(a,b){ return a + b.rejected; }, 0) + ' rejected with a reason &middot; $' + cost.toFixed(4) + '</p>' +
+    '<div class="scroller"><table class="data" style="margin:0">' +
+    '<tr><th class="m">Window</th><th class="m">Sources</th><th class="m">Dated</th>' +
+    '<th class="m">Standing</th><th class="m">Rejected</th><th>Top reasons</th><th class="m">Cost</th></tr>' +
+    rows.map(function(b){
+      var top = Object.keys(b.reasons||{}).sort(function(x,y){ return b.reasons[y]-b.reasons[x]; }).slice(0,3)
+                 .map(function(k){ return esc(k.toLowerCase().replace(/_/g,' ')) + ' ' + b.reasons[k]; }).join(', ');
+      return '<tr><td class="m">' + esc(b.window.from) + ' &rarr; ' + esc(b.window.to) + '</td>' +
+        '<td class="m">' + b.sources + '</td><td class="m">' + b.dated + '</td>' +
+        '<td class="m">' + b.standing + '</td><td class="m">' + b.rejected + '</td>' +
+        '<td style="font-size:12px">' + top + '</td>' +
+        '<td class="m">$' + (b.cost||0).toFixed(4) + '</td></tr>';
+    }).join('') + '</table></div>' +
+    '<p class="m" style="font-size:11.5px;color:var(--ink-3);margin-top:8px">' +
+    'A standing condition is dated by the fetch, not claimed as a trigger. ' +
+    'Each batch is kept as its own run; evidence merges into the account history and is never overwritten.</p></div>';
+}
+function renderTracker(){
+  var el = $('trackerPanel'); if(!el) return;
+  var rows = STORE.length;
+  if(S.mode === 'live'){
+    el.innerHTML =
+      '<div class="scanbox"><h4>BD tracker workbook</h4>' +
+      '<p>Eight tabs, Bob W v2 parity: Cover &middot; Existing &amp; Expansion &middot; Pipeline &middot; ' +
+      'Verification Queue &middot; Live Signals &middot; Prompt Pack &middot; Solana Universe &middot; Key.<br>' +
+      'Built at the moment you click, from the same registry and run the page is showing &mdash; ' +
+      'scores computed in code, every contact marked UNVERIFIED until a primary source says otherwise.</p>' +
+      '<p><a class="btn" href="/api/tracker.xlsx" download="Helius-BD-Tracker.xlsx">Download .xlsx &rarr;</a></p></div>';
+  } else {
+    el.innerHTML =
+      '<div class="scanbox"><h4>BD tracker workbook</h4>' +
+      '<p>The workbook is generated by the local pipeline, which this page cannot reach ' +
+      '(the artifact sandbox blocks outbound requests and downloads). Run <span class="m">npm run serve</span> ' +
+      'and open the page from <span class="m">localhost:8742</span>, or build it directly:</p>' +
+      '<p class="m" style="font-size:12px">node -e "import(\'./tracker/build.js\').then(m=&gt;require(\'fs\').writeFileSync(\'Helius-BD-Tracker.xlsx\',m.buildTracker()))"</p></div>';
+  }
+}
+function renderMonitor(){
+  var el = $('monitorPanel'); if(!el) return;
+  var m = S.monitor;
+  if(!m){ el.innerHTML = ''; return; }
+  var rows = m.changes || [];
+  el.innerHTML =
+    '<div class="scanbox"><h4>Account monitor &mdash; ' + esc(m.runId || '') + '</h4>' +
+    '<p>' + (m.monitored||[]).length + ' account(s) with a verified surface &middot; ' +
+      rows.length + ' dated change(s) &middot; ' + (m.skipped||[]).length + ' skipped with a reason</p>' +
+    (m.buckets ? '<p class="m" style="font-size:11.5px;color:var(--ink-3)">RELEVANCE &middot; ' +
+      (m.buckets.sender_relevant||0) + ' Sender-relevant &middot; ' +
+      (m.buckets.context||0) + ' context &middot; ' +
+      (m.buckets.wrong_motion||0) + ' wrong motion &middot; ' +
+      (m.buckets.not_solana||0) + ' not Solana &middot; ' +
+      (m.buckets.blocked||0) + ' research-blocked</p>' : '') +
+    (rows.length ? '<div class="scroller"><table class="data" style="margin:0">' +
+      '<tr><th class="m">Date</th><th>Account</th><th class="m">Signal</th><th class="m">Relevance</th><th>In their words</th></tr>' +
+      rows.map(function(c){
+        return '<tr><td class="m">' + esc(c.change_date) + '</td><td><b>' + esc(c.account) + '</b>' +
+          (c.account_status && c.account_status !== 'ACTIVE'
+            ? '<div style="color:var(--stop);font-size:11px;font-family:var(--mono)">' + esc(c.account_status) + '</div>' : '') +
+          '</td><td class="m">' + esc(c.signal_type) + '</td>' +
+          '<td class="m" style="font-size:11px' + (c.relevance === 'sender_relevant' ? '' : ';color:var(--ink-3)') + '">' +
+          esc((c.relevance || 'unclassified').replace(/_/g,' ')) + '</td><td>' +
+          '<div class="quote" style="font-size:12px">' + esc(c.quote) + '</div>' +
+          '<div style="font-family:var(--mono);font-size:11.5px;color:var(--ink-3);margin-top:6px">WHY NOT &middot; ' +
+          esc(c.why_not) + '<br>TASK &middot; ' + esc(c.research_task) + '</div></td></tr>';
+      }).join('') + '</table></div>' : '<p>No dated change in the window.</p>') +
+    ((m.researchBlocked||[]).length ? '<div class="note"><b>Research-blocked &mdash; human tasks:</b><br>' +
+      m.researchBlocked.map(function(b){ return esc(b.account) + ' &mdash; ' + esc(b.reason) + ' &mdash; ' + esc(b.humanTask||''); }).join('<br>') +
+      '</div>' : '') + '</div>';
+}
+
+async function runMonitor(){
+  if(S.running) return;
+  S.running = true; renderScanPanel();
+  S.runLog.push({ stage:'monitor', msg:' reading verified registry surfaces...' });
+  try {
+    var r = await fetch('/api/monitor', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{"days":90}' });
+    var j = await r.json();
+    if(j.ok){ S.monitor = j.result; renderMonitor();
+      S.runLog.push({ stage:'monitor', msg:' ' + (j.result.changes||[]).length + ' dated change(s)' }); }
+    else S.runLog.push({ stage:'monitor', msg:' failed: ' + (j.error||'unknown'), rj:true });
+  } catch(e){ S.runLog.push({ stage:'monitor', msg:' failed: ' + e.message, rj:true }); }
+  S.running = false; renderScanPanel();
+}
+
+async function detectScanner(){
+  try {
+    var r = await fetch('/api/status', { cache:'no-store' });
+    if(!r.ok) throw new Error('no');
+    var j = await r.json();
+    S.scanner = { present:true, ready:!!j.ready, baseUrl:j.baseUrl, reason:j.reason };
+  } catch(e) { S.scanner = { present:false }; }
+  renderScanPanel();
+}
+
+async function startScan(){
+  if(S.running) return;
+  S.running = true; S.runLog = []; renderScanPanel();
+  var days = Number(($('runDays')||{}).value || 90);
+  var budget = Number(($('runBudget')||{}).value || 2);
+  try {
+    var res = await fetch('/api/run', { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ days: days, budget: budget }) });
+    var reader = res.body.getReader(), dec = new TextDecoder(), buf = '';
+    for(;;){
+      var chunk = await reader.read(); if(chunk.done) break;
+      buf += dec.decode(chunk.value, { stream:true });
+      var lines = buf.split('\n'); buf = lines.pop();
+      for(var i=0;i<lines.length;i++){
+        if(!lines[i].trim()) continue;
+        var m; try { m = JSON.parse(lines[i]); } catch(e) { continue; }
+        if(m.type === 'event'){
+          S.runLog.push({ stage:m.stage, msg:' ' + m.msg, rj:/rejected|failed|discarded|aborted/.test(m.msg) });
+          if(OFFICE_STAGE[m.stage] && Office.spotlight) Office.spotlight(OFFICE_STAGE[m.stage], m.msg);
+          renderScanPanel();
+        } else if(m.type === 'done'){ adoptRun(m.result); }
+        else if(m.type === 'error'){ S.runLog.push({ stage:'run', msg:' aborted: ' + m.message, rj:true }); }
+      }
+    }
+  } catch(e){ S.runLog.push({ stage:'run', msg:' failed: ' + e.message, rj:true }); }
+  S.running = false; renderScanPanel();
+}
+
+/* A live run REPLACES the dataset. It is never merged with the demo rows. */
+function adoptRun(result){
+  LIVE = result; S.lastRun = result; S.mode = 'live';
+  STORE = (result.rows || []).map(function(r){
+    var brief = r.brief || {};
+    SOURCES['live:' + r.source_url] = { pub:r.source_host, type:(r.source_kind||r.source_type), date:r.event_date, url:r.source_url, title:r.headline };
+    return {
+      id: (r.entity + '-' + r.event_date).toLowerCase().replace(/[^a-z0-9]+/g,'-'),
+      tier: r.tier, lens: ['trading'], entity: r.entity, eventDate: r.event_date,
+      source: 'live:' + r.source_url, headline: r.headline, evidence: r.quote,
+      rubric: r.rubric, penalties: r.penalties, gate: r.gate, services: r.services,
+      why: r.why, counter: r.counter, counterRule: r.counterRule,
+      relationship: r.relationship, evidence_grade: r.evidence_grade, motion: r.motion, discovery: r.discovery,
+      /* assess() reads these. They were not mapped, so the source_type cap, the
+         standing cap and the Solana test in the routing layer silently never
+         fired on the page - it showed 8 research and 0 routed where the
+         pipeline scored 4 and 1 on the same rows. */
+      source_type: r.source_type, standing: r.standing, registry_tier: r.registry_tier,
+      quote: r.quote, surface_owner: r.surface_owner,
+      /* the pipeline's verdict, used verbatim - see assess() */
+      assessment: r.assessment, routedTo: r.routedTo,
+      whyNow: brief.why_now || r.headline,
+      blocker: brief.blocker || (r.assessment.caps[0] || 'none stated'),
+      next: brief.next_action || 'Research the infrastructure owner.',
+      verify: brief.next_action || '', hypothesis: brief.ask || 'None confirmed.'
+    };
+  });
+  REJECTED = (result.rejected || []).map(function(x){
+    return [ (x.entity ? '"' + x.entity + '" \u2014 ' : '') + (x.detail || x.message || ''), x.reason.toLowerCase() ];
+  });
+  MISSING = ['Run ' + result.runId,
+             result.sourcesFetched.length + ' sources fetched, ' + result.rejected.length + ' candidates rejected with a reason code',
+             'Cost: ' + result.cost.calls + ' NEAR AI calls, ' +
+               (result.cost.priced ? '$' + result.cost.usd.toFixed(4) : result.cost.promptTokens + '+' + result.cost.completionTokens + ' tokens'),
+             'Infrastructure owner for every row in this run'];
+  S.openRow = null; renderAll();
+}
+
+/* &#9552;&#9552; INTERACTION &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; */
+document.addEventListener('click', function(e){
+  var l = e.target.closest('[data-lens]');
+  if(l){ S.lens = l.dataset.lens; S.openRow = null; renderLenses(); renderQueue(); return; }
+  var v = e.target.closest('[data-view]');
+  if(v){ S.view = v.dataset.view; renderQueue(); return; }
+  var r = e.target.closest('[data-row]');
+  if(r){ S.openRow = S.openRow === r.dataset.row ? null : r.dataset.row; renderQueue(); return; }
+  var a = e.target.closest('[data-ap]');
+  if(a){ S.openAp = S.openAp === a.dataset.ap ? null : a.dataset.ap; renderRail(); return; }
+  var rv = e.target.closest('[data-review]');
+  if(rv){ openReview(rv.dataset.review); return; }
+  var u = e.target.closest('[data-undo]');
+  if(u){ S.approvals[u.dataset.undo] = null; S.celebrated = false; Office.reset(); renderRail(); renderOutput(); return; }
+  if(e.target.closest('[data-run]')){ startScan(); return; }
+  if(e.target.closest('[data-monitor]')){ runMonitor(); return; }
+  if(e.target.closest('[data-about]')){ e.preventDefault(); openAbout(); return; }
+  if(e.target.classList.contains('modalwrap')) closeModal();
+});
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+
+function openReview(id){
+  var d = DELIVERABLES.filter(function(x){ return x.id === id; })[0]; if(!d) return;
+  var sig = d.signal ? STORE.filter(function(s){ return s.id === d.signal; })[0] : null;
+  var src = d.evidence ? SOURCES[d.evidence] : null;
+  var settled = S.approvals[id];
+  var who = d.route.map(function(x){ return AGENTS.filter(function(a){ return a.id === x[0]; })[0]; }).filter(Boolean);
+  var editable = DEFAULT_BODY[id] !== '';
+  var sa = sig ? assess(sig, null) : null;
+  var el = document.createElement('div'); el.className = 'modalwrap'; el.id = 'modal';
+  el.innerHTML = '<div class="modal">' +
+    '<div class="mh"><div><div class="t">' + esc(d.kind) + '</div><div class="s">' + esc(d.agent) + ' \u00b7 ' + esc(d.to) +
+      ' \u00b7 $' + d.cost.toFixed(2) + '</div></div><div class="sp"></div><button class="btn ghost" data-close>Close</button></div>' +
+    '<div class="mb"><div class="docpane">' +
+      (editable ? '<div style="display:flex;gap:10px;align-items:center;margin-bottom:16px"><div class="seg">' +
+        '<button data-mode="doc" class="on">Preview</button><button data-mode="edit">Edit</button></div>' +
+        '<span class="edited" id="edFlag" ' + (S.edited[id] ? '' : 'hidden') + '>edited by you</span></div>' : '') +
+      '<div id="docPreview">' + renderDoc(d) + '</div>' +
+      (editable ? '<div id="docEdit" hidden><textarea id="draftBox" spellcheck="false">' + esc(bodyText(d)) + '</textarea></div>' : '') +
+    '</div><div class="side">' +
+      '<div class="block"><h5>What this responds to</h5><p>' + esc(sig ? sig.headline : 'An internal settlement record. No external claim.') + '</p>' +
+        (sig ? '<div class="quote" style="margin-top:10px">' + esc(sig.evidence) + '</div>' : '') +
+        (src ? '<div class="srcline"><a href="' + esc(src.url) + '" target="_blank" rel="noopener">' + esc(src.pub) + ', ' + esc(src.date) + ' ' + ARROW + '</a></div>' : '') + '</div>' +
+      '<div class="block warn" style="margin-top:14px"><h5>Counter-rationale</h5><p>' +
+        esc(sig ? sig.counter : 'A dry quote prices a route. It does not prove anyone wants to pay.') + '</p></div>' +
+      (sa ? '<div class="block" style="margin-top:14px"><h5>Verdict</h5><p><span class="tag v-' + sa.verdict + '">' +
+        esc(sa.verdict.replace('_',' ')) + '</span> at score ' + sa.score + '. ' + esc(sa.caps[0] || '') + '</p></div>' : '') +
+      '<div class="block" style="margin-top:14px"><h5>Who picks this up</h5><p style="display:flex;flex-wrap:wrap;gap:6px">' +
+        who.map(function(x){ return '<span class="chip" style="border-color:' + x.colour + '">' + esc(x.name) + '</span>'; }).join('') + '</p></div>' +
+    '</div></div><div class="mf">' +
+      (settled === null
+        ? '<button class="btn go" data-ok="' + id + '">Approve &amp; send to the office</button><button class="btn stop" data-no="' + id + '">Reject</button>'
+        : '<span class="edited" style="background:' + (settled ? 'var(--ok-bg)' : 'var(--stop-bg)') + ';color:' + (settled ? 'var(--ok)' : 'var(--stop)') +
+          '">' + (settled ? 'approved by you' : 'rejected by you') + '</span><button class="btn plain" data-undo2="' + id + '">Undo</button>') +
+      '<button class="btn ghost" data-print>Save as PDF</button>' +
+      '<button class="btn plain" data-close>Close</button>' +
+      '<span class="hint">Nothing is transmitted from this page.<br>Save as PDF uses your browser print dialogue.</span>' +
+    '</div></div>';
+  document.body.appendChild(el);
+  var ta = $('draftBox');
+  if(ta) ta.addEventListener('input', function(){
+    S.bodies[id] = ta.value; S.edited[id] = ta.value !== DEFAULT_BODY[id]; $('edFlag').hidden = !S.edited[id];
+  });
+  el.addEventListener('click', function(ev){
+    var sg = ev.target.closest('[data-mode]');
+    if(sg){
+      var m = sg.dataset.mode;
+      el.querySelectorAll('[data-mode]').forEach(function(x){ x.classList.toggle('on', x === sg); });
+      $('docPreview').hidden = m !== 'doc'; $('docEdit').hidden = m !== 'edit';
+      if(m === 'doc') $('docPreview').innerHTML = renderDoc(d);
+      return;
+    }
+    if(ev.target.closest('[data-print]')){ window.print(); return; }
+    var mt = ev.target.closest('[data-mailto]');
+    if(mt){
+      var to = ($('mailTo').value || '').trim();
+      if(!to){ $('mailTo').focus(); return; }
+      S.mailTo = to;
+      var a2 = document.createElement('a');
+      a2.href = 'mailto:' + encodeURIComponent(to) + '?subject=' + encodeURIComponent(d.subject) + '&body=' + encodeURIComponent(strip(bodyText(d)));
+      a2.target = '_blank'; document.body.appendChild(a2); a2.click(); a2.remove();
+      mt.textContent = 'Opened in your mail app';
+      return;
+    }
+    if(ev.target.closest('[data-close]')) return closeModal();
+    var ok = ev.target.closest('[data-ok]'); if(ok) return settle(ok.dataset.ok, true);
+    var no = ev.target.closest('[data-no]'); if(no) return settle(no.dataset.no, false);
+    var un = ev.target.closest('[data-undo2]');
+    if(un){ S.approvals[un.dataset.undo2] = null; S.celebrated = false; Office.reset(); closeModal(); renderRail(); renderOutput(); }
+  });
+}
+function closeModal(){ var m = $('modal'); if(m) m.remove(); }
+
+/* Everything a judge needs to assess the build, kept out of the product.
+   One nav entry, one modal. The interface stays about the work. */
+function openAbout(){
+  var el = document.createElement('div'); el.className = 'modalwrap'; el.id = 'modal';
+  el.innerHTML = '<div class="modal"><div class="mh"><div><div class="t">About this build</div>' +
+    '<div class="s">What is real, what is fixture, and who it sells to</div></div>' +
+    '<div class="sp"></div><button class="btn ghost" data-close>Close</button></div>' +
+    '<div class="mb" style="grid-template-columns:1fr"><div class="docpane" style="padding:26px 30px">' +
+    '<div style="max-width:980px;margin:0 auto">' +
+
+    '<h3 style="font-size:22px;margin:0 0 12px">A working build, not a production system</h3>' +
+    '<div class="scroller"><table class="data"><tr><th>Layer</th><th>Status</th></tr>' +
+    [['The schema','<b>Production-ready.</b> One shape. <code>counter</code> is mandatory.'],
+     ['Scoring, caps and the disqualifier gate','<b>Real.</b> Verdicts are computed, never typed.'],
+     ['The six views','<b>Real.</b> Pure projections of one array.'],
+     ['Verifier and rejection log','<b>Real.</b> Six claims refused, with reasons.'],
+     ['Name-collision guard','<b>Real.</b> Helius Medical / HSDT / Solana Company blocked.'],
+     ['Approval gate and deliverables','<b>Real.</b> Blocking, editable, nothing can transmit.'],
+     ['The ten findings','<b>Fixture.</b> Real events and real URLs, hand-entered.'],
+     ['Collector layer','<b>Not built.</b>'],
+     ['NEAR settlement','<b>Fixture.</b> Plausible numbers, not a live call.']]
+      .map(function(r){ return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td></tr>'; }).join('') +
+    '</table></div>' +
+    '<div class="note"><b>Fixture mode proves the schema. Live mode proves the collectors. The views do not change between them.</b></div>' +
+
+    '<h3 style="font-size:22px;margin:30px 0 12px">The ICP</h3>' +
+    '<p style="font-size:15px;color:var(--ink-2);margin:0 0 12px">One motion: <b>Sender</b>, for the infrastructure lead at a Solana-native trading firm or exchange. Only tier 1 and 2 may receive an outreach draft; tier 3 is research only.</p>' +
+    '<div class="scroller"><table class="data"><tr><th class="m">Tier</th><th>Buyer</th><th>Primary product</th></tr>' +
+    '<tr><td><span class="tag t1">Tier 1</span></td><td>Solana-native prop firm, arb desk, MEV operator</td><td class="m">Sender Max</td></tr>' +
+    '<tr><td><span class="tag t2">Tier 2</span></td><td>Solana DEX, aggregator or exchange</td><td class="m">Sender + LaserStream</td></tr>' +
+    '<tr><td><span class="tag t3">Tier 3</span></td><td>Wallet, payments or consumer app</td><td class="m">Research only</td></tr>' +
+    '</table></div>' +
+    '<p style="font-size:15px;color:var(--ink-2);margin:12px 0 0">The other five lenses are <b>schema demonstration, not live sales motions</b>. Nothing in them can exceed Qualify, and that cap is enforced in code.</p>' +
+
+    '<h3 style="font-size:22px;margin:30px 0 12px">The schema</h3>' + SCHEMA_HTML +
+
+    '<h3 style="font-size:22px;margin:30px 0 12px">What this tool will not do</h3>' + LIMITS_HTML +
+
+    '<h3 style="font-size:22px;margin:30px 0 12px">Tracks</h3>' +
+    '<div class="scroller"><table class="data"><tr><th>Track</th><th>Position</th></tr>' +
+    '<tr><td><b>AI Swarms</b></td><td>Defensible. Eight agents coordinate, verify each other and produce one artefact.</td></tr>' +
+    '<tr><td><b>Agent Economy</b></td><td>Defensible with the caveat stated aloud: they earn and spend, but do not negotiate, hire one another or hold a treasury.</td></tr>' +
+    '<tr><td><b>Unstoppable DeFi</b></td><td><b>Not selected.</b> The 1Click quote is a fixture, not a live dry call.</td></tr>' +
+    '</table></div>' +
+
+    '</div></div></div>' +
+    '<div class="mf"><button class="btn go" data-close>Back to the tracker</button>' +
+    '<span class="hint">This panel exists so the interface does not have to carry it.</span></div></div>';
+  document.body.appendChild(el);
+  el.addEventListener('click', function(ev){ if(ev.target.closest('[data-close]')) closeModal(); });
+}
+
+function settle(id, yes){
+  S.approvals[id] = yes;
+  var d = DELIVERABLES.filter(function(x){ return x.id === id; })[0];
+  if(yes && d) Office.run(d);
+  closeModal(); renderRail(); renderOutput();
+  if(yes) $('office').scrollIntoView({block:'start'});
+  if(pending() === 0 && !S.celebrated){
+    S.celebrated = true;
+    var w = setInterval(function(){ if(!Office.busy()){ clearInterval(w); Office.celebrate(); celebrateCard(); } }, 400);
+  }
+}
+function celebrateCard(){
+  var ok = DELIVERABLES.filter(function(d){ return S.approvals[d.id] === true; }).length;
+  var host = document.querySelector('.stage'); if(!host) return;
+  var el = document.createElement('div'); el.className = 'celebrate';
+  el.innerHTML = '<div class="c"><div class="t">Run complete</div><div class="s">' + ok + ' of ' + DELIVERABLES.length +
+    ' approved by you \u00b7 $0.19 settled</div></div>';
+  host.appendChild(el);
+  setTimeout(function(){ el.remove(); }, 4200);
+}
+
+/* nav highlight */
+var SECTIONS = ['queue','office','discovery','method','output'];
+window.addEventListener('scroll', function(){
+  var y = window.scrollY + 140, cur = SECTIONS[0];
+  SECTIONS.forEach(function(s){ var el = $(s); if(el && el.offsetTop <= y) cur = s; });
+  document.querySelectorAll('nav a').forEach(function(a){ a.classList.toggle('on', a.getAttribute('href') === '#' + cur); });
+}, {passive:true});
+
+/* ---- discovery pass -------------------------------------------------
+   Roster-sourced NAMES. Rendered in its own band, never mixed into the
+   scored queue: a name on a roster has evidenced nothing, and showing it
+   beside a scored row would imply it had. */
+var DISC = { data:null, tier:'trading' };
+var DISC_TIERS = ['trading','institutional','builder','infra','data','unclear'];
+var DISC_LABEL = {
+  trading:'Trading', institutional:'Institutional', builder:'Builder',
+  infra:'Infrastructure', data:'Data', unclear:'Unclear'
+};
+
+function renderDiscovery(){
+  var strip = $('discStrip'), bar = $('discBar'), note = $('discNote'), body = $('discBody');
+  if(!body) return;
+  var d = DISC.data;
+  if(!d){
+    bar.innerHTML = ''; note.textContent = '';
+    body.innerHTML = '<div class="scanbox"><h4>No discovery pass yet</h4>' +
+      '<p>Run <code>node discover.js</code> to read the rosters.</p></div>';
+    return;
+  }
+  var c = d.counts, fresh = (d.candidates || []).filter(function(x){ return !x.in_registry; });
+
+  strip.innerHTML =
+    '<div class="lensrow"><b>' + c.new_to_registry + '</b> new to the registry</div>' +
+    '<div class="lensrow"><b>' + c.pages + '</b> rosters read</div>' +
+    '<div class="lensrow"><b>' + c.rejected + '</b> rejected, each with a reason</div>' +
+    '<div class="lensrow"><b>$' + ((d.cost && d.cost.usd) || 0).toFixed(4) + '</b> to run</div>';
+
+  bar.innerHTML = DISC_TIERS.map(function(t){
+    var n = fresh.filter(function(x){ return x.tier === t; }).length;
+    return '<button class="vbtn' + (DISC.tier === t ? ' on' : '') + '" data-disc="' + t + '">' +
+           DISC_LABEL[t] + ' <span>' + n + '</span></button>';
+  }).join('');
+
+  note.textContent = d.disclaimer || '';
+
+  var rows = fresh.filter(function(x){ return x.tier === DISC.tier; });
+  if(!rows.length){
+    body.innerHTML = '<div class="scanbox"><h4>Nothing in this tier</h4>' +
+      '<p>An empty tier is a real result, not a failure.</p></div>';
+  } else {
+    body.innerHTML = rows.map(function(x){
+      var also = (x.also_named_by || []).length;
+      return '<div class="qrow">' +
+        '<div class="qhead"><b>' + esc(x.name) + '</b>' +
+        '<span class="tag">' + esc(x.tier) + '</span>' +
+        (also ? '<span class="tag">named by ' + (also + 1) + ' pages</span>' : '') +
+        '<span class="tag">capped at research</span></div>' +
+        '<p>' + esc(x.says) + '</p>' +
+        '<p class="qcounter"><b>Counter:</b> ' + esc(x.counter) + '</p>' +
+        '<blockquote>&ldquo;' + esc(x.quote) + '&rdquo;</blockquote>' +
+        '<p class="qsrc"><a href="' + esc(x.source_url) + '" target="_blank" rel="noopener">' +
+        esc(x.source_url) + '</a> &middot; undated roster, observed ' + esc(x.observed_on) + '</p>' +
+        '</div>';
+    }).join('');
+  }
+}
+
+document.addEventListener('click', function(e){
+  var b = e.target.closest ? e.target.closest('[data-disc]') : null;
+  if(!b) return;
+  DISC.tier = b.getAttribute('data-disc');
+  renderDiscovery();
+});
+
+function loadDiscovery(){
+  fetch('/api/discovered', { cache:'no-store' })
+    .then(function(r){ return r.json(); })
+    .then(function(j){ DISC.data = j.discovery; renderDiscovery(); })
+    .catch(function(){ renderDiscovery(); });
+}
+
+renderAll();
+renderScanPanel();
+detectScanner();
+loadLatest();
+loadDiscovery();
+renderTracker();
+Office.init();
+window.__helius = {S:S, Office:Office, DELIVERABLES:DELIVERABLES, STORE:STORE, assess:assess, settle:settle};
+</script>

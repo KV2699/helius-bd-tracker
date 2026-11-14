@@ -1,0 +1,97 @@
+{
+  "batchId": "websearch-2026-11-12",
+  "window": { "from": "2026-10-13", "to": "2026-11-12", "days": 30 },
+  "method": "Open web search across Helius's declared buyer segments. Two signals were fetched and read in full; the rest are search-sourced and say so. None of these clears the pipeline's grounding bar - they are research starters.",
+  "signals": [
+    {
+      "org": "Solayer Labs", "segment": "trader", "type": "hiring", "date": "2026-08-07",
+      "quote": "matching engines that have to be fast and correct, market data pipelines measured in microseconds ... Solana programs, transaction pipelines ... latency budgets, profiling, throughput ceilings, p99 tail work",
+      "source": "https://connections.villanova.edu/jobs/solayer-labs-inc-backend-engineer-trading-infrastructure-2/",
+      "verified": "FETCHED - read in full; role open until 2026-12-19",
+      "products": ["sender", "laserstream", "shreds", "rpc"],
+      "counter": "A job advert describes what they are building, not what they will buy. They may intend to build this in-house - that is what the posting literally says they are hiring for.",
+      "route": "the hiring manager named on the posting"
+    },
+    {
+      "org": "Formation Securities", "segment": "institutional", "type": "regulatory", "date": "2026-11-09",
+      "quote": "Trading is expected to begin in early 2027 ... selected Solana for reliability, speed, low cost and established track record",
+      "source": "https://www.prnewswire.com/apac/news-releases/formation-securities-notifies-sec-of-intent-to-operate-first-tokenized-securities-venue-on-solana-302932933.html",
+      "verified": "FETCHED - press release read in full",
+      "products": ["enterprise", "rpc", "parsed", "webhooks"],
+      "counter": "A regulated venue 14 months from launch may already have an infrastructure partner, and an SEC notice is an intention, not a build.",
+      "route": "Christopher Montagano, President - named in their own release; title unconfirmed as current"
+    },
+    {
+      "org": "Pacifica", "segment": "trader", "type": "launch", "date": "2026-01-15",
+      "quote": "off-chain matching engine and order book with on-chain settlement",
+      "source": "https://www.cryptopolitan.com/pacifica-takes-the-top-spot-on-solana/",
+      "verified": "SEARCH ONLY - not read from a Pacifica-owned page",
+      "products": ["sender", "laserstream", "rpc"],
+      "counter": "Top of the volume table usually means an infrastructure stack already chosen and working.",
+      "route": null
+    },
+    {
+      "org": "BULK Exchange", "segment": "trader", "type": "launch", "date": "2026-09-05",
+      "quote": "matching built into the validator client itself (BulkBFT) - 5-20ms fills",
+      "source": "https://builtonbulk.xyz/state-of-solana-perps-2026/",
+      "verified": "SEARCH ONLY",
+      "products": ["sender", "validator", "laserstream"],
+      "counter": "Matching inside their own validator client suggests they self-host the critical path and may buy nothing.",
+      "route": null
+    },
+    {
+      "org": "Cash App", "segment": "fintech", "type": "launch", "date": "2026-01-01",
+      "quote": "assigns a dedicated Solana blockchain address to every Cash App user, enabling them to interact directly with the onchain economy",
+      "source": "https://startupfortune.com/solana-gains-ground-as-sofi-and-cash-app-bring-stablecoins-to-users/",
+      "verified": "SEARCH ONLY - secondary coverage, not a Block-owned page",
+      "products": ["webhooks", "parsed", "rpc", "enterprise"],
+      "counter": "Block is large enough to run its own infrastructure, and an address per user is a wallet feature, not evidence of a vendor decision.",
+      "route": null
+    },
+    {
+      "org": "SoFi", "segment": "fintech", "type": "launch", "date": "2026-01-01",
+      "quote": "launched SoFiUSD on Solana as the first time a U.S. national bank-issued stablecoin has been available directly within a banking app",
+      "source": "https://startupfortune.com/solana-gains-ground-as-sofi-and-cash-app-bring-stablecoins-to-users/",
+      "verified": "SEARCH ONLY - secondary coverage",
+      "products": ["enterprise", "webhooks", "parsed"],
+      "counter": "A regulated bank will have procurement and vendor-risk processes that a Solana-native pitch does not survive unprepared.",
+      "route": null
+    },
+    {
+      "org": "Hylo", "segment": "defi", "type": "funding", "date": "2026-10-20",
+      "quote": "$1m strategic round led by Solana Ventures, earmarked for expanding Hylo leverage and yield infrastructure on Solana",
+      "source": "https://cryptorank.io/insights/deals/hylo-strategic-2026-10-20",
+      "verified": "SEARCH ONLY",
+      "products": ["rpc", "parsed"],
+      "counter": "A $1m round rarely funds paid infrastructure; free tiers usually carry a protocol this size.",
+      "route": null
+    },
+    {
+      "org": "Spout", "segment": "defi", "type": "funding", "date": "2026-10-15",
+      "quote": "$2 million strategic round for borrowing against tokenized stocks",
+      "source": "https://cryptorank.io/insights/deals/spout-finance-strategic-2026-10-15",
+      "verified": "SEARCH ONLY",
+      "products": ["rpc", "parsed", "enterprise"],
+      "counter": "Tokenised-equity lending implies liquidations, but nothing read says Spout runs the keepers itself.",
+      "route": null
+    },
+    {
+      "org": "Marble", "segment": "institutional", "type": "funding", "date": "2026-11-10",
+      "quote": "institutional capital markets firm developing multi-asset trading services, raised $11 million Seed led by Polychain Capital",
+      "source": "https://defillama.com/raises",
+      "verified": "SEARCH ONLY - and the CHAIN IS NOT CONFIRMED as Solana",
+      "products": ["enterprise", "rpc"],
+      "counter": "Nothing read confirms Solana. A freshly funded institutional trading firm on another chain is not a Helius lead at all.",
+      "route": null
+    },
+    {
+      "org": "Securitize", "segment": "institutional", "type": "launch", "date": "2026-10-08",
+      "quote": "brings Apple, Nvidia and Tesla to Solana with NYSE trading in the works",
+      "source": "https://www.coindesk.com/business/2026/10/08/securitize-brings-apple-nvidia-and-tesla-to-solana-with-nyse-trading-in-the-works",
+      "verified": "SEARCH ONLY",
+      "products": ["enterprise", "parsed", "webhooks", "rpc"],
+      "counter": "Multi-chain issuer - the Solana workload is a share of the total and may not justify dedicated infrastructure.",
+      "route": null
+    }
+  ]
+}

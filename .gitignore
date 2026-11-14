@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.*
+data/runs/*.json
+!data/runs/.gitkeep
+.DS_Store
+
+# Artefacts produced by runs. The code and the docs are the submission; the
+# run outputs are reproducible by anyone with a NEAR AI key.
+data/discovered/*.json
+data/bridge/*.json
+data/history.json
+data/*.xlsx
+.claude/

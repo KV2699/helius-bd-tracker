@@ -1,0 +1,30 @@
+{
+  "name": "helius-bd-tracker",
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Solana BD scanner. Six agents, inference on NEAR AI Cloud, verification in code.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "scan": "node --env-file-if-exists=.env scan.js",
+    "serve": "node --env-file-if-exists=.env server.js",
+    "selftest": "node pipeline/selftest.js",
+    "monitor": "node --env-file-if-exists=.env monitor.js",
+    "operators": "node --env-file-if-exists=.env operators.js",
+    "tracker": "node -e \"import('./tracker/build.js').then(m=>require('fs').writeFileSync('Helius-BD-Tracker.xlsx',m.buildTracker()))\"",
+    "forks": "node --env-file-if-exists=.env forks.js",
+    "surfaces": "node --env-file-if-exists=.env surfaces.js",
+    "rescore": "node rescore.js",
+    "seeds": "node --env-file-if-exists=.env seeds.js",
+    "classify": "node --env-file-if-exists=.env classify.js",
+    "owners": "node --env-file-if-exists=.env owners.js",
+    "people": "node --env-file-if-exists=.env people.js",
+    "products": "node --env-file-if-exists=.env products.js",
+    "status": "node --env-file-if-exists=.env status.js",
+    "batch": "node --env-file-if-exists=.env batch.js",
+    "funnel": "node --env-file-if-exists=.env funnel.js",
+    "batches": "node --env-file-if-exists=.env batches.js"
+  }
+}

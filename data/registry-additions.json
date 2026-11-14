@@ -1,0 +1,2682 @@
+{
+  "accounts": [
+    {
+      "name": "Axiom",
+      "aliases": [
+        "Axiom"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "axiom.trade",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "Axiom integrates Hyperliquid&#039;s perpetuals infrastructure directly within its browser-based Solana trading terminal, allowing traders to open leveraged positions up to 50x using USDC as collateral.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/axiom",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://docs.axiom.trade/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 2131,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "edgeX",
+      "aliases": [
+        "edgeX"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "edgex.exchange",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "edgeX offers perpetual futures trading across crypto assets, commodities, and tokenized stocks with up to 100x leverage, matching CEX-level execution speeds through an off-chain central limit order book combined with on-chain settlement verification.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/edgex",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://pro.edgex.exchange/en-US/home?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 4949,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://edgex-1.gitbook.io/edgeX-documentation",
+          "kind": "site",
+          "status": "verified",
+          "chars": 5732,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Parcl",
+      "aliases": [
+        "Parcl"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "parcl.co",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "Parcl is a perpetual futures exchange on Solana where the underlying markets are real estate price indices for individual cities rather than tokens.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/parcl",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://github.com/ParclFinance",
+          "kind": "github",
+          "status": "verified",
+          "chars": 8448,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.v4.parcl.co/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 2024,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.v4.parcl.co/trading/oracle",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 2028,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.v4.parcl.co/trading/mark-price",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 2652,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.v4.parcl.co/trading/funding",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 4983,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.v4.parcl.co/trading/markets",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 3285,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.v4.parcl.co/trading/margin",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 8528,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.v4.parcl.co/trading/referrals",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 3217,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.v4.parcl.co/trading/treasury",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 2407,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.parcl.co/protocol-overview",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 2844,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.parcl.co/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 749,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.v4.parcl.co/trading/bridge",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 8785,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.v4.parcl.co/trading/liquidations",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 5975,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Terrace",
+      "aliases": [
+        "Terrace"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "terrace.fi",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "Terrace offers perpetual futures trading at up to 40x leverage on supported instruments, accessible from the same unified account used for spot trading across DEXs and centralized exchanges.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/terrace",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://docs.terrace.fi/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 2779,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Arcana Markets",
+      "aliases": [
+        "Arcana Markets"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": null,
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi",
+        "quote": "Arcana Markets stands out as a sophisticated derivatives trading platform on Solana through its advanced automated trading capabilities.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": false,
+      "basis": null,
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Astralane",
+      "aliases": [
+        "Astralane"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "astralane.io",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/rpc-nodes",
+        "quote": "Astralane&#039;s Iris gateway routes Solana transactions directly to upcoming block leaders rather than through shared public RPC endpoints, achieving a 72% same-slot landing rate and 96% within one slot across benchmarked sends.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/astralane",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://astralane.io/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 10387,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://github.com/Astralane",
+          "kind": "github",
+          "status": "verified",
+          "chars": 7924,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://astralane.gitbook.io/docs/low-latency/quickstart",
+          "kind": "site",
+          "status": "verified",
+          "chars": 4311,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://astralane.gitbook.io/docs",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 979,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Basis Markets",
+      "aliases": [
+        "Basis Markets"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "basis.markets",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "Basis Markets is a tool for running the funding-rate basis trade rather than a perpetuals exchange in its own right.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/basis-markets",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://basis.markets/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 4737,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://basis.markets/",
+          "kind": "site",
+          "status": "verified",
+          "chars": 4737,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.basis.markets/welcome",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 6165,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://blog.basis.markets/",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 8409,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "BisonFi",
+      "aliases": [
+        "BisonFi"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": null,
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://defillama.com/protocols/Dexes/Solana",
+        "quote": "BisonFi 1 chain\n$147.27m $955.44m -27.02% $6.779b",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": false,
+      "basis": null,
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "BitDelta",
+      "aliases": [
+        "BitDelta"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "bitdelta.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "BitDelta operates a perpetual and futures derivatives desk spanning more than 370 markets, encompassing crypto, forex, equity indices, stocks, and commodities with up to 10x leverage.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": false,
+      "basis": {
+        "source": "https://solanacompass.com/projects/bitdelta",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "BitMEX",
+      "aliases": [
+        "BitMEX"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "github.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "BitMEX invented the perpetual swap in 2014 — a contract that mimics a spot position without expiry, using a funding rate paid between longs and shorts every eight hours to anchor the contract price to the underlying spot index.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": false,
+      "basis": {
+        "source": "https://solanacompass.com/projects/bitmex",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Bulk",
+      "aliases": [
+        "Bulk"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "bulk.trade",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/learn/Lightspeed/solanas-next-big-catalyst-in-2026-lightspeed-weekly-roundup",
+        "quote": "Bulk, planning to launch in early 2026, offers another model.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://api.llama.fi/protocols",
+        "how": "the protocol's own declared url on DefiLlama"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.bulk.trade/",
+          "kind": "site",
+          "status": "verified",
+          "chars": 3018,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the protocol's own declared url on DefiLlama. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the protocol's own declared url on DefiLlama. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Bulk Trade",
+      "aliases": [
+        "Bulk Trade"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "bulk.trade",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "Bulk Trade is a perpetual swaps exchange built on Solana that offers leveraged exposure to BTC, ETH, and SOL with up to 20x leverage per pair.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/bulk-trade",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.bulk.trade/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 3018,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://github.com/bulk-trade",
+          "kind": "github",
+          "status": "verified",
+          "chars": 7321,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Definitive",
+      "aliases": [
+        "Definitive"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "definitive.fi",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/dex-swaps?page=2",
+        "quote": "Definitive is a professional multi-chain DEX aggregator that routes trades across nine blockchains and pulls liquidity from more than 200 decentralized exchanges alongside 15-plus off-chain private market makers.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/definitive",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.definitive.fi/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 4417,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.definitive.fi/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 4043,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Donut",
+      "aliases": [
+        "Donut"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "donutbrowser.ai",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "Donut offers perpetual trading through two venues: a native perps product with up to 150x leverage and an integration with HyperLiquid for traders who prefer that platform.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": false,
+      "basis": {
+        "source": "https://solanacompass.com/projects/donut",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Fermilabs",
+      "aliases": [
+        "Fermilabs"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "fermilabs.xyz",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "Fermilabs launched Fermi Trade, an orderbook-based perpetual futures DEX on Solana that entered invite-only beta in May 2026 before releasing a public SDK for programmatic access in June 2026.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/fermilabs",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://fermilabs.xyz/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 1596,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Flipster",
+      "aliases": [
+        "Flipster"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "flipster.io",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "Flipster is a high-performance perpetual futures exchange that launched in 2021 and has grown to cover more than 400 perpetual markets, including Bitcoin, Ethereum, Solana, and a wide range of altcoins and memecoins, all quoted in USDT.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/flipster",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://flipster.io/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 9850,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://flipster.io/trade/perpetual/BTCUSDT.PERP",
+          "kind": "site",
+          "status": "verified",
+          "chars": 836,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://flipster.io/trade/spot/BTCUSDT",
+          "kind": "site",
+          "status": "verified",
+          "chars": 808,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://flipster.io/blog",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 4079,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://support.flipster.io/hc/en-us",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 455,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Fogo",
+      "aliases": [
+        "Fogo"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "fogo.io",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/dex-swaps?page=2",
+        "quote": "Fogo is built from the ground up to make on-chain trading competitive with centralized exchanges, targeting applications — order books, real-time auctions, high-frequency strategies — that require millisecond-level responsiveness most blockchains cannot provide.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/fogo",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.fogo.io/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 7531,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.fogo.io/",
+          "kind": "site",
+          "status": "verified",
+          "chars": 7531,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.fogo.io/blog",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 2007,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.fogo.io/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 1277,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "HumidiFi",
+      "aliases": [
+        "HumidiFi"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": null,
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/learn/Lightspeed/solanas-next-big-catalyst-in-2026-lightspeed-weekly-roundup",
+        "quote": "HumidiFi, the leading prop AMM, is not only beating every other DEX on Solana in SOL-USD trading volumes",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": false,
+      "basis": null,
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Hxro Network",
+      "aliases": [
+        "Hxro Network"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "hxro.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "Hxro Network&#039;s Dexterity Protocol stands out as one of the most sophisticated perpetual trading platforms on Solana, offering a comprehensive suite of derivatives trading options including perpetual futures and options markets.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/hxro-network",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://github.com/Hxro-Network",
+          "kind": "github",
+          "status": "verified",
+          "chars": 8517,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Infinex",
+      "aliases": [
+        "Infinex"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "infinex.xyz",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "Infinex Pro, renamed from Infinex Perps on July 31, 2026, offers perpetual futures with up to 50x leverage alongside spot trading in one interface.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/infinex",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://github.com/infinex-xyz",
+          "kind": "github",
+          "status": "verified",
+          "chars": 5624,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://support.infinex.xyz/en/articles/9613740-understanding-passkeys",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 4418,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://support.infinex.xyz/en/articles/9994848-official-infinex-links",
+          "kind": "site",
+          "status": "verified",
+          "chars": 1981,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "LFJ",
+      "aliases": [
+        "LFJ"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "lfj.gg",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi",
+        "quote": "LFJ, formerly Trader Joe, is a multi-chain DEX and trading platform powered by Liquidity Book DLMM (Discretized Liquidity Market Maker) technology, deployed across Avalanche, Arbitrum, BNB Chain, Solana, and Monad.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": false,
+      "basis": {
+        "source": "https://solanacompass.com/projects/lfj",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Lifinity",
+      "aliases": [
+        "Lifinity"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "lifinity.io",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi",
+        "quote": "Lifinity was a Solana decentralized exchange, launched on mainnet in 2022, whose pools quoted swaps near a Pyth oracle price instead of waiting for arbitrageurs to correct them.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/lifinity",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://docs.lifinity.io/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 2006,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.lifinity.io/tokenomics/tokens",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 2712,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Mango Markets",
+      "aliases": [
+        "Mango Markets"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "mango.markets",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "Mango Markets stands out as a premier perpetual futures trading platform on Solana, offering up to 20x leverage on major cryptocurrency pairs.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": false,
+      "basis": {
+        "source": "https://solanacompass.com/projects/mango-markets",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Manifest Trade",
+      "aliases": [
+        "Manifest Trade"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "manifest.trade",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://defillama.com/protocols/Dexes/Solana",
+        "quote": "Manifest Trade 1 chain\n$93.58m $400.76m -48.59% $3.294b",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": false,
+      "basis": {
+        "source": "https://api.llama.fi/protocols",
+        "how": "the protocol's own declared url on DefiLlama"
+      },
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "SaberDAO",
+      "aliases": [
+        "SaberDAO"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "saberdao.io",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi",
+        "quote": "Saber has established itself as the go-to platform for trading liquid staking tokens (LSTs) on Solana, offering deep liquidity and minimal slippage for users looking to trade between different staking derivatives.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "trading"
+      },
+      "surface_verified": false,
+      "basis": {
+        "source": "https://solanacompass.com/projects/saberdao",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier trading on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "CoinEx",
+      "aliases": [
+        "CoinEx"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "github.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "CoinEx offers futures trading through perpetual contracts with up to 100x leverage, available as linear contracts priced in USDT or USDC and inverse contracts priced in the underlying asset.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "institutional"
+      },
+      "surface_verified": false,
+      "basis": {
+        "source": "https://solanacompass.com/projects/coinex",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "BingX",
+      "aliases": [
+        "BingX"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "github.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "BingX offers perpetual futures trading in four contract types: USD-M (USDT-settled), Coin-M (asset-settled), USDC-M, and Standard Futures.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "institutional"
+      },
+      "surface_verified": false,
+      "basis": {
+        "source": "https://solanacompass.com/projects/bingx",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Bitfinex",
+      "aliases": [
+        "Bitfinex"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "github.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "Bitfinex offers perpetual contracts through Bitfinex Derivatives, a platform that operates separately from the main exchange with its own account structure and management.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "institutional"
+      },
+      "surface_verified": false,
+      "basis": {
+        "source": "https://solanacompass.com/projects/bitfinex",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Bitunix",
+      "aliases": [
+        "Bitunix"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "github.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "By derivatives volume, Bitunix ranked among the top seven exchanges globally by mid-2026 according to CoinGlass data, processing over $300 billion in cumulative trading volume.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "institutional"
+      },
+      "surface_verified": false,
+      "basis": {
+        "source": "https://solanacompass.com/projects/bitunix",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Bullish",
+      "aliases": [
+        "Bullish"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "bullish.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "Bullish offers a full derivatives suite covering perpetual futures, dated futures, and options across major digital assets including BTC, ETH, and SOL.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "institutional"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/bullish",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.bullish.com/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 9530,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://github.com/bullish-exchange",
+          "kind": "github",
+          "status": "verified",
+          "chars": 7360,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.bullish.com/custody",
+          "kind": "site",
+          "status": "verified",
+          "chars": 7830,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.bullish.com/amm",
+          "kind": "site",
+          "status": "verified",
+          "chars": 8372,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.bullish.com/news-insights",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 9093,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.exchange.bullish.com/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 1227,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "DigiFinex",
+      "aliases": [
+        "DigiFinex"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "medium.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "DigiFinex operates a derivatives trading layer called DigiDeriv, offering perpetual futures contracts with leverage up to 100x on pairs including BTC/USDT, ETH/USDT, LTC/USDT, and others.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "institutional"
+      },
+      "surface_verified": false,
+      "basis": {
+        "source": "https://solanacompass.com/projects/digifinex",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Gemini",
+      "aliases": [
+        "Gemini"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "gemini.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "This makes Gemini one of the few NYDFS-regulated venues offering perpetual trading alongside custody and staking on a unified platform, appealing to traders who prioritise regulatory transparency without sacrificing instrument depth.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "institutional"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/gemini",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.gemini.com/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 3811,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.gemini.com/credit-card",
+          "kind": "site",
+          "status": "verified",
+          "chars": 7618,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.gemini.com/activetrader",
+          "kind": "site",
+          "status": "verified",
+          "chars": 4066,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.gemini.com/staking",
+          "kind": "site",
+          "status": "verified",
+          "chars": 9076,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.gemini.com/institutions/custody",
+          "kind": "site",
+          "status": "verified",
+          "chars": 7910,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.gemini.com/blog",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 3734,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://developer.gemini.com/rest-api/rest-api",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 3292,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "HTX",
+      "aliases": [
+        "HTX"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "medium.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "HTX offers futures and perpetual contracts across major digital assets, providing leveraged exposure with varying margin options on one of the longest-running centralized exchanges in the industry.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "institutional"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/htx",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://htxofficial.medium.com/",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 3444,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Maple Finance",
+      "aliases": [
+        "Maple Finance"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "maple.finance",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi",
+        "quote": "Maple Finance is an onchain credit marketplace that makes fixed-rate, overcollateralized loans to institutional borrowers such as trading firms, market makers and crypto-native funds.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "institutional"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/maple-finance",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://maple.finance/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 5392,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.maple.finance/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 3743,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.maple.finance/maple-institutional-for-lenders/introduction",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 3105,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.maple.finance/technical-resources/singletons/governor-timelock",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 7057,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.maple.finance/technical-resources/protocol-overview/fees",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 11519,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.maple.finance/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 3743,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Openbook",
+      "aliases": [
+        "Openbook"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "openbook.ag",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi",
+        "quote": "Openbook stands out as a leading decentralized exchange on Solana, offering a sophisticated central limit order book (CLOB) model that enables precise price discovery and efficient token swaps.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "institutional"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/openbook",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://github.com/openbook-dex",
+          "kind": "github",
+          "status": "verified",
+          "chars": 7532,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://github.com/openbook-dex/openbook-v2?tab=readme-ov-file",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 7551,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Phemex",
+      "aliases": [
+        "Phemex"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "github.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/dex-swaps?page=2",
+        "quote": "Phemex&#039;s spot market lists more than 600 assets, but its most structurally novel contribution to token swap infrastructure is MemeX, a Solana-native on-chain trading layer that went live in January 2025.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "institutional"
+      },
+      "surface_verified": false,
+      "basis": {
+        "source": "https://solanacompass.com/projects/phemex",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Robinhood",
+      "aliases": [
+        "Robinhood"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": null,
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/learn/Lightspeed/solanas-next-big-catalyst-in-2026-lightspeed-weekly-roundup",
+        "quote": "While Coinbase and Robinhood have discussed tokenized stock offerings, neither has moved as decisively.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "institutional"
+      },
+      "surface_verified": false,
+      "basis": null,
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Sygnum Bank",
+      "aliases": [
+        "Sygnum Bank"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "sygnum.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "In October 2025, Sygnum Bank Middle East launched institutional-grade Solana validator nodes from within the Abu Dhabi Global Market regulatory zone, making it one of the first regulated banks to operate directly as a blockchain validator.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "institutional"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/sygnum-bank",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.sygnum.com/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana%20Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 20847,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.sygnum.com/sygnum-connect/",
+          "kind": "site",
+          "status": "verified",
+          "chars": 17686,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.sygnum.com/asset-management/",
+          "kind": "site",
+          "status": "verified",
+          "chars": 24322,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.sygnum.com/future-finance/",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 18595,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "XT.com",
+      "aliases": [
+        "XT.com"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "xt.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/defi/perpetual-trading",
+        "quote": "XT.com is a centralized cryptocurrency exchange founded in 2018 and registered in the Seychelles, ranking among the top ten derivatives venues globally by trading volume with more than $40 billion in reported daily perpetual futures turnover.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "institutional"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/xt",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.xt.com/en?utm_medium=project-directory&utm_campaign=Solana+Compass&utm_source=solanacompass.com&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 1322,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.xt.com/en",
+          "kind": "site",
+          "status": "verified",
+          "chars": 1322,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://doc.xt.com/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 964,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier institutional on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Amazon Web Services (AWS)",
+      "aliases": [
+        "Amazon Web Services (AWS)"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "amazon.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "AWS publishes hardware and client-specific guidance targeting Solana validator performance, recommending AMD EPYC-based r7a instances and documenting that the Agave v2.x release raised the minimum recommended CPU clock speed from 2.8 GHz to 3.2 GHz.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/amazon-web-services-aws",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://aws.amazon.com/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 18060,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://aws.amazon.com/managed-blockchain/",
+          "kind": "site",
+          "status": "verified",
+          "chars": 13480,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://aws.amazon.com/blogs/",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 11641,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.aws.amazon.com/managed-blockchain/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 3492,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Anagram",
+      "aliases": [
+        "Anagram"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "anagram.xyz",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "Anagram, a builder-investor group founded in 2021, runs a Solana validator that charges 0% commission and accepts stakes from 0.1 SOL.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/anagram",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://github.com/anagrambuild",
+          "kind": "github",
+          "status": "verified",
+          "chars": 8496,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://blog.anagram.xyz/",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 3641,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Automata Network",
+      "aliases": [
+        "Automata Network"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "ata.network",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/rpc-nodes",
+        "quote": "Automata Networks 1RPC product is a privacy-focused RPC relay and AI inference gateway that routes blockchain and LLM API requests through Trusted Execution Environments.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/automata-network",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.ata.network/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 5818,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://github.com/automata-network",
+          "kind": "github",
+          "status": "verified",
+          "chars": 10603,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.ata.network/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 1510,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "BAM (Block Assembly Marketplace)",
+      "aliases": [
+        "BAM (Block Assembly Marketplace)"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "bam.dev",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "BAM is Jito Labs' block-building system that validators on Solana opt into by appending a single configuration flag.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/bam-block-assembly-marketplace",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://bam.dev/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 3907,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://bam.dev/plugins/",
+          "kind": "site",
+          "status": "verified",
+          "chars": 2284,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://bam.dev/validators/",
+          "kind": "site",
+          "status": "verified",
+          "chars": 13419,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://bam.dev/node-operators/",
+          "kind": "site",
+          "status": "verified",
+          "chars": 1032,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://bam.dev/blog/",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 1152,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://bam.dev/overview/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 1582,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Bitwise Onchain Solutions 02",
+      "aliases": [
+        "Bitwise Onchain Solutions 02"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": null,
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/statistics/staking",
+        "quote": "Bitwise Onchain Solutions 02",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": false,
+      "basis": null,
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Block Logic",
+      "aliases": [
+        "Block Logic"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "blocklogic.net",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "Block Logic runs a Solana validator that has operated continuously since mainnet genesis, and builds Validators.app, a free directory that compares the validator set on performance metrics, commission history and data-center breakdowns.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/block-logic",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.blocklogic.net/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 3605,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://github.com/Block-Logic",
+          "kind": "github",
+          "status": "verified",
+          "chars": 8832,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://github.com/Block-Logic/solana-block-production",
+          "kind": "site",
+          "status": "verified",
+          "chars": 5455,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "BlockPI",
+      "aliases": [
+        "BlockPI"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "blockpi.io",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "BlockPI extends its Web3 infrastructure role by operating as an active blockchain validator across more than 35 networks, with over $130 million in staked assets under management.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/blockpi",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://blockpi.io/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 6405,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://github.com/blockpinetwork",
+          "kind": "github",
+          "status": "verified",
+          "chars": 5385,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://blockpi.io/dedicated-node/",
+          "kind": "site",
+          "status": "verified",
+          "chars": 3564,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://blockpi.io/",
+          "kind": "site",
+          "status": "verified",
+          "chars": 6405,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.blockpi.io/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 1171,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "bloXroute Labs",
+      "aliases": [
+        "bloXroute Labs"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "bloxroute.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "bloXroute gives Solana validators tools to optimize MEV revenue capture and manage incoming order flow.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/bloxroute-labs",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://github.com/bloXroute-Labs",
+          "kind": "github",
+          "status": "verified",
+          "chars": 8405,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.bloxroute.com/solana/trader-api",
+          "kind": "site",
+          "status": "verified",
+          "chars": 2327,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.bloxroute.com/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 2183,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Chorus One",
+      "aliases": [
+        "Chorus One"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "chorus.one",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "Chorus One runs institutional validator infrastructure on more than 30 proof-of-stake networks, with Solana as a core deployment.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/chorus-one",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://chorus.one/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 6975,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://github.com/ChorusOne",
+          "kind": "github",
+          "status": "verified",
+          "chars": 9361,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://chorus.one/white-label-staking",
+          "kind": "site",
+          "status": "verified",
+          "chars": 2481,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://chorus.one/stake-crypto",
+          "kind": "site",
+          "status": "verified",
+          "chars": 5560,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://chorus.one/blog",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 21023,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://chorus.one/crypto-research",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 113989,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Cosmostation",
+      "aliases": [
+        "Cosmostation"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "cosmostation.io",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "Cosmostation has operated professional validator infrastructure since 2018, running more than 230 validator nodes across 50+ proof-of-stake networks.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/cosmostation",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://github.com/cosmostation",
+          "kind": "github",
+          "status": "verified",
+          "chars": 8972,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.cosmostation.io/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 15848,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "DeFi Development Corp.",
+      "aliases": [
+        "DeFi Development Corp."
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "defidevcorp.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "DeFi Development Corp. (Nasdaq: DFDV) operates Solana validator infrastructure acquired through the purchase of two independent validators, BullMoose Systems and Strawberry Siren, for $500,000 in cash and $3 million in stock.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/defi-development-corp",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://defidevcorp.com/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 13940,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://defidevcorp.com/",
+          "kind": "site",
+          "status": "verified",
+          "chars": 13940,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "DynoSOL",
+      "aliases": [
+        "DynoSOL"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "dynosol.io",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "DynoSOL applies a multi-criteria validator selection methodology that goes beyond the raw uptime and vote-credit scoring used by most auto-delegate pools.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/dynosol",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.dynosol.io/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 755,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.dynosol.io/",
+          "kind": "site",
+          "status": "verified",
+          "chars": 755,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Kiln",
+      "aliases": [
+        "Kiln"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "kiln.fi",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "Kiln operates institutional-grade Solana validator infrastructure with approximately $617 million in delegated SOL as of August 2026, representing roughly 1.6% of all staked supply.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/kiln",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.kiln.fi/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 35582,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://github.com/kilnfi",
+          "kind": "github",
+          "status": "verified",
+          "chars": 8898,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.kiln.fi/connect",
+          "kind": "site",
+          "status": "verified",
+          "chars": 20021,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.kiln.fi/validators",
+          "kind": "site",
+          "status": "verified",
+          "chars": 21848,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.kiln.fi/blog",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 38980,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.kiln.fi/v1",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 2196,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Latitude",
+      "aliases": [
+        "Latitude"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "latitude.sh",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "Latitude.sh provides dedicated bare metal hardware configured specifically for Solana validator performance, eliminating the virtualization overhead that degrades vote latency and skip rates on cloud instances.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/latitude",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.latitude.sh/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 5954,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.latitude.sh/metal-gpu",
+          "kind": "site",
+          "status": "verified",
+          "chars": 6344,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.latitude.sh/blog",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 3558,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://github.com/latitudesh",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 8992,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Lava Protocol",
+      "aliases": [
+        "Lava Protocol"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "lavanet.xyz",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/rpc-nodes",
+        "quote": "Lava Network Protocol stands out as a leading RPC infrastructure solution on Solana, providing a decentralized approach to handling blockchain RPC requests.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/lava-protocol",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.lavanet.xyz/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 7233,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://github.com/lavanet",
+          "kind": "github",
+          "status": "verified",
+          "chars": 8950,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.lavanet.xyz/blog",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 4840,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Layer33",
+      "aliases": [
+        "Layer33"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "layer33.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/rpc-nodes",
+        "quote": "Layer33 provides RPC and gRPC endpoints for applications and developers who want to build on Solana while routing their infrastructure traffic through independent, community-operated validators.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/layer33",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.layer33.com/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 233,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://github.com/brewlabshq/layer33",
+          "kind": "github",
+          "status": "verified",
+          "chars": 3926,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Meria",
+      "aliases": [
+        "Meria"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "meria.com",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "Meria operates its own blockchain infrastructure across more than 40 networks, running over 800 active nodes built and maintained in-house since 2019.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/meria",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://www.meria.com/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 11941,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.meria.com/",
+          "kind": "site",
+          "status": "verified",
+          "chars": 11941,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://www.meria.com/blog",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 8422,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Nebula Node",
+      "aliases": [
+        "Nebula Node"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "nebulanode.pro",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/validator-performance",
+        "quote": "Nebula Node is an independent Solana validator launched in February 2025, participating in block confirmation and consensus under identity nebu1WnZBrFZz5X7sfPWuEqyb8LBSsrXpxaesnK9CRE.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": false,
+      "basis": {
+        "source": "https://solanacompass.com/projects/nebula-node",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Nirvana Labs",
+      "aliases": [
+        "Nirvana Labs"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": "nirvanalabs.io",
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/projects/category/infrastructure/rpc-nodes",
+        "quote": "Nirvana Labs operates a global RPC node network spanning over 90 blockchain networks, with infrastructure deployed across 11 data centers in North America, Europe, and Asia-Pacific.",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": true,
+      "basis": {
+        "source": "https://solanacompass.com/projects/nirvana-labs",
+        "how": "the roster's own page for this company"
+      },
+      "surfaces": [
+        {
+          "url": "https://nirvanalabs.io/?utm_source=solanacompass.com&utm_medium=project-directory&utm_campaign=Solana+Compass&utm_content=external-link",
+          "kind": "site",
+          "status": "verified",
+          "chars": 5499,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://github.com/nirvana-labs",
+          "kind": "github",
+          "status": "verified",
+          "chars": 8673,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://nirvanalabs.io/blog/",
+          "kind": "blog",
+          "status": "verified",
+          "chars": 4819,
+          "verified_on": "2026-11-14"
+        },
+        {
+          "url": "https://docs.nirvanalabs.io/",
+          "kind": "docs",
+          "status": "verified",
+          "chars": 1085,
+          "verified_on": "2026-11-14"
+        }
+      ],
+      "next_action": "Run the batch scan against these surfaces.",
+      "note": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Domain from the roster's own page for this company. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    },
+    {
+      "name": "Nito",
+      "aliases": [
+        "Nito"
+      ],
+      "segment": null,
+      "rel": "PROSPECT",
+      "status": "active",
+      "domain": null,
+      "identity_confirmed": true,
+      "identity_basis": {
+        "cited_source": "https://solanacompass.com/learn/Lightspeed/solanas-next-big-catalyst-in-2026-lightspeed-weekly-roundup",
+        "quote": "Solana Foundation and Nito Launch Solana Confidential Compute on Devnet to Verify Private AI Onchain",
+        "grounded": "quote matched against the fetched page in code",
+        "checks": "not a token ticker, asset row, chain, product name or generic phrase",
+        "roster_tier": "infra"
+      },
+      "surface_verified": false,
+      "basis": null,
+      "surfaces": [],
+      "next_action": "Find and verify the official surface - site, docs, GitHub or status page - then run the batch scan.",
+      "note": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "roster_tier": "Promoted from the discovery pass on IDENTITY. Surface not yet verified: no first-party page has been fetched and confirmed as theirs. Tier infra on the roster. No dated evidence yet - run the batch scan.",
+      "added_on": "2026-11-14",
+      "added_by": "bridge-2026-11-14T12-37-53"
+    }
+  ],
+  "note": "Written by bridge.js. Merged into ICP at load by pipeline/icp.js. Every account here has a confirmed identity; surface_verified says whether a page it publishes has been read yet."
+}
