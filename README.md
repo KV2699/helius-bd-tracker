@@ -42,6 +42,53 @@ output, not a gap.
 
 ---
 
+## The audit: we applied our own standard and found a bug
+
+This project implements a finding from **The Evidence Gap** (Donaghue, with Apart Research,
+AI Collusion Research Sprint, Oct 2026), which proposed a standard for when a detector's
+output counts as evidence. We applied that standard to our own core integrity check,
+`quoteIsGrounded()` — the one function this entire system rests on.
+
+**The first failure was ours.** The audit scored 100% / 0% and we nearly shipped it. It was
+a tautology: we were testing verbatim sentences lifted out of the page against a substring
+search, so it could not fail. That is Pitfall #94 — *a perfect score on a test you designed
+is a fact about the test.*
+
+**The real test.** We roughened the positives into what a model actually emits — whitespace
+drift, dropped terminators, dropped trailing clauses, smart quotes — and added the hard
+negative: **paraphrases of real sentences from the correct page.**
+
+> **48.8% of paraphrases were accepted as grounded.**
+> `is` → `remains`, `each` → `every`, `transactions` → `transfers`.
+
+A model that *reworded instead of quoting* was passing the check. Not a fabrication, not a
+wrong page — simply not quoting. **573 tests never caught it**, because every grounding
+test used either a verbatim quote or an obvious fabrication. Nobody had written the case in
+between, which is the case a real model produces.
+
+**The fix.** A truncation only *drops* words that are on the page; a paraphrase
+*introduces* words that were never there. So every substantive word must appear in the page
+before the tolerance may apply.
+
+| | before | after |
+|---|---:|---:|
+| real quotes kept | 100% | **100%** |
+| paraphrases accepted | 48.8% | **2.3%** |
+| other-page prose accepted | 0% | **0%** |
+
+```bash
+node audit.js     # offline, no key, 11 frozen pages
+```
+
+It passes all six criteria from the paper — the free check plus five parts — including a
+ranking **1st of 47** against nonsense tuned to its own firing rate, and **89.1%** disparity
+surviving subtraction of the luck level. It also prints what it does *not* establish.
+
+We did not just build a lie detector and assert it works. We published the standard, ran it
+against ourselves, found the failure, fixed it, and shipped the test so you can re-run it.
+
+---
+
 ## What this is, and where it goes
 
 A verification engine. It refuses to certify a claim it cannot ground in
