@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>VERBATIM — play me, then screen-record me</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<style>
+
+      /* Two grounds, never three. Bone with ink type, and full Helius red with
+         white type. Nothing is black. Red is kept for the lines that land. */
+      :root{
+        --bone:#F1EEE7; --bone-2:#E8E4DA; --ink:#17181A; --ink-2:#5C5E63; --ink-3:#8A8880;
+        --red:#E8412A; --line:#D8D3C7;
+        --display:"Inter", sans-serif; --mono:"JetBrains Mono", monospace;
+      }
+      *{margin:0;padding:0;box-sizing:border-box}
+      html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:var(--bone)}
+      #root{width:100%;height:100%;position:relative;font-family:var(--display);background:var(--bone)}
+      .host{position:absolute;inset:0}
+    
+/* ---- the standalone player ---------------------------------------------
+   The HyperFrames runtime seeks a paused timeline frame by frame. In a
+   browser we want it to PLAY, so this drives the same scene timelines from a
+   real clock - the <audio> element's own clock when there is narration, so
+   picture and voice can never drift. */
+html,body{width:100%;height:100%;margin:0;background:#000;overflow:hidden}
+#stage{position:relative;width:1920px;height:1080px;transform-origin:top left;background:var(--bone)}
+.host{position:absolute;inset:0;display:none}
+.host.on{display:block}
+.scene{position:absolute;inset:0}
+#gate{position:fixed;inset:0;background:var(--bone);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;z-index:999;cursor:pointer;font-family:var(--mono)}
+#gate .m{font-size:64px;font-weight:500;letter-spacing:.26em;color:var(--ink);padding-left:.26em}
+#gate .m i{color:var(--red);font-style:normal}
+#gate .p{margin-top:34px;font-size:16px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+#bar{position:fixed;left:0;bottom:0;height:3px;background:var(--red);width:0;z-index:998}
+
+  #splash > .scene{position:absolute;inset:0;background:var(--bone);font-family:var(--display);
+        display:flex;flex-direction:column;align-items:center;justify-content:center}
+  #sp-mark{font-family:var(--mono);font-size:112px;font-weight:500;letter-spacing:.26em;
+           color:var(--ink);padding-left:.26em}
+  #sp-mark .v{color:var(--red)}
+  #sp-rule{height:3px;background:var(--red);width:0;margin-top:40px}
+  #sp-sub{font-family:var(--mono);font-size:22px;letter-spacing:.14em;text-transform:uppercase;
+          color:var(--ink-3);margin-top:38px;opacity:0}
+
+
+  #open > .scene{position:absolute;inset:0;background:var(--bone);font-family:var(--display);
+        display:flex;flex-direction:column;justify-content:center;padding:0 160px}
+  #open-eyebrow{font-family:var(--mono);font-size:21px;letter-spacing:.18em;text-transform:uppercase;
+                color:var(--ink-3);margin-bottom:44px}
+  .ln{font-size:84px;line-height:1.14;letter-spacing:-.03em;font-weight:500;color:var(--ink);
+      max-width:1500px}
+  .ln .q{color:var(--ink-3)}
+  #open-rule{height:2px;background:var(--red);width:0;margin-top:52px}
+
+
+  #guess > .scene{position:absolute;inset:0;background:var(--red);font-family:var(--display);
+        display:flex;flex-direction:column;justify-content:center;padding:0 160px}
+  #guess-big{font-size:118px;line-height:1.05;letter-spacing:-.035em;font-weight:600;color:#fff;max-width:1560px}
+  #guess-sub{font-size:44px;line-height:1.3;letter-spacing:-.015em;color:rgba(255,255,255,.82);
+             margin-top:46px;max-width:1300px}
+
+
+  #refuse > .scene{position:absolute;inset:0;background:var(--bone);font-family:var(--display);padding:84px 120px}
+  #refuse-h{font-size:70px;line-height:1.12;letter-spacing:-.03em;font-weight:500;color:var(--ink);max-width:1280px}
+  #refuse-h em{font-style:normal;color:var(--red)}
+  #refuse-panel{position:absolute;left:120px;right:120px;top:330px;bottom:96px;
+                background:#fff;border:1px solid var(--line);display:flex;flex-direction:column}
+  .rhd{display:flex;gap:16px;align-items:center;padding:20px 28px;border-bottom:1px solid var(--line);
+       font-family:var(--mono);font-size:17px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .rhd b{color:var(--ink);font-weight:500}
+  .rhd .sp{margin-left:auto;color:var(--red)}
+  .row{display:grid;grid-template-columns:330px 1fr 150px;gap:28px;padding:21px 28px;
+       border-bottom:1px solid var(--line);align-items:baseline}
+  .row .n{font-size:28px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
+  .row .q{font-size:20px;line-height:1.45;color:var(--ink-2)}
+  .row .f{font-family:var(--mono);font-size:19px;color:var(--red);text-align:right}
+
+
+  #liveq > .scene{position:absolute;inset:0;background:var(--bone);overflow:hidden}
+  #liveq-v{position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover}
+  #liveq-strip{position:absolute;left:0;right:0;bottom:0;height:92px;background:var(--ink);
+    display:flex;align-items:center;padding:0 54px;gap:22px}
+  #liveq-strip .k{font-family:var(--mono);font-size:17px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--red)}
+  #liveq-strip .t{font-family:var(--display);font-size:27px;color:#F1EEE7;font-weight:500}
+  #liveq-strip .r{margin-left:auto;font-family:var(--mono);font-size:16px;
+    letter-spacing:.12em;text-transform:uppercase;color:#8A8880}
+
+
+  #ground > .scene{position:absolute;inset:0;background:var(--bone);font-family:var(--display);padding:70px 110px}
+  #g-h{font-family:var(--mono);font-size:20px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  #g-sub{font-size:46px;line-height:1.2;letter-spacing:-.02em;font-weight:500;color:var(--ink);margin-top:14px}
+  .gp{position:absolute;top:268px;bottom:210px;background:#fff;border:1px solid var(--line);padding:30px 34px}
+  #g-left,#g-left2{left:110px;width:800px} #g-right,#g-right2{left:960px;right:110px}
+  .gl{font-family:var(--mono);font-size:16px;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--ink-3);margin-bottom:22px}
+  .qt{font-size:29px;line-height:1.52;color:var(--ink)}
+  .pg{font-family:var(--mono);font-size:19px;line-height:1.8;color:var(--ink-2)}
+  .w,.pw{padding:1px 2px;border-radius:2px}
+  .gv{position:absolute;left:110px;right:110px;bottom:84px;height:92px;display:flex;align-items:center;color:#fff}
+  #g-v1{background:var(--red)} #g-v2{background:var(--ink)}
+  .gvm{font-family:var(--mono);font-size:19px;letter-spacing:.14em;padding:0 34px;border-right:1px solid rgba(255,255,255,.26)}
+  .gvt{font-size:28px;font-weight:500;padding:0 34px}
+
+
+  #liveverd > .scene{position:absolute;inset:0;background:var(--bone);overflow:hidden}
+  #liveverd-v{position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover}
+  #liveverd-strip{position:absolute;left:0;right:0;bottom:0;height:92px;background:var(--ink);
+    display:flex;align-items:center;padding:0 54px;gap:22px}
+  #liveverd-strip .k{font-family:var(--mono);font-size:17px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--red)}
+  #liveverd-strip .t{font-family:var(--display);font-size:27px;color:#F1EEE7;font-weight:500}
+  #liveverd-strip .r{margin-left:auto;font-family:var(--mono);font-size:16px;
+    letter-spacing:.12em;text-transform:uppercase;color:#8A8880}
+
+
+  #auditterm > .scene{position:absolute;inset:0;background:#17181A;font-family:var(--mono);padding:54px 70px}
+  #t-bar{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+  #t-bar .d{width:12px;height:12px;border-radius:50%;background:#3A3C40}
+  #t-bar .p{color:#8A8880;font-size:17px;letter-spacing:.06em;margin-left:10px}
+  #t-cmd{font-size:26px;color:#F1EEE7;margin-bottom:22px}
+  #t-cmd .pr{color:var(--red)}
+  .tl{font-size:19px;line-height:1.62;color:#B9B7B1;white-space:pre}
+  .tl b{color:#fff;background:var(--red);padding:0 5px;border-radius:2px}
+  .tl i{color:#7FD1A6;font-style:normal}
+  #t-tag{position:absolute;right:70px;bottom:46px;font-size:17px;letter-spacing:.14em;
+         text-transform:uppercase;color:#6A6C70}
+
+
+  #audit > .scene{position:absolute;inset:0;background:var(--bone);font-family:var(--display);padding:80px 150px}
+  #a-k{font-family:var(--mono);font-size:21px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-3)}
+  #a-l1{font-size:58px;line-height:1.2;letter-spacing:-.025em;font-weight:500;color:var(--ink);
+        margin-top:26px;max-width:1420px}
+  #a-flash{position:absolute;inset:0;background:var(--red);display:flex;flex-direction:column;
+           justify-content:center;padding:0 160px;opacity:0}
+  #a-big{font-size:168px;font-weight:600;letter-spacing:-.045em;color:#fff;line-height:.98}
+  #a-bs{font-size:46px;line-height:1.28;color:rgba(255,255,255,.88);margin-top:40px;max-width:1340px}
+  #a-fix{position:absolute;left:150px;right:150px;top:300px;opacity:0}
+  #a-fix .h{font-size:54px;line-height:1.22;letter-spacing:-.025em;font-weight:500;color:var(--ink);max-width:1400px}
+  #a-fix .h span{color:var(--red)}
+  #a-after{position:absolute;left:150px;right:150px;top:560px;opacity:0;
+           display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border-top:1px solid var(--line)}
+  .ac{padding:30px 0}
+  .ac .l{font-family:var(--mono);font-size:17px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .ac .v{font-size:60px;font-weight:600;letter-spacing:-.03em;margin-top:10px;color:var(--ink)}
+  .ac .v.red{color:var(--red)}
+
+
+  #liveoff > .scene{position:absolute;inset:0;background:var(--bone);overflow:hidden}
+  #liveoff-v{position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover}
+  #liveoff-strip{position:absolute;left:0;right:0;bottom:0;height:92px;background:var(--ink);
+    display:flex;align-items:center;padding:0 54px;gap:22px}
+  #liveoff-strip .k{font-family:var(--mono);font-size:17px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--red)}
+  #liveoff-strip .t{font-family:var(--display);font-size:27px;color:#F1EEE7;font-weight:500}
+  #liveoff-strip .r{margin-left:auto;font-family:var(--mono);font-size:16px;
+    letter-spacing:.12em;text-transform:uppercase;color:#8A8880}
+
+
+  #chain > .scene{position:absolute;inset:0;background:var(--bone);font-family:var(--display);padding:76px 140px}
+  #c-k{font-family:var(--mono);font-size:20px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  #c-h{font-size:56px;line-height:1.18;letter-spacing:-.025em;font-weight:500;color:var(--ink);margin-top:22px;max-width:1420px}
+  #c-steps{position:absolute;left:140px;right:140px;top:330px}
+  .st{display:grid;grid-template-columns:72px 1fr 230px;gap:26px;align-items:center;
+      padding:24px 26px;border:1px solid var(--line);background:#fff;margin-bottom:14px}
+  .st .i{font-family:var(--mono);font-size:20px;color:var(--ink-3)}
+  .st .d{font-size:27px;color:var(--ink)}
+  .st .d b{font-weight:500}
+  .st .r{font-family:var(--mono);font-size:19px;letter-spacing:.07em;text-align:right;color:var(--ink-3)}
+  .st.bad{border-color:var(--red)}
+  .st.bad .r{color:var(--red)}
+  .st.good .r{color:var(--red)}
+  #c-tx{position:absolute;left:140px;right:140px;bottom:78px;font-family:var(--mono);
+        font-size:19px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:20px}
+  #c-tx b{color:var(--ink);font-weight:400}
+
+
+  #liveabt > .scene{position:absolute;inset:0;background:var(--bone);overflow:hidden}
+  #liveabt-v{position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover}
+  #liveabt-strip{position:absolute;left:0;right:0;bottom:0;height:92px;background:var(--ink);
+    display:flex;align-items:center;padding:0 54px;gap:22px}
+  #liveabt-strip .k{font-family:var(--mono);font-size:17px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--red)}
+  #liveabt-strip .t{font-family:var(--display);font-size:27px;color:#F1EEE7;font-weight:500}
+  #liveabt-strip .r{margin-left:auto;font-family:var(--mono);font-size:16px;
+    letter-spacing:.12em;text-transform:uppercase;color:#8A8880}
+
+
+  #close > .scene{position:absolute;inset:0;background:var(--bone);font-family:var(--display);padding:80px 150px}
+  #cl-grid{position:absolute;left:150px;right:150px;top:140px;display:grid;
+           grid-template-columns:1fr 1fr;gap:0 70px}
+  .cg{border-top:1px solid var(--line);padding:26px 0}
+  .cg .l{font-family:var(--mono);font-size:17px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  .cg .v{font-size:40px;font-weight:500;letter-spacing:-.02em;margin-top:8px;color:var(--ink);line-height:1.25}
+  .cg .v span{color:var(--red)}
+  #cl-flash{position:absolute;inset:0;background:var(--red);display:flex;align-items:center;
+            justify-content:center;opacity:0}
+  #cl-last{font-size:92px;font-weight:600;letter-spacing:-.035em;color:#fff;text-align:center;
+           line-height:1.12;max-width:1500px}
+  #cl-repo{position:absolute;left:0;right:0;bottom:92px;text-align:center;font-family:var(--mono);
+           font-size:24px;color:rgba(255,255,255,.85);opacity:0}
+
+</style></head>
+<body>
+<div id="stage">
+<div class="host" id="splash" data-start="0.0" data-dur="2.0" data-cid="splash">
+<div class="scene" data-composition-id="splash" data-width="1920" data-height="1080">
+  <div id="sp-mark" class="clip" data-start="0" data-duration="2" data-track-index="0"><span class="v">V</span>ERBATIM</div>
+  <div id="sp-rule" class="clip" data-start="0.35" data-duration="1.65" data-track-index="1"></div>
+  <div id="sp-sub"  class="clip" data-start="0.6" data-duration="1.4" data-track-index="2">The model must quote. Code checks the quote.</div>
+</div>
+</div>
+<div class="host" id="open" data-start="2.0" data-dur="7.0" data-cid="open">
+<div class="scene" data-composition-id="open" data-width="1920" data-height="1080">
+  <div id="open-eyebrow" class="clip" data-start="0" data-duration="7" data-track-index="0">Every business-development tool</div>
+  <div id="open-l1" class="ln clip" data-start="0.4" data-duration="6.6" data-track-index="1">finds an announcement,</div>
+  <div id="open-l2" class="ln clip" data-start="2.4" data-duration="4.6"    data-track-index="2">decides it means somebody<br>needs your product,</div>
+  <div id="open-l3" class="ln clip" data-start="4.6" data-duration="2.4"  data-track-index="3">and hands a salesperson a lead.</div>
+  <div id="open-rule" class="clip" data-start="6.2" data-duration="0.8" data-track-index="4"></div>
+</div>
+</div>
+<div class="host" id="guess" data-start="9.0" data-dur="6.0" data-cid="guess">
+<div class="scene" data-composition-id="guess" data-width="1920" data-height="1080">
+  <div id="guess-big" class="clip" data-start="0" data-duration="6" data-track-index="0">That middle step<br>is a guess.</div>
+  <div id="guess-sub" class="clip" data-start="2.2" data-duration="3.8" data-track-index="1">It is usually wrong, and it is never shown to you.</div>
+</div>
+</div>
+<div class="host" id="refuse" data-start="15.0" data-dur="9.0" data-cid="refuse">
+<div class="scene" data-composition-id="refuse" data-width="1920" data-height="1080">
+  <div id="refuse-h" class="clip" data-start="0" data-duration="11" data-track-index="0">
+    So we built one that <em>refuses</em>.</div>
+  <div id="refuse-panel" class="clip" data-start="1.4" data-duration="9.6" data-track-index="1">
+    <div class="rhd"><b>25</b> opportunities · <b>98</b> accounts
+      <span class="sp">every row carries a quote, a source and a counter-rationale</span></div>
+    <div class="row" id="rw1"><div class="n">BAM</div>
+      <div class="q">Block Assembly Marketplace — validator</div><div class="f">fit 59</div></div>
+    <div class="row" id="rw2"><div class="n">BlockPI</div>
+      <div class="q">RPC Nodes</div><div class="f">fit 59</div></div>
+    <div class="row" id="rw3"><div class="n">Chorus One</div>
+      <div class="q">Validator-as-a-Service</div><div class="f">fit 55</div></div>
+    <div class="row" id="rw4"><div class="n">Astralane</div>
+      <div class="q">Shred Delivery — $1,000 a month per IP</div><div class="f">fit 51</div></div>
+    <div class="row" id="rw5"><div class="n">Velocity Protocol</div>
+      <div class="q">RPC Nodes, grounded in their own documentation</div><div class="f">fit 33</div></div>
+  </div>
+</div>
+</div>
+<div class="host" id="liveq" data-start="24.0" data-dur="6.5" data-cid="liveq">
+<div class="scene" data-composition-id="liveq" data-width="1920" data-height="1080">
+  <video id="liveq-v" class="clip" src="assets/footage/a-worklist.mp4" muted playsinline
+         data-start="0" data-duration="6.5" data-track-index="0"></video>
+  <div id="liveq-strip" class="clip" data-start="0.3" data-duration="6.2" data-track-index="1">
+    <span class="k">Live</span><span class="t">25 opportunities, each with its quote and source</span>
+    <span class="r">real run &middot; not a fixture</span></div>
+</div>
+</div>
+<div class="host" id="ground" data-start="30.0" data-dur="13.0" data-cid="ground">
+<div class="scene" data-composition-id="ground" data-width="1920" data-height="1080">
+  <div id="g-h"   class="clip" data-start="0"   data-duration="16"   data-track-index="0">The grounding check</div>
+  <div id="g-sub" class="clip" data-start="0.2" data-duration="15.8" data-track-index="1">Code searches the page we fetched for the exact words.</div>
+
+  <!-- PASS: the model quoted the page, so every word is found -->
+  <div id="g-left"  class="gp clip" data-start="1.2" data-duration="8.8" data-track-index="2">
+    <div class="gl">What the model returned</div>
+    <div class="qt"><span class="w" id="gw0">Ellipsis</span> <span class="w" id="gw1">Labs</span> <span class="w" id="gw2">builds</span> <span class="w" id="gw3">applications</span> <span class="w" id="gw4">and</span> <span class="w" id="gw5">infrastructure</span> <span class="w" id="gw6">to</span> <span class="w" id="gw7">create</span> <span class="w" id="gw8">a</span> <span class="w" id="gw9">sustainable</span> <span class="w" id="gw10">foundation</span> <span class="w" id="gw11">for</span> <span class="w" id="gw12">finance.</span></div></div>
+  <div id="g-right" class="gp clip" data-start="1.2" data-duration="8.8" data-track-index="3">
+    <div class="gl">The page we fetched ourselves</div>
+    <div class="pg"><span class="pw" id="gp0">Ellipsis</span> <span class="pw" id="gp1">Labs</span> <span class="pw" id="gp2">builds</span> <span class="pw" id="gp3">applications</span> <span class="pw" id="gp4">and</span> <span class="pw" id="gp5">infrastructure</span> <span class="pw" id="gp6">to</span> <span class="pw" id="gp7">create</span> <span class="pw" id="gp8">a</span> <span class="pw" id="gp9">sustainable</span> <span class="pw" id="gp10">foundation</span> <span class="pw" id="gp11">for</span> <span class="pw" id="gp12">finance.</span><span class="pw"> We are the team behind Phoenix, a fully on-chain limit order book on Solana.</span></div></div>
+  <div id="g-v1" class="gv clip" data-start="6.4" data-duration="3.6" data-track-index="4">
+    <div class="gvm">PASS</div><div class="gvt">Admitted. The span is in the page.</div></div>
+
+  <!-- STOP: a sentence worth paying for, that nobody ever wrote -->
+  <div id="g-left2"  class="gp clip" data-start="10.2" data-duration="5.8" data-track-index="5">
+    <div class="gl">What the model returned</div>
+    <div class="qt">Velocity told us their transaction landing is failing badly under load.</div></div>
+  <div id="g-right2" class="gp clip" data-start="10.2" data-duration="5.8" data-track-index="6">
+    <div class="gl">The page we fetched ourselves</div>
+    <div class="pg">This section is for anyone running code that trades or maintains Velocity without a person at the keyboard.</div></div>
+  <div id="g-v2" class="gv clip" data-start="11.6" data-duration="4.4" data-track-index="7">
+    <div class="gvm">STOP</div><div class="gvt">Refused. The model invented the sentence.</div></div>
+</div>
+</div>
+<div class="host" id="liveverd" data-start="43.0" data-dur="5.5" data-cid="liveverd">
+<div class="scene" data-composition-id="liveverd" data-width="1920" data-height="1080">
+  <video id="liveverd-v" class="clip" src="assets/footage/d-verdict.mp4" muted playsinline
+         data-start="0" data-duration="5.5" data-track-index="0"></video>
+  <div id="liveverd-strip" class="clip" data-start="0.3" data-duration="5.2" data-track-index="1">
+    <span class="k">Live</span><span class="t">How a verdict is reached</span>
+    <span class="r">real run &middot; not a fixture</span></div>
+</div>
+</div>
+<div class="host" id="auditterm" data-start="48.0" data-dur="7.0" data-cid="audit-term">
+<div class="scene" data-composition-id="audit-term" data-width="1920" data-height="1080">
+  <div id="t-bar" class="clip" data-start="0" data-duration="17" data-track-index="0">
+    <span class="d"></span><span class="d"></span><span class="d"></span>
+    <span class="p">bash &mdash; helius-bd-tracker</span></div>
+  <div id="t-cmd" class="clip" data-start="0.2" data-duration="16.8" data-track-index="1"><span class="pr">$</span> node audit.js</div>
+  <div class="tl clip" id="al0" data-start="1.00" data-duration="16.00" data-track-index="2">  <i>PASS</i>  the denominator is stated plainly, and its sensitivity is reported</div>
+  <div class="tl clip" id="al1" data-start="1.26" data-duration="15.74" data-track-index="3">&nbsp;</div>
+  <div class="tl clip" id="al2" data-start="1.52" data-duration="15.48" data-track-index="4">--- 2. QUIET CASES FROM SOMEWHERE OTHER THAN THE INCIDENT ----------</div>
+  <div class="tl clip" id="al3" data-start="1.78" data-duration="15.22" data-track-index="5">&nbsp;</div>
+  <div class="tl clip" id="al4" data-start="2.04" data-duration="14.96" data-track-index="6">   158  real prose from a DIFFERENT page  -&gt; fires on 0.0%</div>
+  <div class="tl clip" id="al5" data-start="2.30" data-duration="14.70" data-track-index="7">    86  PARAPHRASE of a sentence that IS on this page -&gt; fires on 2.3%</div>
+  <div class="tl clip" id="al6" data-start="2.56" data-duration="14.44" data-track-index="8">  <i>PASS</i>  the independent family is genuinely independent: 158 quiet cases from other pages</div>
+  <div class="tl clip" id="al7" data-start="2.82" data-duration="14.18" data-track-index="9">  <i>PASS</i>  the adversarial family is handled: paraphrase acceptance 2.3%</div>
+  <div class="tl clip" id="al8" data-start="3.08" data-duration="13.92" data-track-index="10">&nbsp;</div>
+  <div class="tl clip" id="al9" data-start="3.34" data-duration="13.66" data-track-index="11">  THIS IS WHERE THE AUDIT EARNED ITS KEEP. The paraphrase family was accepted</div>
+  <div class="tl clip" id="al10" data-start="3.60" data-duration="13.40" data-track-index="12">  at 48.8% before this audit was written: the truncation tolerance in</div>
+  <div class="tl clip" id="al11" data-start="3.86" data-duration="13.14" data-track-index="13">  quoteIsGrounded let the matching run float past a substituted word, so a</div>
+  <div class="tl clip" id="al12" data-start="4.12" data-duration="12.88" data-track-index="14">  model that reworded instead of quoting passed the check the whole project</div>
+  <div class="tl clip" id="al13" data-start="4.38" data-duration="12.62" data-track-index="15">  rests on. Fixed by requiring every substantive word to be on the page.</div>
+  <div class="tl clip" id="al14" data-start="4.64" data-duration="12.36" data-track-index="16">&nbsp;</div>
+  <div class="tl clip" id="al15" data-start="4.90" data-duration="12.10" data-track-index="17">  ...</div>
+  <div class="tl clip" id="al16" data-start="5.16" data-duration="11.84" data-track-index="18">     5. coin-16                    sep    7.6%  fires 46.0%</div>
+  <div class="tl clip" id="al17" data-start="5.42" data-duration="11.58" data-track-index="19">     6. coin-39                    sep    6.6%  fires 46.0%</div>
+  <div class="tl clip" id="al18" data-start="5.68" data-duration="11.32" data-track-index="20">&nbsp;</div>
+  <div class="tl clip" id="al19" data-start="5.94" data-duration="11.06" data-track-index="21">  quoteIsGrounded ranks <b>1 of 47</b>.</div>
+  <div class="tl clip" id="al20" data-start="6.20" data-duration="10.80" data-track-index="22">  <i>PASS</i>  beats every one of its 46 rivals</div>
+  <div class="tl clip" id="al21" data-start="6.46" data-duration="10.54" data-track-index="23">  (The paper&#x27;s worst case ranked 65th of 100 against its own crowd.)</div>
+  <div class="tl clip" id="al22" data-start="6.72" data-duration="10.28" data-track-index="24">&nbsp;</div>
+  <div class="tl clip" id="al23" data-start="6.98" data-duration="10.02" data-track-index="25">--- 4. DISPARITY, WITH THE LUCK-LEVEL GAP SUBTRACTED ---------------</div>
+  <div class="tl clip" id="al24" data-start="7.24" data-duration="9.76" data-track-index="26">&nbsp;</div>
+  <div class="tl clip" id="al25" data-start="7.50" data-duration="9.50" data-track-index="27">  ...</div>
+  <div class="tl clip" id="al26" data-start="7.76" data-duration="9.24" data-track-index="28">  population is the obvious next test, and it has not been run.</div>
+  <div class="tl clip" id="al27" data-start="8.02" data-duration="8.98" data-track-index="29">&nbsp;</div>
+  <div class="tl clip" id="al28" data-start="8.28" data-duration="8.72" data-track-index="30">======================================================================</div>
+  <div class="tl clip" id="al29" data-start="8.54" data-duration="8.46" data-track-index="31">All criteria met — detector ranked <b>1 of 47</b>, luck-adjusted separation 89.1%</div>
+  <div class="tl clip" id="al30" data-start="8.80" data-duration="8.20" data-track-index="32">======================================================================</div>
+  <div id="t-tag" class="clip" data-start="13" data-duration="4" data-track-index="90">real output &middot; offline &middot; no key</div>
+</div>
+</div>
+<div class="host" id="audit" data-start="55.0" data-dur="13.0" data-cid="audit">
+<div class="scene" data-composition-id="audit" data-width="1920" data-height="1080">
+  <div id="a-k"  class="clip" data-start="0"   data-duration="5" data-track-index="0">So I pointed that standard at my own system</div>
+  <div id="a-l1" class="clip" data-start="0.3" data-duration="4.7" data-track-index="1">
+    I added paraphrases of real sentences, from the correct page.</div>
+  <div id="a-flash" class="clip" data-start="5" data-duration="11" data-track-index="2">
+    <div id="a-big">48.8%</div>
+    <div id="a-bs">of them passed. A model that reworded instead of quoting was
+      getting through the check the whole system rests on.</div>
+  </div>
+  <div id="a-fix" class="clip" data-start="11.6" data-duration="4.4" data-track-index="3">
+    <div class="h">A truncation drops words that are on the page.<br>
+      A paraphrase <span>introduces words that were never there</span>.</div>
+  </div>
+  <div id="a-after" class="clip" data-start="12.5" data-duration="3.5" data-track-index="4">
+    <div class="ac"><div class="l">Real quotes kept</div><div class="v">100%</div></div>
+    <div class="ac"><div class="l">Paraphrases accepted</div><div class="v red">2.3%</div></div>
+    <div class="ac"><div class="l">Tests that missed it</div><div class="v">573</div></div>
+  </div>
+</div>
+</div>
+<div class="host" id="liveoff" data-start="68.0" data-dur="6.0" data-cid="liveoff">
+<div class="scene" data-composition-id="liveoff" data-width="1920" data-height="1080">
+  <video id="liveoff-v" class="clip" src="assets/footage/b-office.mp4" muted playsinline
+         data-start="0" data-duration="6.0" data-track-index="0"></video>
+  <div id="liveoff-strip" class="clip" data-start="0.3" data-duration="5.7" data-track-index="1">
+    <span class="k">Live</span><span class="t">Seven agents read the page. The gate is code.</span>
+    <span class="r">real run &middot; not a fixture</span></div>
+</div>
+</div>
+<div class="host" id="chain" data-start="74.0" data-dur="12.0" data-cid="chain">
+<div class="scene" data-composition-id="chain" data-width="1920" data-height="1080">
+  <div id="c-k" class="clip" data-start="0"   data-duration="12" data-track-index="0">NEAR testnet · helius-escrow-81631.testnet</div>
+  <div id="c-h" class="clip" data-start="0.2" data-duration="11.8" data-track-index="1">
+    The verifier's verdict is the only thing that moves the money.</div>
+  <div id="c-steps" class="clip" data-start="1.6" data-duration="10.4" data-track-index="2">
+    <div class="st" id="cs1"><div class="i">1</div>
+      <div class="d">Buyer funds <b>3 NEAR</b></div><div class="r">FUNDED</div></div>
+    <div class="st" id="cs2"><div class="i">2</div>
+      <div class="d">Worker delivers <b>a paraphrase</b></div><div class="r">DELIVERED</div></div>
+    <div class="st bad" id="cs3"><div class="i">3</div>
+      <div class="d">Worker tries to <b>pay itself</b></div><div class="r">REVERTED</div></div>
+    <div class="st good" id="cs4"><div class="i">4</div>
+      <div class="d">Arbiter settles <b>QUOTE_NOT_IN_SOURCE</b></div><div class="r">REFUNDED</div></div>
+  </div>
+  <div id="c-tx" class="clip" data-start="8.4" data-duration="3.6" data-track-index="3">
+    <b>23DsHwtrve8XQBYDTqKhrukqqYPfQTBj2josAZErkR67</b> &nbsp;·&nbsp; buyer 6.9998 → 9.9998 NEAR &nbsp;·&nbsp; worker never paid</div>
+</div>
+</div>
+<div class="host" id="liveabt" data-start="86.0" data-dur="6.5" data-cid="liveabt">
+<div class="scene" data-composition-id="liveabt" data-width="1920" data-height="1080">
+  <video id="liveabt-v" class="clip" src="assets/footage/c-about.mp4" muted playsinline
+         data-start="0" data-duration="6.5" data-track-index="0"></video>
+  <div id="liveabt-strip" class="clip" data-start="0.3" data-duration="6.2" data-track-index="1">
+    <span class="k">Live</span><span class="t">The endpoint&rsquo;s own attestation, fetched on open</span>
+    <span class="r">real run &middot; not a fixture</span></div>
+</div>
+</div>
+<div class="host" id="close" data-start="92.5" data-dur="9.5" data-cid="close">
+<div class="scene" data-composition-id="close" data-width="1920" data-height="1080">
+  <div id="cl-grid" class="clip" data-start="0" data-duration="5.4" data-track-index="0">
+    <div class="cg"><div class="l">Inference</div>
+      <div class="v">Runs in a <span>NEAR TEE</span>. The system fetches its own attestation.</div></div>
+    <div class="cg"><div class="l">Intel TDX quote</div>
+      <div class="v">10,012 characters, live at <span>/api/attestation</span></div></div>
+    <div class="cg"><div class="l">Found</div>
+      <div class="v">158 companies · 25 opportunities</div></div>
+    <div class="cg"><div class="l">Rejected</div>
+      <div class="v">2,275 — <span>every one with a reason</span></div></div>
+  </div>
+  <div id="cl-flash" class="clip" data-start="5.4" data-duration="3.2" data-track-index="1">
+    <div id="cl-last">We found our own flaw<br>before a judge could.</div>
+  </div>
+  <div id="cl-repo" class="clip" data-start="6.6" data-duration="2.0" data-track-index="2">
+    github.com/KV2699/helius-bd-tracker</div>
+</div>
+</div>
+</div>
+<audio id="vo" src="assets/voice/narration.wav" preload="auto"></audio>
+<div id="gate"><div class="m"><i>V</i>ERBATIM</div><div class="p">Click to play</div></div>
+<div id="bar"></div>
+
+<script>
+window.__timelines = {};
+/* splash */
+
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  // scale, not letter-spacing: a text-reflow property snaps to integer pixels
+  // and stutters under seek-by-frame capture.
+  tl.fromTo("#sp-mark",{opacity:0,scale:1.09},
+    {opacity:1,scale:1,duration:.34,ease:"power4.out"},0);
+  tl.fromTo("#sp-rule",{width:0},{width:430,duration:.42,ease:"power2.inOut"},.35);
+  tl.to("#sp-sub",{opacity:1,duration:.3,ease:"power2.out"},.6);
+  window.__timelines["splash"] = tl; tl.seek(0);
+})();
+
+/* open */
+
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  const up = (sel, at) => tl.fromTo(sel, { yPercent: 60, opacity: 0 },
+      { yPercent: 0, opacity: 1, duration: .5, ease: "power3.out" }, at);
+  tl.fromTo("#open-eyebrow", { opacity: 0 }, { opacity: 1, duration: .4, ease: "power2.out" }, 0);
+  up("#open-l1", .4); up("#open-l2", 2.4); up("#open-l3", 4.6);
+  // each line settles back as the next arrives, so the eye goes to the newest
+  tl.to("#open-l1", { opacity: .28, duration: .4 }, 2.4);
+  tl.to("#open-l2", { opacity: .28, duration: .4 }, 4.6);
+  tl.fromTo("#open-rule", { width: 0 }, { width: 420, duration: .7, ease: "power2.inOut" }, 6.2);
+  window.__timelines["open"] = tl; tl.seek(0);
+})();
+
+/* guess */
+
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  // the ground flashes in: a cut that is meant to feel like a cut
+  tl.fromTo("#root", { opacity: 0 }, { opacity: 1, duration: .14, ease: "none" }, 0);
+  tl.fromTo("#guess-big", { yPercent: 28, opacity: 0 },
+      { yPercent: 0, opacity: 1, duration: .62, ease: "power4.out" }, .1);
+  tl.fromTo("#guess-sub", { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 2.6);
+  window.__timelines["guess"] = tl; tl.seek(0);
+})();
+
+/* refuse */
+
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#refuse-h", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0);
+  tl.fromTo("#refuse-panel", { opacity: 0, y: 46 },
+      { opacity: 1, y: 0, duration: .6, ease: "power3.out" }, 1.8);
+  // rows arrive one at a time, so it reads as a list being built, not a slide
+  ["#rw1","#rw2","#rw3","#rw4","#rw5"].forEach((s,i) =>
+    tl.fromTo(s, { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: .34, ease: "power2.out" }, 1.9 + i*.28));
+  window.__timelines["refuse"] = tl; tl.seek(0);
+})();
+
+/* liveq */
+
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#liveq-strip",{opacity:0,y:30},{opacity:1,y:0,duration:.4,ease:"power3.out"},.3);
+  window.__timelines["liveq"] = tl; tl.seek(0);
+})();
+
+/* ground */
+
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#g-h",{opacity:0},{opacity:1,duration:.3},0);
+  tl.fromTo("#g-sub",{opacity:0,y:18},{opacity:1,y:0,duration:.45,ease:"power3.out"},.2);
+  tl.fromTo(["#g-left","#g-right"],{opacity:0,y:32},
+    {opacity:1,y:0,duration:.5,ease:"power3.out",stagger:.08},1.2);
+
+  // THE SEARCH, word by word. Both sides light together: the claim on the left,
+  // the run confirmed in the page on the right. This is the comparison the
+  // pipeline runs, drawn at a speed a person can follow.
+  tl.to("#gw0", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.1);
+  tl.to("#gp0", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.1);
+  tl.to("#gw1", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.27);
+  tl.to("#gp1", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.27);
+  tl.to("#gw2", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.44);
+  tl.to("#gp2", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.44);
+  tl.to("#gw3", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.61);
+  tl.to("#gp3", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.61);
+  tl.to("#gw4", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.78);
+  tl.to("#gp4", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.78);
+  tl.to("#gw5", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.95);
+  tl.to("#gp5", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 2.95);
+  tl.to("#gw6", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.12);
+  tl.to("#gp6", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.12);
+  tl.to("#gw7", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.29);
+  tl.to("#gp7", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.29);
+  tl.to("#gw8", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.46);
+  tl.to("#gp8", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.46);
+  tl.to("#gw9", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.63);
+  tl.to("#gp9", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.63);
+  tl.to("#gw10", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.8);
+  tl.to("#gp10", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.8);
+  tl.to("#gw11", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.97);
+  tl.to("#gp11", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 3.97);
+  tl.to("#gw12", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 4.14);
+  tl.to("#gp12", { backgroundColor:"#E8412A", color:"#ffffff", duration:.09, ease:"none" }, 4.14);
+  tl.fromTo("#g-v1",{opacity:0,y:20},{opacity:1,y:0,duration:.4,ease:"power3.out"},6.4);
+
+  // then the one that matters
+  tl.fromTo(["#g-left2","#g-right2"],{opacity:0,y:26},
+    {opacity:1,y:0,duration:.45,ease:"power3.out",stagger:.06},10.2);
+  tl.fromTo("#g-v2",{opacity:0,y:20},{opacity:1,y:0,duration:.4,ease:"power3.out"},11.6);
+  window.__timelines["ground"] = tl; tl.seek(0);
+})();
+
+/* liveverd */
+
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#liveverd-strip",{opacity:0,y:30},{opacity:1,y:0,duration:.4,ease:"power3.out"},.3);
+  window.__timelines["liveverd"] = tl; tl.seek(0);
+})();
+
+/* audit-term */
+
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#t-bar",{opacity:0},{opacity:1,duration:.25},0);
+  tl.fromTo("#t-cmd",{opacity:0},{opacity:1,duration:.25},.2);
+  tl.fromTo("#al0",{opacity:0},{opacity:1,duration:.12,ease:"none"},1.00);
+  tl.fromTo("#al1",{opacity:0},{opacity:1,duration:.12,ease:"none"},1.26);
+  tl.fromTo("#al2",{opacity:0},{opacity:1,duration:.12,ease:"none"},1.52);
+  tl.fromTo("#al3",{opacity:0},{opacity:1,duration:.12,ease:"none"},1.78);
+  tl.fromTo("#al4",{opacity:0},{opacity:1,duration:.12,ease:"none"},2.04);
+  tl.fromTo("#al5",{opacity:0},{opacity:1,duration:.12,ease:"none"},2.30);
+  tl.fromTo("#al6",{opacity:0},{opacity:1,duration:.12,ease:"none"},2.56);
+  tl.fromTo("#al7",{opacity:0},{opacity:1,duration:.12,ease:"none"},2.82);
+  tl.fromTo("#al8",{opacity:0},{opacity:1,duration:.12,ease:"none"},3.08);
+  tl.fromTo("#al9",{opacity:0},{opacity:1,duration:.12,ease:"none"},3.34);
+  tl.fromTo("#al10",{opacity:0},{opacity:1,duration:.12,ease:"none"},3.60);
+  tl.fromTo("#al11",{opacity:0},{opacity:1,duration:.12,ease:"none"},3.86);
+  tl.fromTo("#al12",{opacity:0},{opacity:1,duration:.12,ease:"none"},4.12);
+  tl.fromTo("#al13",{opacity:0},{opacity:1,duration:.12,ease:"none"},4.38);
+  tl.fromTo("#al14",{opacity:0},{opacity:1,duration:.12,ease:"none"},4.64);
+  tl.fromTo("#al15",{opacity:0},{opacity:1,duration:.12,ease:"none"},4.90);
+  tl.fromTo("#al16",{opacity:0},{opacity:1,duration:.12,ease:"none"},5.16);
+  tl.fromTo("#al17",{opacity:0},{opacity:1,duration:.12,ease:"none"},5.42);
+  tl.fromTo("#al18",{opacity:0},{opacity:1,duration:.12,ease:"none"},5.68);
+  tl.fromTo("#al19",{opacity:0},{opacity:1,duration:.12,ease:"none"},5.94);
+  tl.fromTo("#al20",{opacity:0},{opacity:1,duration:.12,ease:"none"},6.20);
+  tl.fromTo("#al21",{opacity:0},{opacity:1,duration:.12,ease:"none"},6.46);
+  tl.fromTo("#al22",{opacity:0},{opacity:1,duration:.12,ease:"none"},6.72);
+  tl.fromTo("#al23",{opacity:0},{opacity:1,duration:.12,ease:"none"},6.98);
+  tl.fromTo("#al24",{opacity:0},{opacity:1,duration:.12,ease:"none"},7.24);
+  tl.fromTo("#al25",{opacity:0},{opacity:1,duration:.12,ease:"none"},7.50);
+  tl.fromTo("#al26",{opacity:0},{opacity:1,duration:.12,ease:"none"},7.76);
+  tl.fromTo("#al27",{opacity:0},{opacity:1,duration:.12,ease:"none"},8.02);
+  tl.fromTo("#al28",{opacity:0},{opacity:1,duration:.12,ease:"none"},8.28);
+  tl.fromTo("#al29",{opacity:0},{opacity:1,duration:.12,ease:"none"},8.54);
+  tl.fromTo("#al30",{opacity:0},{opacity:1,duration:.12,ease:"none"},8.80);
+  tl.fromTo("#t-tag",{opacity:0},{opacity:1,duration:.4},13);
+  window.__timelines["audit-term"] = tl; tl.seek(0);
+})();
+
+/* audit */
+
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#a-k",{opacity:0},{opacity:1,duration:.3},0);
+  tl.fromTo("#a-l1",{opacity:0,y:24},{opacity:1,y:0,duration:.5,ease:"power3.out"},.3);
+  // the number is a hit: 0ms set, no ease. Easing a hit kills it.
+  tl.set("#a-flash",{opacity:1},5);
+  tl.fromTo("#a-big",{scale:.94,opacity:0},{scale:1,opacity:1,duration:.34,ease:"power4.out"},5.02);
+  tl.fromTo("#a-bs",{opacity:0,y:22},{opacity:1,y:0,duration:.5,ease:"power3.out"},6.0);
+  // The number HOLDS at full strength, then the ground is CUT away - a
+  // crossfade here caught 48.8% mid-dissolve and read as a rendering fault
+  // rather than a transition. A cut that is meant to feel like a cut.
+  tl.set("#a-flash",{opacity:0},11.6);
+  tl.fromTo("#a-fix",{opacity:0,y:26},{opacity:1,y:0,duration:.5,ease:"power3.out"},11.7);
+  tl.fromTo("#a-after",{opacity:0,y:22},{opacity:1,y:0,duration:.45,ease:"power3.out"},12.5);
+  window.__timelines["audit"] = tl; tl.seek(0);
+})();
+
+/* liveoff */
+
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#liveoff-strip",{opacity:0,y:30},{opacity:1,y:0,duration:.4,ease:"power3.out"},.3);
+  window.__timelines["liveoff"] = tl; tl.seek(0);
+})();
+
+/* chain */
+
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#c-k",{opacity:0},{opacity:1,duration:.3},0);
+  tl.fromTo("#c-h",{opacity:0,y:24},{opacity:1,y:0,duration:.5,ease:"power3.out"},.2);
+  ["#cs1","#cs2","#cs3","#cs4"].forEach((s,i) =>
+    tl.fromTo(s,{opacity:0,x:-26},{opacity:1,x:0,duration:.38,ease:"power3.out"},1.6+i*1.5));
+  // step 3 is the one that matters - it gets a shake, because it is a refusal
+  tl.fromTo("#cs3",{x:0},{x:9,duration:.07,repeat:3,yoyo:true,ease:"none"},4.7);
+  tl.fromTo("#c-tx",{opacity:0},{opacity:1,duration:.45,ease:"power2.out"},8.4);
+  window.__timelines["chain"] = tl; tl.seek(0);
+})();
+
+/* liveabt */
+
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#liveabt-strip",{opacity:0,y:30},{opacity:1,y:0,duration:.4,ease:"power3.out"},.3);
+  window.__timelines["liveabt"] = tl; tl.seek(0);
+})();
+
+/* close */
+
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  [0,1,2,3].forEach(i =>
+    tl.fromTo(".cg:nth-child("+(i+1)+")",{opacity:0,y:26},
+      {opacity:1,y:0,duration:.46,ease:"power3.out"},.2+i*.42));
+  tl.set("#cl-flash",{opacity:1},5.4);
+  tl.fromTo("#cl-last",{opacity:0,scale:.97},{opacity:1,scale:1,duration:.5,ease:"power4.out"},5.44);
+  tl.fromTo("#cl-repo",{opacity:0},{opacity:1,duration:.4,ease:"power2.out"},6.6);
+  window.__timelines["close"] = tl; tl.seek(0);
+})();
+
+</script>
+
+<script>
+(() => {
+  const SCENES = [{"hid": "splash", "start": 0.0, "dur": 2.0, "cid": "splash"}, {"hid": "open", "start": 2.0, "dur": 7.0, "cid": "open"}, {"hid": "guess", "start": 9.0, "dur": 6.0, "cid": "guess"}, {"hid": "refuse", "start": 15.0, "dur": 9.0, "cid": "refuse"}, {"hid": "liveq", "start": 24.0, "dur": 6.5, "cid": "liveq"}, {"hid": "ground", "start": 30.0, "dur": 13.0, "cid": "ground"}, {"hid": "liveverd", "start": 43.0, "dur": 5.5, "cid": "liveverd"}, {"hid": "auditterm", "start": 48.0, "dur": 7.0, "cid": "audit-term"}, {"hid": "audit", "start": 55.0, "dur": 13.0, "cid": "audit"}, {"hid": "liveoff", "start": 68.0, "dur": 6.0, "cid": "liveoff"}, {"hid": "chain", "start": 74.0, "dur": 12.0, "cid": "chain"}, {"hid": "liveabt", "start": 86.0, "dur": 6.5, "cid": "liveabt"}, {"hid": "close", "start": 92.5, "dur": 9.5, "cid": "close"}];
+  const DUR = 102.0;
+  const stage = document.getElementById('stage');
+  const vo = document.getElementById('vo');
+  const gate = document.getElementById('gate');
+  const bar = document.getElementById('bar');
+
+  // Fit 1920x1080 into whatever window this is recorded in.
+  function fit(){
+    const s = Math.min(innerWidth / 1920, innerHeight / 1080);
+    stage.style.transform = 'scale(' + s + ')';
+    stage.style.left = ((innerWidth - 1920 * s) / 2) + 'px';
+    stage.style.top  = ((innerHeight - 1080 * s) / 2) + 'px';
+  }
+  addEventListener('resize', fit); fit();
+
+  const videos = [...document.querySelectorAll('.host video')];
+  videos.forEach(v => { v.muted = true; v.playsInline = true; });
+
+  let t0 = null, raf = null, hasVoice = false;
+
+  let running = false;
+  function tick(){
+    // The audio owns the clock when there is narration: a film timed to a
+    // separate clock drifts from the voice within a few seconds.
+    const t = hasVoice ? vo.currentTime : (performance.now() - t0) / 1000;
+    for (const s of SCENES){
+      const host = document.getElementById(s.hid);
+      const local = t - s.start;
+      const on = local >= 0 && local < s.dur;
+      if (on !== host.classList.contains('on')) host.classList.toggle('on', on);
+      const tl = window.__timelines[s.cid];
+      if (on && tl) tl.seek(Math.min(local, tl.duration()));
+      // keep any footage in step with the master clock
+      for (const v of host.querySelectorAll('video')){
+        if (on){ if (Math.abs(v.currentTime - local) > 0.25) v.currentTime = Math.max(0, local);
+                 if (v.paused) v.play().catch(()=>{}); }
+        else if (!v.paused) v.pause();
+      }
+    }
+    bar.style.width = Math.min(100, (t / DUR) * 100) + '%';
+    if (t >= DUR) { bar.style.width = '100%'; stop(); }
+  }
+
+  // Driven by BOTH rAF and a timer. requestAnimationFrame does not fire in a
+  // background or hidden tab, which would freeze the picture while the audio
+  // kept playing; the timer keeps the clock honest if the window loses focus
+  // mid-recording. tick() is idempotent - it only seeks from the clock.
+  let timer = null;
+  function loop(){ tick(); if (running) raf = requestAnimationFrame(loop); }
+  function stop(){ running = false; if (timer) clearInterval(timer); if (raf) cancelAnimationFrame(raf); }
+
+  function start(){
+    gate.style.display = 'none';
+    hasVoice = vo.duration > 1 && !Number.isNaN(vo.duration);
+    if (hasVoice) vo.play().catch(() => { hasVoice = false; });
+    t0 = performance.now();
+    running = true;
+    timer = setInterval(tick, 1000 / 60);
+    raf = requestAnimationFrame(loop);
+  }
+  gate.addEventListener('click', start);
+  addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); start(); } });
+})();
+</script>
+</body></html>
