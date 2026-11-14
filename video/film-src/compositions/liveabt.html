@@ -1,0 +1,27 @@
+<template>
+<style>
+  #root{position:absolute;inset:0;background:var(--bone);overflow:hidden}
+  #liveabt-v{position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover}
+  #liveabt-strip{position:absolute;left:0;right:0;bottom:0;height:92px;background:var(--ink);
+    display:flex;align-items:center;padding:0 54px;gap:22px}
+  #liveabt-strip .k{font-family:var(--mono);font-size:17px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--red)}
+  #liveabt-strip .t{font-family:var(--display);font-size:27px;color:#F1EEE7;font-weight:500}
+  #liveabt-strip .r{margin-left:auto;font-family:var(--mono);font-size:16px;
+    letter-spacing:.12em;text-transform:uppercase;color:#8A8880}
+</style>
+<div id="root" data-composition-id="liveabt" data-width="1920" data-height="1080">
+  <video id="liveabt-v" class="clip" src="assets/footage/c-about.mp4" muted playsinline
+         data-start="0" data-duration="6.5" data-track-index="0"></video>
+  <div id="liveabt-strip" class="clip" data-start="0.3" data-duration="6.2" data-track-index="1">
+    <span class="k">Live</span><span class="t">The endpoint&rsquo;s own attestation, fetched on open</span>
+    <span class="r">real run &middot; not a fixture</span></div>
+</div>
+<script>
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#liveabt-strip",{opacity:0,y:30},{opacity:1,y:0,duration:.4,ease:"power3.out"},.3);
+  window.__timelines["liveabt"] = tl; tl.seek(0);
+})();
+</script>
+</template>
