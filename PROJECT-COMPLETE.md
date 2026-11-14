@@ -274,9 +274,12 @@ strings). `npm install` is not required.
   history is the next build and the single highest-value one.
 - **The bridge resolves a domain for about 65% of candidates.** The rest are promoted with
   `surface_verified: false` and "find the official surface" as the next action.
-- **NEAR Intents 1Click settlement is priced, not wired.** The route is costed; nothing
-  settles on it. It is the rail a research bounty market would run on, and the policy that
-  would decide settlement is tested code (`node pipeline/selftest-market.js`). This is why
+- **The escrow IS deployed and exercised on NEAR testnet** —
+  `helius-escrow-81631.testnet`. Buyer funded, worker delivered a paraphrase, worker's
+  attempt to settle in its own favour was reverted, arbiter refunded. Transactions in
+  `docs/TESTNET_RUN.md`.
+- **NEAR Intents 1Click settlement is still priced, not wired.** Settlement above is in
+  testnet NEAR; the cross-chain 1Click route is costed and never settled on. This is why
   the DeFi track is not claimed.
 - **`dpi.market` does not resolve**; DPI Protocol is carried on other evidence.
 

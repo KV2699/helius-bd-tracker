@@ -268,6 +268,7 @@ NEAR is not a payment sticker on this project. It is where the intelligence runs
 | **Why that matters** | NEAR AI Cloud is TEE-verifiable inference (Intel TDX + NVIDIA GPU TEE). A BD pipeline reads commercially sensitive research about named companies; running it on attestable private inference is a real property, not a marketing line. |
 | **Cost** | Metered from the API's own `usage` numbers, never estimated. A budget cap aborts the run before it can overspend a $10 grant. |
 | **Settlement** | NEAR Intents 1Click `dry: true` quote. **Priced, not wired** — the rail a research bounty market would settle on. See *Honest limits*. |
+| **Settled** | The escrow contract is **deployed and exercised on NEAR testnet**: [`helius-escrow-81631.testnet`](https://testnet.nearblocks.io/address/helius-escrow-81631.testnet). A worker's attempt to settle in its own favour was reverted on chain; the arbiter refunded the buyer. Every transaction is linked in [`docs/TESTNET_RUN.md`](docs/TESTNET_RUN.md). |
 | **Attested** | The attestation endpoint is live at `/api/attestation`. Open **About this build** to see the signing address and hardware quote for the current inference endpoint. |
 
 The attestation is not a claim in a README — it is a live call. The report for the endpoint

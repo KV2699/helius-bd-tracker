@@ -1,15 +1,14 @@
 # escrow-arbiter — NEAR testnet contract
 
-**Status: written, not deployed.** This machine has `cargo 1.99.1` but no
-`rustup`, no `wasm32-unknown-unknown` target and no `cargo-near`, so it cannot
-be compiled here. Installing a toolchain was explicitly out of scope for the
-build window, and shipping a broken deployment would be worse than shipping a
-tested simulation that names its boundary.
+**Status: DEPLOYED AND EXERCISED ON NEAR TESTNET.**
+[`helius-escrow-81631.testnet`](https://testnet.nearblocks.io/address/helius-escrow-81631.testnet)
 
-What is real today: `pipeline/market.js` holds the settlement policy and the
-escrow state machine, and `pipeline/selftest-market.js` exercises it with **29
-assertions offline** plus a live leg that fetches a real page and settles twice.
-`pipeline/escrow-chain.js` will call this contract the moment it is deployed.
+A buyer funded 3 NEAR, a worker delivered a paraphrase, the worker tried to settle in its own
+favour and was **reverted**, and the arbiter settled `QUOTE_NOT_IN_SOURCE` → **REFUNDED**.
+Every transaction is linked in [`docs/TESTNET_RUN.md`](../../docs/TESTNET_RUN.md).
+
+The machine had no `rustup` and no `wasm32` target when this was written; installing the
+target was a download, not a compile, and the contract built in 23 seconds.
 
 ## The policy is shared, not duplicated
 

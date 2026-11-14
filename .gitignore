@@ -18,3 +18,6 @@ data/*.xlsx
 # back to it when data/runs is empty. See README "Judge quick start".
 !data/snapshot/
 !data/snapshot/*.json
+
+# Rust build output — the wasm is reproducible with two commands
+contracts/escrow/target/

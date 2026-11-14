@@ -1,0 +1,20 @@
+[package]
+name = "escrow-arbiter"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+near-sdk = "5"
+
+# NOTE: no panic = "abort". It strips the assert message into an opaque
+# "unreachable opcode" trap, and the refusal has to be LEGIBLE on chain:
+# a judge reading the explorer must see E_NOT_ARBITER, not a wasm fault.
+[profile.release]
+codegen-units = 1
+opt-level = "z"
+lto = true
+debug = false
+overflow-checks = true

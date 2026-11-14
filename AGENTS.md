@@ -73,7 +73,9 @@ Read `PROJECT-COMPLETE.md` §11 first — it lists what does not work, unprompte
 
 - **Outreach-ready is 0, by design.** All 25 opportunities are blocked on *"no verified
   contact"*, because the system will not guess an email address. The blocker is the output.
-- **NEAR Intents 1Click settlement is priced, not wired** — the rail a research bounty market would run on, costed but never settled. This is why the DeFi
+- **The escrow is live on NEAR testnet** (`helius-escrow-81631.testnet`) and the recorded run
+  is in `docs/TESTNET_RUN.md` — including the worker's reverted attempt to pay itself.
+- **NEAR Intents 1Click settlement is priced, not wired** — the cross-chain rail is costed but never settled on. This is why the DeFi
   track is deliberately **not** claimed, despite being the easiest to claim.
 - **Source-depth discovery is not built.** The 90-day sweep proved the registry reads index
   pages rather than archives — dated rows per 14-day batch were 21, 6, 1, 1, 1, 1, 0.
