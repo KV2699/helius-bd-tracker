@@ -46,6 +46,16 @@ quote is still a fixture, so we are not claiming the DeFi track.
 
 ---
 
+## 2a. Repository
+
+```
+https://github.com/KV2699/helius-bd-tracker
+```
+
+Public, pushed 14 Nov 2026. `.env` is not in it.
+
+---
+
 ## 2b. NEAR wallet address
 
 ```
@@ -73,47 +83,36 @@ Submit as: `["privacy", "open"]`
 
 ## 4. X demo post
 
-Lead with the problem, show one complete moment, say what NEAR actually does.
+Lead with the audit. It is the only thing in this hackathon nobody else can claim.
 
 ```
-Every BD tool turns a press release into a "hot lead". That guess is usually wrong
-and never shown.
+Every BD tool turns a press release into a "hot lead". We built one that refuses to.
 
-So we built one that refuses to.
+But we didn't trust our own lie detector either.
 
-Eight agents read public Solana sources. The collector must return a verbatim quote —
-then CODE searches for that quote in the page we fetched. Invented quotes don't exist
-in the page, so they can't pass.
-
-158 companies found. 25 opportunities out. 2,275 candidates rejected, every one with a
-reason code.
-
-Every model call runs on @NEARProtocol's NEAR AI Cloud — TEE-verifiable inference.
-BD research names real companies and their weaknesses. That's exactly the case for
-proving where your inference ran.
-
-Scoring and the gate are plain code. A model never produces a number here.
-
-Then I ran my own audit standard against my own detector. It failed: the grounding check
-was accepting 48.8% of paraphrases — a model that reworded instead of quoting was passing.
-566 tests never caught it. Fixed, measured, written up as pitfall #93.
-
-I spent October auditing collusion detectors with @ApartResearch. Two of six couldn't beat
-a crowd of deliberately meaningless rivals. The rule we learned four times: make the
+In October I audited six collusion detectors with @ApartResearch. Two couldn't beat a
+crowd of deliberately meaningless rivals. The rule we learned four times: make the
 detector emit the quote, and read the quote.
 
-So that is what this does. A model cannot score a lead here. It must emit a verbatim span,
-and CODE reads the page we fetched to see if the span is there. If it isn't, the lead dies
-with a reason code. 2,275 of them did.
+So I applied that standard to my own system's core check. It failed immediately —
+48.8% of AI paraphrases were passing as "grounded quotes". A model that reworded
+instead of quoting got through. 573 tests never caught it.
 
-We built a verifier. The expensive thing it unlocks is outsourcing the research — with
-escrow that releases on a passing check, not a promise. The dry quote in the repo is the
-settlement rail that market runs on. Not wired yet. Written down.
+Fixed it (down to 2.3%), froze the corpus, shipped the audit. Run it yourself:
+node audit.js
 
-Repo + 90s demo below. What would make you trust a lead a machine handed you?
+158 companies found. 25 opportunities out. 2,275 candidates rejected, every one with
+a reason code.
+
+Every model call runs in a @NEARProtocol TEE — Intel TDX, attestation live at
+/api/attestation, not a claim in a README.
+
+We found our own flaw before a judge could.
 
 #NEARHackathon
 ```
+
+Attach: the `node audit.js` output, the attestation panel, and the worklist.
 
 Optional extra tags for reach: `@NearBuilders @NearLegion`
 

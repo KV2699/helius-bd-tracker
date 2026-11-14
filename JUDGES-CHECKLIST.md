@@ -7,7 +7,7 @@ Audited **14 Nov 2026, 12:45 UTC**. Deadline **14 Nov 2026, 23:59 UTC** — abou
 | # | Requirement | Status | What is needed |
 |---|---|---|---|
 | 1 | Code written since the announcement counts | **MET** | Entire project built 4–14 Nov 2026 |
-| 2 | **Publish the repository. Judges can't open a private one** | **NOT MET — BLOCKER** | Committed locally (`3da9af1`, 108 files). Needs a push to a **public** GitHub repo. Requires Kerrie's go-ahead: publishing is outward-facing and irreversible |
+| 2 | **Publish the repository. Judges can't open a private one** | **MET** | https://github.com/KV2699/helius-bd-tracker — public, 125 files, pushed 14 Nov 16:36 UTC. `.env` returns 404 |
 | 3 | **Post the demo on X** — say you built it at NEAR HACKATHON, tag `@NEARProtocol`, `#NEARHackathon`, attach video or screenshots | **NOT MET** | Only Kerrie can post this. Copy is drafted in `SUBMISSION.md` §4 |
 | 4 | **Submit the form** with repository link *and* demo post link | **NOT MET** | Both links required; blocked on 2 and 3 |
 
@@ -21,7 +21,7 @@ Audited **14 Nov 2026, 12:45 UTC**. Deadline **14 Nov 2026, 23:59 UTC** — abou
 | Team size | solo | yes |
 | Tracks | `["privacy", "open"]` — reasoning in `SUBMISSION.md` §3 | yes |
 | NEAR wallet address | `clearlemon1022.near` | yes |
-| Repository link | pending the public push | **no** |
+| Repository link | `https://github.com/KV2699/helius-bd-tracker` | yes |
 | Demo post link | pending the X post | **no** |
 | What did you build? | 1,418-character answer in `SUBMISSION.md` §2 | yes |
 
@@ -62,8 +62,7 @@ facts should survive inspection by the seller.
 
 ## The three things only Kerrie can do
 
-1. **Approve the public push.** Say the word and the repo goes up; the secret audit above
-   is clean and re-runnable first.
+1. ~~Approve the public push~~ — **done: https://github.com/KV2699/helius-bd-tracker**
 2. **Post the demo on X** with a video or screenshots, tagging `@NEARProtocol` and
    `#NEARHackathon`. Draft copy is in `SUBMISSION.md` §4.
 3. ~~Supply the NEAR wallet address~~ — **done: `clearlemon1022.near`**
