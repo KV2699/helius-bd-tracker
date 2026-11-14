@@ -986,3 +986,148 @@ Keep this list. It is the most defensible thing here.
 - No outreach email is sent. The writer produces an internal brief; the send is a human's.
 - No prospect's intent is inferred. A press release cannot tell you what a company wants
   to buy, and the tool says so on the row.
+
+---
+
+## The bridge: turning a name into an account
+
+Discovery finds names. The scan reads accounts. For a while there was no road between
+them, and the road turned out to need a rule rather than more code.
+
+### The rule that nearly killed it
+
+The first version said: *a roster name becomes a registry account only after its own
+first-party surface has been fetched and verified.* That sounds right, and it was wrong,
+because "verified" was quietly doing two separate jobs — confirming a company is **real**,
+and confirming we had **read its own pages**. Requiring both meant HumidiFi, Gemini,
+Robinhood and BisonFi — real companies, named by credible sources — were blocked before a
+human had looked at them. Discovery became a dead end: 149 names in, nothing out.
+
+So verification was split in two.
+
+| Flag | Who sets it | What it means |
+|---|---|---|
+| `identity_confirmed` | **code, with evidence** | the name is a real company — not a token, a chain, a product or a generic phrase — and it appears in a cited source with a quote grounded against that source |
+| `surface_verified` | the bridge, or a human later | a page the company **publishes** has been fetched, and it names the company |
+
+**Opportunity = identity confirmed + plausible buyer segment + one grounded product-fit
+signal + no disqualifier.** Surface verification is *not* in that list. It sets the label
+and the next action instead:
+
+```
+Opportunity - surface verified          confidence high    next: research the product conversation
+Opportunity - surface not yet verified  confidence medium  next: find and verify their own surface
+```
+
+Losing a real company for want of a docs page is the expensive mistake. Carrying it with
+an honest flag is the cheap one.
+
+### How a domain is found without ever guessing one
+
+`HumidiFi` does not become `humidifi.com` because that string is available. The domain
+comes from a **cited source**, in this order:
+
+1. **The roster's own page for that company.** Directory rosters link each row to a
+   project page, and that page carries the company's own labelled links — Visit, Blog,
+   Docs, GitHub, Status, Careers.
+2. **DefiLlama's protocol list**, which publishes each protocol's declared `url`.
+
+If neither names a domain, the account is still promoted — with `surface_verified: false`
+and "find the official surface" as its next action.
+
+### Two different questions about every link
+
+A link found on a company's directory page is not automatically that company's surface,
+and the first full run proved it twice over:
+
+- `github.com/solanaguide` was linked from Mango Markets' page. That is **the directory's
+  own GitHub account**.
+- `solanafloor.com/news/flash-trade-winds-down…` was filed as **Flash Trade's blog**. It
+  is a news article *about* Flash Trade.
+
+Both passed the ownership check, because that check asked *"does this page mention them?"*
+when the question is *"do they publish this page?"* So there are now two checks:
+
+```
+firstParty()      do they publish this?   their own domain, or a docs/GitHub space
+                                          carrying their name
+pageClaimsName()  does it name them?      the page text, or the domain itself
+```
+
+69 third-party links were rejected on the next run. **135 surfaces verified across 39
+companies**, and the registry went from 29 accounts to 88.
+
+### The dead company that nearly got in anyway
+
+Flash Trade's own docs are still live and say nothing about closing. The news story said
+it had wound down — and that story had just been rejected as "not their surface". Reject
+it as a surface and promote the company anyway, and a dead account enters the registry.
+That is the Zeta mistake with a new coat of paint.
+
+So **status is read from every page fetched, first-party or not, and the basis is
+recorded.** A third-party page can never be evidence of *need*, but it can certainly
+report that a company has shut down. A first-party cessation is decisive; a third-party
+one **holds the candidate for a human** rather than silently dropping or silently
+promoting it, because a news story can be wrong or out of date.
+
+Reading it needed one more fix. The phrase list required an auxiliary — *"has been wound
+down"* — because *"you can shut down your bot"* had once read as a corporate obituary. But
+a headline says **"Flash Trade winds down"**, active voice. Adding active voice is only
+safe with an object guard, because *"wind down your position"* is ordinary language on
+exactly the perps venues this runs against:
+
+```
+Flash Trade winds down citing shrinking market        -> CEASED
+Flash Trade lets you wind down your position           -> active
+you can shut down your bot whenever you like           -> active
+The Flash Trade protocol has been wound down           -> CEASED
+Flash Trade notes the Blast network is shut down       -> active  (not their closure)
+Flash Trade is a perpetuals exchange with 100x leverage -> active
+```
+
+---
+
+## The human handoff: what happens at the very end
+
+This is the most constrained part of the system, and the constraints are the feature.
+
+For each opportunity, `outreach.js` builds a **packet** — not an email, a packet. A human
+reads it, approves or rejects it, and if they approve, sends it from **their own mail
+client**. There is no mail server in this project, by design.
+
+What the packet refuses to do:
+
+- **It never invents a recipient.** No guessed `name@company.com`, ever. If no contact has
+  been verified, the packet carries the blocker *"No verified contact. Find the
+  infrastructure owner first — never guess an address."* and **no draft is written at all.**
+- **It never drafts from a third-party listing alone.** An opportunity whose surface is not
+  yet verified is a real opportunity — but you cannot write to a company about its
+  infrastructure having read only somebody else's directory entry.
+- **It never claims the company wants to buy.** The counter-rationale travels with the
+  draft and is shown *above* it, not buried underneath.
+- **Every claim quotes the company's own page, with the URL.**
+
+Right now, **all six opportunities are blocked on "no verified contact"** — because no
+named infrastructure owner has been verified at any cold account except Flint Labs (David
+Gorski, CTO, ex-Jito/Jump). That is the correct output. A system that produced six ready
+emails here would have had to invent six addresses.
+
+When a packet *is* ready, the draft looks like this:
+
+```
+RPC Nodes on Solana - a question about Velocity Protocol's setup
+
+Hi Dana,
+
+I work on infrastructure at Helius. I was reading Velocity Protocol's own
+documentation and this line stood out:
+
+  "a free RPC plan without websockets will not run a bot at all"
+  - https://docs.velocity.exchange/developers/trading-automation
+
+That is the kind of path RPC Nodes is built for. I am not assuming you need it -
+I would just like to understand how you handle it today, and whether it is
+currently costing you anything.
+```
+
+It asks a question. It does not assert a need, and it does not ask for a purchase.

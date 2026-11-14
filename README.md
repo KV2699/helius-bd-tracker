@@ -20,7 +20,20 @@ This tool makes the opposite move. Every candidate must survive four checks befo
 human ever sees it, the score is computed by code rather than asserted by a model, and
 a stated reason the lead might *not* qualify can veto the verdict outright.
 
-On the current demo dataset: **ten events in, one lead out.**
+**Measured, on real runs** (all figures from runs on disk, $4.36 of the $10 free NEAR AI
+credit across 71 priced artefacts):
+
+| | |
+|---|---|
+| Registry | **88 accounts** — 29 hand-curated, 59 promoted by the bridge |
+| Discovery | **158 companies found, 149 new to the registry, for $0.026** |
+| Surfaces verified | **135**, each fetched and confirmed as published by that company |
+| Worklist | **6 opportunities · 40 research · 33 monitor · 19 disqualified** |
+| Tests | **546 assertions**, no test framework |
+
+Outreach-ready is **0 — by design.** All six opportunities are blocked on *"no verified
+contact"*, because the system will not guess an email address. The blocker is the correct
+output, not a gap.
 
 ---
 
