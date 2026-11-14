@@ -12,3 +12,9 @@ data/bridge/*.json
 data/history.json
 data/*.xlsx
 .claude/
+
+# ...but a judge must be able to see real results without a NEAR AI key, so one
+# committed snapshot of real run output is tracked on purpose. The server falls
+# back to it when data/runs is empty. See README "Judge quick start".
+!data/snapshot/
+!data/snapshot/*.json

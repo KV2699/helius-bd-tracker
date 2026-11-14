@@ -19,6 +19,19 @@ const byStamp = (a, b) => (runStamp(a) || a).localeCompare(runStamp(b) || b);
 // three-month-old evidence as current. Sort on the window's end date when the
 // filename carries one, and fall back to the write stamp for runs that have no
 // window in the name.
+// A JUDGE WITH NO KEY MUST STILL SEE REAL RESULTS.
+//
+// Run artefacts are gitignored - they are reproducible by anyone with a NEAR AI
+// key - so a fresh clone has an empty data/runs and the interface would show
+// nothing at all. data/snapshot/ holds one committed set of real output from
+// real runs, and every reader below falls back to it. The interface says which
+// it is showing, so a snapshot is never mistaken for a live run.
+const SNAPSHOT = 'data/snapshot';
+async function snapshot(which) {
+  try { return JSON.parse(await readFile(join(SNAPSHOT, which + '.json'), 'utf8')); }
+  catch { return null; }
+}
+
 const runWindowEnd = f => (String(f).match(/_to_(\d{4}-\d{2}-\d{2})/) || [, ''])[1];
 const byWindow = (a, b) => {
   const wa = runWindowEnd(a), wb = runWindowEnd(b);
@@ -76,11 +89,16 @@ createServer(async (req, res) => {
         return JSON.parse(await readFile(join('data/runs', fs[fs.length - 1]), 'utf8'));
       } catch { return null; }
     };
-    const fn = await pick('funnel-');
-    const bt = await pick('batches-');
-    return json(res, 200, { result: await pick('run-'), monitor: await pick('monitor-'),
+    // Each falls back to the committed snapshot, so a fresh clone with no key
+    // still shows real output. `source` tells the interface which it is.
+    const scan = await pick('run-')     || await snapshot('scan');
+    const fn   = await pick('funnel-')  || await snapshot('funnel');
+    const bt   = await pick('batches-') || await snapshot('batches');
+    const live = !!(await pick('run-'));
+    return json(res, 200, { result: scan, monitor: await pick('monitor-'),
                             funnel: fn ? { ...fn.summary, rows: fn.rows } : null,
-                            batches: bt ? bt.batches : null });
+                            batches: bt ? bt.batches : null,
+                            source: live ? 'live' : 'snapshot' });
   }
 
   if (url.pathname === '/api/monitor' && req.method === 'POST') {
@@ -119,8 +137,11 @@ createServer(async (req, res) => {
   // nothing, and the two must not be mixed.
   if (url.pathname === '/api/discovered') {
     try {
-      const files = (await readdir('data/discovered')).filter(f => f.endsWith('.json')).sort(byStamp);
-      if (!files.length) return json(res, 200, { discovery: null });
+      const files = (await readdir('data/discovered').catch(() => [])).filter(f => f.endsWith('.json')).sort(byStamp);
+      if (!files.length) {
+        const snap = await snapshot('discovery');
+        return json(res, 200, { discovery: snap, source: snap ? 'snapshot' : null });
+      }
       const d = JSON.parse(await readFile(join('data/discovered', files[files.length - 1]), 'utf8'));
       return json(res, 200, { discovery: d, history: files.slice().reverse() });
     } catch (e) { return json(res, 200, { discovery: null, error: e.message }); }
@@ -132,9 +153,11 @@ createServer(async (req, res) => {
     try {
       const { buildOutreach } = await import('./pipeline/outreach.js');
       const { ICP } = await import('./pipeline/icp.js');
-      const files = (await readdir('data/runs')).filter(f => f.startsWith('funnel-') && f.endsWith('.json')).sort(byWindow);
-      if (!files.length) return json(res, 200, { outreach: null, reason: 'no funnel run on disk - run: node funnel.js' });
-      const fn = JSON.parse(await readFile(join('data/runs', files[files.length - 1]), 'utf8'));
+      const files = (await readdir('data/runs').catch(() => [])).filter(f => f.startsWith('funnel-') && f.endsWith('.json')).sort(byWindow);
+      const fn = files.length
+        ? JSON.parse(await readFile(join('data/runs', files[files.length - 1]), 'utf8'))
+        : await snapshot('funnel');
+      if (!fn) return json(res, 200, { outreach: null, reason: 'no funnel run and no snapshot on disk' });
       const rows = fn.rows || fn.placed || [];
       const out = buildOutreach(rows, { accounts: ICP });
       out.funnelRun = fn.runId || files[files.length - 1];

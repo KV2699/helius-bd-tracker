@@ -1,5 +1,10 @@
 # Helius BD Tracker
 
+![tests](https://img.shields.io/badge/tests-546%20assertions-brightgreen)
+![attacks](https://img.shields.io/badge/attacks-25%20blocked%20%C2%B7%200%20through-brightgreen)
+![dependencies](https://img.shields.io/badge/dependencies-none-blue)
+![inference](https://img.shields.io/badge/inference-NEAR%20AI%20Cloud-informational)
+
 A business-development scanner for Solana infrastructure sales. Eight agents read
 public sources, **verification happens in code**, and the system refuses to turn a
 press release into a hot lead.
@@ -34,6 +39,35 @@ credit across 71 priced artefacts):
 Outreach-ready is **0 — by design.** All six opportunities are blocked on *"no verified
 contact"*, because the system will not guess an email address. The blocker is the correct
 output, not a gap.
+
+---
+
+## Judge quick start — no key, no install, no network
+
+Every command below runs **offline** on a fresh clone with Node 20+. There is nothing to
+install: no dependencies, no build step, no `npm install`.
+
+| Do this | See this |
+|---|---|
+| `node attack.js` | **25 attacks on the pipeline, all blocked.** Every way we know to get a fabricated lead through — an invented quote, a memecoin as a company, the seller on its own prospect list, a dead company, a guessed homepage, a news article filed as a company's blog, a guessed email address — each run against the real code with the verdict asserted. Fully offline. |
+| `node pipeline/selftest.js` | **546 assertions, 0 failures.** No test framework. |
+| `node server.js` then open `http://localhost:8742` | The full interface, populated from a **committed snapshot of real runs** (`data/snapshot/`), so it works with no NEAR AI key. The page says whether it is showing live or snapshot data. |
+| `node -e "..."` on `data/snapshot/funnel.json` | The actual worklist: 6 opportunities, 40 research, 33 monitor, 19 disqualified, each with a grounded quote, a source URL and a mandatory counter-rationale. |
+| Read `PROJECT-COMPLETE.md` | The whole project in one file — architecture, every rule, measured results, and what does not work yet. |
+| Read `PITFALLS.md` | 89 recorded mistakes and what each one changed. This is the real engineering record. |
+
+**With a NEAR AI key** (free $10 via [NEAR Builders](https://nearbuilders.org/join)) you can
+reproduce everything:
+
+```bash
+echo 'NEAR_AI_API_KEY=...' > .env && chmod 600 .env
+node discover.js                 # rosters -> 158 candidate companies      ~$0.03
+node bridge.js --limit 60        # candidates -> registry accounts
+node scan.js --from 2026-10-29 --to 2026-11-12 --budget 2
+node funnel.js                   # evidence -> worklist
+```
+
+Without a key the pipeline **aborts rather than inventing results.** That is the design.
 
 ---
 

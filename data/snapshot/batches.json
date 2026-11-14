@@ -1,0 +1,276 @@
+{
+  "runId": "batches-2026-11-13T22-32-47",
+  "anchor": "2026-11-13",
+  "batches": [
+    {
+      "batch": 1,
+      "window": {
+        "from": "2026-10-30",
+        "to": "2026-11-13",
+        "days": 14
+      },
+      "runId": "run-2026-10-30_to_2026-11-13-2026-11-13T22-10-52",
+      "file": "data/runs/run-2026-10-30_to_2026-11-13-2026-11-13T22-10-52.json",
+      "sources": 33,
+      "rows": 40,
+      "dated": 21,
+      "standing": 19,
+      "rejected": 307,
+      "reasons": {
+        "DUPLICATE": 136,
+        "DATE_OUT_OF_WINDOW": 43,
+        "QUOTE_NOT_IN_SOURCE": 35,
+        "NO_NAMED_ENTITY": 18,
+        "MALFORMED_JSON": 1,
+        "BLOCKED_ALIAS": 1,
+        "SOURCE_UNREACHABLE": 12,
+        "DATE_UNVERIFIABLE": 56,
+        "CLAIM_NOT_SUPPORTED": 5
+      },
+      "cost": 0.11494170000000001,
+      "calls": 155,
+      "sourcesSkipped": 0,
+      "retiredUndated": [
+        "https://www.ellipsislabs.xyz/",
+        "https://www.wintermute.com/careers",
+        "https://www.gsr.io/careers",
+        "https://developers.jup.ag/blog",
+        "https://blog.orca.so/",
+        "https://github.com/dpiprotocol",
+        "https://www.zeta.markets/",
+        "https://flint.trade/blog",
+        "https://docs.velocity.exchange/developers/trading-automation",
+        "https://docs.zeta.markets/llms.txt",
+        "https://docs.backpack.exchange/",
+        "https://titan-exchange.gitbook.io/titan/developer-doc/developers-portal/quickstart"
+      ]
+    },
+    {
+      "batch": 2,
+      "window": {
+        "from": "2026-10-16",
+        "to": "2026-10-30",
+        "days": 14
+      },
+      "runId": "run-2026-10-16_to_2026-10-30-2026-11-13T22-17-19",
+      "file": "data/runs/run-2026-10-16_to_2026-10-30-2026-11-13T22-17-19.json",
+      "sources": 23,
+      "rows": 21,
+      "dated": 6,
+      "standing": 15,
+      "rejected": 245,
+      "reasons": {
+        "DUPLICATE": 51,
+        "DATE_OUT_OF_WINDOW": 80,
+        "QUOTE_NOT_IN_SOURCE": 26,
+        "NO_NAMED_ENTITY": 18,
+        "MALFORMED_JSON": 1,
+        "BLOCKED_ALIAS": 1,
+        "SOURCE_UNREACHABLE": 12,
+        "DATE_UNVERIFIABLE": 55,
+        "CLAIM_NOT_SUPPORTED": 1
+      },
+      "cost": 0.05927469999999999,
+      "calls": 86,
+      "sourcesSkipped": 10,
+      "retiredUndated": [
+        "https://www.ellipsislabs.xyz/",
+        "https://www.gsr.io/insights",
+        "https://developers.jup.ag/blog",
+        "https://blog.orca.so/",
+        "https://www.pyth.network/blog",
+        "https://status.coinbase.com/",
+        "https://www.jito.network/blog/",
+        "https://backpack.exchange/",
+        "https://flint.trade/",
+        "https://docs.velocity.exchange/developers/trading-automation/keeper-bots",
+        "https://github.com/dpiprotocol/dpi-keepers",
+        "https://docs.zeta.markets/"
+      ]
+    },
+    {
+      "batch": 3,
+      "window": {
+        "from": "2026-10-02",
+        "to": "2026-10-16",
+        "days": 14
+      },
+      "runId": "run-2026-10-02_to_2026-10-16-2026-11-13T22-20-28",
+      "file": "data/runs/run-2026-10-02_to_2026-10-16-2026-11-13T22-20-28.json",
+      "sources": 17,
+      "rows": 10,
+      "dated": 1,
+      "standing": 9,
+      "rejected": 224,
+      "reasons": {
+        "DUPLICATE": 33,
+        "DATE_OUT_OF_WINDOW": 84,
+        "QUOTE_NOT_IN_SOURCE": 19,
+        "NO_NAMED_ENTITY": 18,
+        "MALFORMED_JSON": 1,
+        "BLOCKED_ALIAS": 1,
+        "SOURCE_UNREACHABLE": 12,
+        "DATE_UNVERIFIABLE": 55,
+        "CLAIM_NOT_SUPPORTED": 1
+      },
+      "cost": 0.044437099999999986,
+      "calls": 62,
+      "sourcesSkipped": 16,
+      "retiredUndated": [
+        "https://www.ellipsislabs.xyz/",
+        "https://blog.orca.so/",
+        "https://status.kraken.com/",
+        "https://status.coinbase.com/",
+        "https://www.jito.network/blog/",
+        "https://flint.trade/",
+        "https://docs.zeta.markets/build-with-zeta/sdks/typescript-sdk"
+      ]
+    },
+    {
+      "batch": 4,
+      "window": {
+        "from": "2026-09-18",
+        "to": "2026-10-02",
+        "days": 14
+      },
+      "runId": "run-2026-09-18_to_2026-10-02-2026-11-13T22-22-49",
+      "file": "data/runs/run-2026-09-18_to_2026-10-02-2026-11-13T22-22-49.json",
+      "sources": 16,
+      "rows": 8,
+      "dated": 1,
+      "standing": 7,
+      "rejected": 214,
+      "reasons": {
+        "DUPLICATE": 25,
+        "DATE_OUT_OF_WINDOW": 83,
+        "QUOTE_NOT_IN_SOURCE": 17,
+        "NO_NAMED_ENTITY": 18,
+        "MALFORMED_JSON": 1,
+        "BLOCKED_ALIAS": 1,
+        "SOURCE_UNREACHABLE": 12,
+        "DATE_UNVERIFIABLE": 55,
+        "CLAIM_NOT_SUPPORTED": 2
+      },
+      "cost": 0.0420577,
+      "calls": 55,
+      "sourcesSkipped": 17,
+      "retiredUndated": [
+        "https://www.ellipsislabs.xyz/",
+        "https://blog.orca.so/",
+        "https://status.kraken.com/",
+        "https://status.coinbase.com/",
+        "https://flint.trade/"
+      ]
+    },
+    {
+      "batch": 5,
+      "window": {
+        "from": "2026-09-04",
+        "to": "2026-09-18",
+        "days": 14
+      },
+      "runId": "run-2026-09-04_to_2026-09-18-2026-11-13T22-25-29",
+      "file": "data/runs/run-2026-09-04_to_2026-09-18-2026-11-13T22-25-29.json",
+      "sources": 16,
+      "rows": 7,
+      "dated": 1,
+      "standing": 6,
+      "rejected": 211,
+      "reasons": {
+        "DUPLICATE": 25,
+        "DATE_OUT_OF_WINDOW": 76,
+        "QUOTE_NOT_IN_SOURCE": 17,
+        "NO_NAMED_ENTITY": 18,
+        "MALFORMED_JSON": 1,
+        "BLOCKED_ALIAS": 1,
+        "SOURCE_UNREACHABLE": 12,
+        "DATE_UNVERIFIABLE": 57,
+        "CLAIM_NOT_SUPPORTED": 4
+      },
+      "cost": 0.03947980000000001,
+      "calls": 54,
+      "sourcesSkipped": 17,
+      "retiredUndated": [
+        "https://www.ellipsislabs.xyz/",
+        "https://blog.orca.so/",
+        "https://status.kraken.com/",
+        "https://status.coinbase.com/",
+        "https://flint.trade/"
+      ]
+    },
+    {
+      "batch": 6,
+      "window": {
+        "from": "2026-08-21",
+        "to": "2026-09-04",
+        "days": 14
+      },
+      "runId": "run-2026-08-21_to_2026-09-04-2026-11-13T22-27-40",
+      "file": "data/runs/run-2026-08-21_to_2026-09-04-2026-11-13T22-27-40.json",
+      "sources": 16,
+      "rows": 11,
+      "dated": 3,
+      "standing": 8,
+      "rejected": 211,
+      "reasons": {
+        "DUPLICATE": 25,
+        "DATE_OUT_OF_WINDOW": 80,
+        "QUOTE_NOT_IN_SOURCE": 16,
+        "NO_NAMED_ENTITY": 18,
+        "MALFORMED_JSON": 1,
+        "BLOCKED_ALIAS": 1,
+        "SOURCE_UNREACHABLE": 12,
+        "DATE_UNVERIFIABLE": 57,
+        "CLAIM_NOT_SUPPORTED": 1
+      },
+      "cost": 0.04355819999999999,
+      "calls": 58,
+      "sourcesSkipped": 17,
+      "retiredUndated": [
+        "https://www.ellipsislabs.xyz/",
+        "https://blog.orca.so/",
+        "https://status.kraken.com/",
+        "https://status.coinbase.com/",
+        "https://www.jito.network/blog/",
+        "https://flint.trade/"
+      ]
+    },
+    {
+      "batch": 7,
+      "window": {
+        "from": "2026-08-07",
+        "to": "2026-08-21",
+        "days": 14
+      },
+      "runId": "run-2026-08-07_to_2026-08-21-2026-11-13T22-30-33",
+      "file": "data/runs/run-2026-08-07_to_2026-08-21-2026-11-13T22-30-33.json",
+      "sources": 16,
+      "rows": 8,
+      "dated": 2,
+      "standing": 6,
+      "rejected": 214,
+      "reasons": {
+        "DUPLICATE": 25,
+        "DATE_OUT_OF_WINDOW": 82,
+        "QUOTE_NOT_IN_SOURCE": 16,
+        "NO_NAMED_ENTITY": 18,
+        "MALFORMED_JSON": 1,
+        "BLOCKED_ALIAS": 1,
+        "SOURCE_UNREACHABLE": 12,
+        "DATE_UNVERIFIABLE": 55,
+        "CLAIM_NOT_SUPPORTED": 4
+      },
+      "cost": 0.0402871,
+      "calls": 55,
+      "sourcesSkipped": 17,
+      "retiredUndated": [
+        "https://www.ellipsislabs.xyz/",
+        "https://blog.orca.so/",
+        "https://status.kraken.com/",
+        "https://status.coinbase.com/",
+        "https://flint.trade/"
+      ]
+    }
+  ],
+  "totalCost": 0.3840363
+}
