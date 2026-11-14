@@ -1,0 +1,93 @@
+<template>
+<style>
+  #root{position:absolute;inset:0;background:#17181A;font-family:var(--mono);padding:54px 70px}
+  #t-bar{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+  #t-bar .d{width:12px;height:12px;border-radius:50%;background:#3A3C40}
+  #t-bar .p{color:#8A8880;font-size:17px;letter-spacing:.06em;margin-left:10px}
+  #t-cmd{font-size:26px;color:#F1EEE7;margin-bottom:22px}
+  #t-cmd .pr{color:var(--red)}
+  .tl{font-size:19px;line-height:1.62;color:#B9B7B1;white-space:pre}
+  .tl b{color:#fff;background:var(--red);padding:0 5px;border-radius:2px}
+  .tl i{color:#7FD1A6;font-style:normal}
+  #t-tag{position:absolute;right:70px;bottom:46px;font-size:17px;letter-spacing:.14em;
+         text-transform:uppercase;color:#6A6C70}
+</style>
+<div id="root" data-composition-id="audit-term" data-width="1920" data-height="1080">
+  <div id="t-bar" class="clip" data-start="0" data-duration="17" data-track-index="0">
+    <span class="d"></span><span class="d"></span><span class="d"></span>
+    <span class="p">bash &mdash; helius-bd-tracker</span></div>
+  <div id="t-cmd" class="clip" data-start="0.2" data-duration="16.8" data-track-index="1"><span class="pr">$</span> node audit.js</div>
+  <div class="tl clip" id="al0" data-start="1.00" data-duration="16.00" data-track-index="2">  <i>PASS</i>  the denominator is stated plainly, and its sensitivity is reported</div>
+  <div class="tl clip" id="al1" data-start="1.26" data-duration="15.74" data-track-index="3">&nbsp;</div>
+  <div class="tl clip" id="al2" data-start="1.52" data-duration="15.48" data-track-index="4">--- 2. QUIET CASES FROM SOMEWHERE OTHER THAN THE INCIDENT ----------</div>
+  <div class="tl clip" id="al3" data-start="1.78" data-duration="15.22" data-track-index="5">&nbsp;</div>
+  <div class="tl clip" id="al4" data-start="2.04" data-duration="14.96" data-track-index="6">   158  real prose from a DIFFERENT page  -&gt; fires on 0.0%</div>
+  <div class="tl clip" id="al5" data-start="2.30" data-duration="14.70" data-track-index="7">    86  PARAPHRASE of a sentence that IS on this page -&gt; fires on 2.3%</div>
+  <div class="tl clip" id="al6" data-start="2.56" data-duration="14.44" data-track-index="8">  <i>PASS</i>  the independent family is genuinely independent: 158 quiet cases from other pages</div>
+  <div class="tl clip" id="al7" data-start="2.82" data-duration="14.18" data-track-index="9">  <i>PASS</i>  the adversarial family is handled: paraphrase acceptance 2.3%</div>
+  <div class="tl clip" id="al8" data-start="3.08" data-duration="13.92" data-track-index="10">&nbsp;</div>
+  <div class="tl clip" id="al9" data-start="3.34" data-duration="13.66" data-track-index="11">  THIS IS WHERE THE AUDIT EARNED ITS KEEP. The paraphrase family was accepted</div>
+  <div class="tl clip" id="al10" data-start="3.60" data-duration="13.40" data-track-index="12">  at 48.8% before this audit was written: the truncation tolerance in</div>
+  <div class="tl clip" id="al11" data-start="3.86" data-duration="13.14" data-track-index="13">  quoteIsGrounded let the matching run float past a substituted word, so a</div>
+  <div class="tl clip" id="al12" data-start="4.12" data-duration="12.88" data-track-index="14">  model that reworded instead of quoting passed the check the whole project</div>
+  <div class="tl clip" id="al13" data-start="4.38" data-duration="12.62" data-track-index="15">  rests on. Fixed by requiring every substantive word to be on the page.</div>
+  <div class="tl clip" id="al14" data-start="4.64" data-duration="12.36" data-track-index="16">&nbsp;</div>
+  <div class="tl clip" id="al15" data-start="4.90" data-duration="12.10" data-track-index="17">  ...</div>
+  <div class="tl clip" id="al16" data-start="5.16" data-duration="11.84" data-track-index="18">     5. coin-16                    sep    7.6%  fires 46.0%</div>
+  <div class="tl clip" id="al17" data-start="5.42" data-duration="11.58" data-track-index="19">     6. coin-39                    sep    6.6%  fires 46.0%</div>
+  <div class="tl clip" id="al18" data-start="5.68" data-duration="11.32" data-track-index="20">&nbsp;</div>
+  <div class="tl clip" id="al19" data-start="5.94" data-duration="11.06" data-track-index="21">  quoteIsGrounded ranks <b>1 of 47</b>.</div>
+  <div class="tl clip" id="al20" data-start="6.20" data-duration="10.80" data-track-index="22">  <i>PASS</i>  beats every one of its 46 rivals</div>
+  <div class="tl clip" id="al21" data-start="6.46" data-duration="10.54" data-track-index="23">  (The paper&#x27;s worst case ranked 65th of 100 against its own crowd.)</div>
+  <div class="tl clip" id="al22" data-start="6.72" data-duration="10.28" data-track-index="24">&nbsp;</div>
+  <div class="tl clip" id="al23" data-start="6.98" data-duration="10.02" data-track-index="25">--- 4. DISPARITY, WITH THE LUCK-LEVEL GAP SUBTRACTED ---------------</div>
+  <div class="tl clip" id="al24" data-start="7.24" data-duration="9.76" data-track-index="26">&nbsp;</div>
+  <div class="tl clip" id="al25" data-start="7.50" data-duration="9.50" data-track-index="27">  ...</div>
+  <div class="tl clip" id="al26" data-start="7.76" data-duration="9.24" data-track-index="28">  population is the obvious next test, and it has not been run.</div>
+  <div class="tl clip" id="al27" data-start="8.02" data-duration="8.98" data-track-index="29">&nbsp;</div>
+  <div class="tl clip" id="al28" data-start="8.28" data-duration="8.72" data-track-index="30">======================================================================</div>
+  <div class="tl clip" id="al29" data-start="8.54" data-duration="8.46" data-track-index="31">All criteria met — detector ranked <b>1 of 47</b>, luck-adjusted separation 89.1%</div>
+  <div class="tl clip" id="al30" data-start="8.80" data-duration="8.20" data-track-index="32">======================================================================</div>
+  <div id="t-tag" class="clip" data-start="13" data-duration="4" data-track-index="90">real output &middot; offline &middot; no key</div>
+</div>
+<script>
+(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#t-bar",{opacity:0},{opacity:1,duration:.25},0);
+  tl.fromTo("#t-cmd",{opacity:0},{opacity:1,duration:.25},.2);
+  tl.fromTo("#al0",{opacity:0},{opacity:1,duration:.12,ease:"none"},1.00);
+  tl.fromTo("#al1",{opacity:0},{opacity:1,duration:.12,ease:"none"},1.26);
+  tl.fromTo("#al2",{opacity:0},{opacity:1,duration:.12,ease:"none"},1.52);
+  tl.fromTo("#al3",{opacity:0},{opacity:1,duration:.12,ease:"none"},1.78);
+  tl.fromTo("#al4",{opacity:0},{opacity:1,duration:.12,ease:"none"},2.04);
+  tl.fromTo("#al5",{opacity:0},{opacity:1,duration:.12,ease:"none"},2.30);
+  tl.fromTo("#al6",{opacity:0},{opacity:1,duration:.12,ease:"none"},2.56);
+  tl.fromTo("#al7",{opacity:0},{opacity:1,duration:.12,ease:"none"},2.82);
+  tl.fromTo("#al8",{opacity:0},{opacity:1,duration:.12,ease:"none"},3.08);
+  tl.fromTo("#al9",{opacity:0},{opacity:1,duration:.12,ease:"none"},3.34);
+  tl.fromTo("#al10",{opacity:0},{opacity:1,duration:.12,ease:"none"},3.60);
+  tl.fromTo("#al11",{opacity:0},{opacity:1,duration:.12,ease:"none"},3.86);
+  tl.fromTo("#al12",{opacity:0},{opacity:1,duration:.12,ease:"none"},4.12);
+  tl.fromTo("#al13",{opacity:0},{opacity:1,duration:.12,ease:"none"},4.38);
+  tl.fromTo("#al14",{opacity:0},{opacity:1,duration:.12,ease:"none"},4.64);
+  tl.fromTo("#al15",{opacity:0},{opacity:1,duration:.12,ease:"none"},4.90);
+  tl.fromTo("#al16",{opacity:0},{opacity:1,duration:.12,ease:"none"},5.16);
+  tl.fromTo("#al17",{opacity:0},{opacity:1,duration:.12,ease:"none"},5.42);
+  tl.fromTo("#al18",{opacity:0},{opacity:1,duration:.12,ease:"none"},5.68);
+  tl.fromTo("#al19",{opacity:0},{opacity:1,duration:.12,ease:"none"},5.94);
+  tl.fromTo("#al20",{opacity:0},{opacity:1,duration:.12,ease:"none"},6.20);
+  tl.fromTo("#al21",{opacity:0},{opacity:1,duration:.12,ease:"none"},6.46);
+  tl.fromTo("#al22",{opacity:0},{opacity:1,duration:.12,ease:"none"},6.72);
+  tl.fromTo("#al23",{opacity:0},{opacity:1,duration:.12,ease:"none"},6.98);
+  tl.fromTo("#al24",{opacity:0},{opacity:1,duration:.12,ease:"none"},7.24);
+  tl.fromTo("#al25",{opacity:0},{opacity:1,duration:.12,ease:"none"},7.50);
+  tl.fromTo("#al26",{opacity:0},{opacity:1,duration:.12,ease:"none"},7.76);
+  tl.fromTo("#al27",{opacity:0},{opacity:1,duration:.12,ease:"none"},8.02);
+  tl.fromTo("#al28",{opacity:0},{opacity:1,duration:.12,ease:"none"},8.28);
+  tl.fromTo("#al29",{opacity:0},{opacity:1,duration:.12,ease:"none"},8.54);
+  tl.fromTo("#al30",{opacity:0},{opacity:1,duration:.12,ease:"none"},8.80);
+  tl.fromTo("#t-tag",{opacity:0},{opacity:1,duration:.4},13);
+  window.__timelines["audit-term"] = tl; tl.seek(0);
+})();
+</script>
+</template>

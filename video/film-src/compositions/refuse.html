@@ -16,9 +16,9 @@
   .row .f{font-family:var(--mono);font-size:19px;color:var(--red);text-align:right}
 </style>
 <div id="root" data-composition-id="refuse" data-width="1920" data-height="1080">
-  <div id="refuse-h" class="clip" data-start="0" data-duration="12" data-track-index="0">
+  <div id="refuse-h" class="clip" data-start="0" data-duration="11" data-track-index="0">
     So we built one that <em>refuses</em>.</div>
-  <div id="refuse-panel" class="clip" data-start="1.8" data-duration="10.2" data-track-index="1">
+  <div id="refuse-panel" class="clip" data-start="1.4" data-duration="9.6" data-track-index="1">
     <div class="rhd"><b>25</b> opportunities · <b>98</b> accounts
       <span class="sp">every row carries a quote, a source and a counter-rationale</span></div>
     <div class="row" id="rw1"><div class="n">BAM</div>
@@ -41,7 +41,7 @@
       { opacity: 1, y: 0, duration: .6, ease: "power3.out" }, 1.8);
   // rows arrive one at a time, so it reads as a list being built, not a slide
   ["#rw1","#rw2","#rw3","#rw4","#rw5"].forEach((s,i) =>
-    tl.fromTo(s, { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: .34, ease: "power2.out" }, 2.4 + i*.3));
+    tl.fromTo(s, { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: .34, ease: "power2.out" }, 1.9 + i*.28));
   window.__timelines["refuse"] = tl; tl.seek(0);
 })();
 </script>

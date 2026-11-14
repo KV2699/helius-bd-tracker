@@ -21,3 +21,6 @@ data/*.xlsx
 
 # Rust build output — the wasm is reproducible with two commands
 contracts/escrow/target/
+
+# Production files - scripts, scorecards, footage. Not part of the submission.
+local/

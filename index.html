@@ -1,4 +1,4 @@
-<title>Helius BD Tracker</title>
+<title>Verbatim — evidence-gated BD for Helius</title>
 <meta name="description" content="Solana events qualified against one Helius sales motion: Sender for latency-sensitive trading. Evidence-first, counter-rationale enforced, human approval blocking.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,7 +47,11 @@ nav a.on{color:#111;background:var(--bone-2)}
 nav a[data-about]{color:var(--accent);border-left:1px solid #3A3A3A;margin-left:6px;padding-left:12px}
 nav a[data-about]:hover{color:#E4FF6B}
 nav a .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:#E8A33D;vertical-align:super;margin-left:1px}
-nav .tick{background:#2A2A2A;border-top:1px solid #000;overflow:hidden;white-space:nowrap;position:relative;height:21px}
+nav .wordmark{font-family:var(--mono);font-size:14px;font-weight:500;letter-spacing:.22em;
+  color:var(--ink);margin-right:18px;padding-right:18px;border-right:1px solid var(--line);
+  white-space:nowrap}
+.wordmark::first-letter{color:var(--accent)}
+.tick{background:#2A2A2A;border-top:1px solid #000;overflow:hidden;white-space:nowrap;position:relative;height:21px}
 nav .tick div{position:absolute;top:0;left:0;animation:tick 30s linear infinite;font-family:var(--mono);font-size:11px;line-height:21px;letter-spacing:.04em;text-transform:uppercase;color:#8E8B84}
 nav .tick span{padding:0 18px;border-right:1px solid #444}
 @keyframes tick{to{transform:translateX(-50%)}}
@@ -315,6 +319,7 @@ pre.schema .k{color:var(--accent)} pre.schema .s{color:#9EC7E8} pre.schema .c{co
 <div class="navwrap"><nav>
   <div class="row">
     <span class="logo"></span>
+    <span class="wordmark">VERBATIM</span>
     <a href="#queue" class="on">Queue</a>
     <a href="#office">Office</a>
     <a href="#method">Method</a>

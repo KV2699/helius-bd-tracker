@@ -10,11 +10,11 @@
   #open-rule{height:2px;background:var(--red);width:0;margin-top:52px}
 </style>
 <div id="root" data-composition-id="open" data-width="1920" data-height="1080">
-  <div id="open-eyebrow" class="clip" data-start="0" data-duration="11" data-track-index="0">Every business-development tool</div>
-  <div id="open-l1" class="ln clip" data-start="0.6" data-duration="10.4" data-track-index="1">finds an announcement,</div>
-  <div id="open-l2" class="ln clip" data-start="3.0" data-duration="8"    data-track-index="2">decides it means somebody<br>needs your product,</div>
-  <div id="open-l3" class="ln clip" data-start="6.4" data-duration="4.6"  data-track-index="3">and hands a salesperson a lead.</div>
-  <div id="open-rule" class="clip" data-start="9.6" data-duration="1.4" data-track-index="4"></div>
+  <div id="open-eyebrow" class="clip" data-start="0" data-duration="7" data-track-index="0">Every business-development tool</div>
+  <div id="open-l1" class="ln clip" data-start="0.4" data-duration="6.6" data-track-index="1">finds an announcement,</div>
+  <div id="open-l2" class="ln clip" data-start="2.4" data-duration="4.6"    data-track-index="2">decides it means somebody<br>needs your product,</div>
+  <div id="open-l3" class="ln clip" data-start="4.6" data-duration="2.4"  data-track-index="3">and hands a salesperson a lead.</div>
+  <div id="open-rule" class="clip" data-start="6.2" data-duration="0.8" data-track-index="4"></div>
 </div>
 <script>
 (() => {
@@ -22,11 +22,11 @@
   const up = (sel, at) => tl.fromTo(sel, { yPercent: 60, opacity: 0 },
       { yPercent: 0, opacity: 1, duration: .5, ease: "power3.out" }, at);
   tl.fromTo("#open-eyebrow", { opacity: 0 }, { opacity: 1, duration: .4, ease: "power2.out" }, 0);
-  up("#open-l1", .6); up("#open-l2", 3.0); up("#open-l3", 6.4);
+  up("#open-l1", .4); up("#open-l2", 2.4); up("#open-l3", 4.6);
   // each line settles back as the next arrives, so the eye goes to the newest
-  tl.to("#open-l1", { opacity: .28, duration: .4 }, 3.0);
-  tl.to("#open-l2", { opacity: .28, duration: .4 }, 6.4);
-  tl.fromTo("#open-rule", { width: 0 }, { width: 420, duration: .9, ease: "power2.inOut" }, 9.6);
+  tl.to("#open-l1", { opacity: .28, duration: .4 }, 2.4);
+  tl.to("#open-l2", { opacity: .28, duration: .4 }, 4.6);
+  tl.fromTo("#open-rule", { width: 0 }, { width: 420, duration: .7, ease: "power2.inOut" }, 6.2);
   window.__timelines["open"] = tl; tl.seek(0);
 })();
 </script>
